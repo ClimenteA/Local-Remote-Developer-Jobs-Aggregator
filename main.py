@@ -3,7 +3,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-
 from models import (
     Jobs, 
     Users, 
@@ -19,11 +18,12 @@ async def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request })
 
 
-@app.get("/all-jobs")
-async def all_jobs():
+@app.get("/all-jobs/{page_nbr}")
+async def all_jobs(page_nbr: int = 1):
     """ Show all available jobs """
-    jobs = [j for j in Jobs.select().dicts()]
-    return {"jobs": jobs}
+    query = Jobs.select().paginate(page_nbr)    
+    return {"jobs": [j for j in query.dicts()]}
+
 
 
 @app.get("/tech-jobs")

@@ -33,11 +33,6 @@ class Jobs(BaseModel):
 class Users(BaseModel):
     username = CharField(unique=True)
     password = CharField()
-    email = CharField(unique=True)
-    # TODO - custom field:
-    # http://docs.peewee-orm.com/en/latest/peewee/models.html#custom-fields
-    # password = PasswordField() 
-    # email = EmailField(unique=True)
 
 
 class UserApplications(BaseModel):
