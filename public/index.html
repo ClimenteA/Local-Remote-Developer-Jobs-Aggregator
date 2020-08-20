@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('public', path='/static/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('public', path='/static/libs/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('public', path='/static/App.css') }}">
+
+    <title>Rjobs - remote jobs!</title>
+</head>
+<body class="section">
+
+    <div id="app" class="container">
+        <!-- Dynamic content -->
+    </div>
+
+    <script src="{{ url_for('public', path='/static/libs/mithril.min.js') }}"></script>    
+    <script defer src="{{ url_for('public', path='/static/App.js') }}"></script>
+</body>
+</html>

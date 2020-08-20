@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+notebook = "*"
+requests-html = "*"
+pyppeteer = "*"
+peewee = "*"
+
+[dev-packages]
+jupyter = "*"
+pylint = "*"
+
+[requires]
+python_version = "3.8"
+
+[packages.fastapi]
+extras = [ "all",]

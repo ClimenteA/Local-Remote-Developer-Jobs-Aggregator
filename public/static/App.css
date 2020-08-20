@@ -1,0 +1,13 @@
+.job-card {
+    display: block;
+    position: relative;
+    padding: 1rem;
+    border: 2px solid dodgerblue;
+    border-radius: 12px;
+}
+
+
+.job-card > p {
+    max-height: 400px;
+    overflow: auto;
+}
