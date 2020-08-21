@@ -3,14 +3,46 @@
 m.route.prefix = '#'
 
 
-const LandingPage = {
+// const LandingPage = {
 
+//     view: function() {
+//         return m("h1", "LandingPage")
+//     }
+// }
+
+
+// const TechJobs = {
+//     view: v => {
+//         return m("h1", "TechJobs" + v.attrs.page_nbr)
+//     }
+// }
+
+
+// const CustomerSupportJobs = {
+//     view: function() {
+//         return m("h1", "CustomerSupportJobs")
+//     }
+// }
+
+
+// const OtherJobs = {
+//     view: function() {
+//         return m("h1", "OtherJobs")
+//     }
+// }
+
+
+// "/tech-jobs": TechJobs,
+// "/custumer-support-jobs": CustomerSupportJobs,
+// "/other-jobs": OtherJobs, 
+
+
+
+const Error404 = {
     view: function() {
-        return m("h1", "LandingPage")
+        return m("h1.is-size-1.has-text-danger", "Page not found")
     }
 }
-
-
 
 const JobDescription = () => {
     
@@ -24,7 +56,7 @@ const JobDescription = () => {
     function make_paragraphs(raw_text){
         let parts = raw_text.split(".");
         let doc = parts.join(".</p><p class='mb-2'>")
-        return m.trust(doc)
+        return m.trust("<div class='job-description'>" + doc + "</div>")
     }
     
     return {
@@ -46,112 +78,117 @@ const JobDescription = () => {
 
 const Apply = () => {
     
+    let applyed = false
+
     function save_applyed(event){
-        // event.preventDefault()
         let clicked_job_id = event.target.parentElement.parentElement.id
         console.log("Applyed", clicked_job_id)
-    
-        event.target.disabled = true
-        event.target.innerText = "Already applyed to this job"
-        event.target.style.cursor = "default"
-        event.target.classList.remove("is-danger")
-        event.target.classList.add("is-disabled")
+        applyed = true
     }
 
     return {
         view: v => {
+
             return m(
-                "a.button.is-danger.ml-5", 
-                {href: v.attrs.link, target: "_blank", onclick: ev => save_applyed(ev)}, 
-                "Apply to this job"
+                applyed ? "button.button.is-disabled.ml-5" : "a.button.is-danger.ml-5", 
+                {href: v.attrs.link, target: "_blank", 
+                 disabled: applyed,
+                 onclick: ev => save_applyed(ev)
+                }, 
+                applyed ? "Already applyed to this job" : "Apply to this job"  
             )
         }
     }
 }
 
 
-const JobList = () => {
+
+function get_job_list(page_nbr) {
+
+    m.request({
+        method: "GET",
+        url: `${document.location.origin}/all-jobs/${page_nbr}`
+    })
+    .then(jobs => {
+        all_jobs_list = jobs["jobs"]
+        console.log("This should be 20 per page. Page:", page_nbr, all_jobs_list) 
+    }) 
+
+}
+
+
+const JobList = {
             
-    return {
-        view: v => {
-                
-            return m("ul", v.attrs.jobs.map(job => {
-                
-                return m("li.my-6", {key:job.id, id:job.id}, m(".job-card", [
-                
-                        m("h4.title.is-4", job.title),
-                        m("h6.subtitle.is-6", job.company),
-                        m(JobDescription, {description: job.description}),
-                        m(Apply, {link: job.link}),
-                    ]) 
-                    
-                )
-    
-            }))
+    view: v => {
+        
+        if (!v.attrs.jobs) {
+            return m('div', 'Empty!')
         }
-
+           
+        return m("ul", v.attrs.jobs.map(job => {
+            
+            return m("li.my-6", {key:job.id, id:job.id}, m(".job-card", [
+                    m("h4.title.is-4", job.title),
+                    m("h6.subtitle.is-6", job.company),
+                    m(JobDescription, {description: job.description}),
+                    m(Apply, {link: job.link}),
+                ])    
+            )
+        }))
     }
 }
 
+var all_jobs_list
 
-const AllJobs = (page_nbr) => {
+const AllJobs = {
     
-    let all_jobs_list
+    oninit: v => {
+        // console.log(v.attrs, all_jobs_list)
+        get_job_list(v.attrs.page_nbr)
+    },
 
-    function get_job_list(page_nbr) {
-
-        m.request({
-            method: "GET",
-            url: `${document.location.origin}/all-jobs/${page_nbr}`
-        })
-    
-        .then(jobs => {
-            all_jobs_list = jobs["jobs"]
-            page_nbr = page_nbr + 1
-            console.log("Page:", page_nbr, all_jobs_list)
-            m.redraw()
-        })        
-    }
-
-    get_job_list(page_nbr)
-
-    return {
-        view: v => {
-
-            return [
-                m("h1.title.is-2", "AllJobs"),       
-                all_jobs_list ? m(JobList, {"jobs": all_jobs_list}) 
-                : m("span.tag.is-warning.is-light", "Loading all jobs...")
-            ]
-        }
+    view: v => {
+        return [
+            m("h1.title.is-2", "AllJobs"),       
+            all_jobs_list ? m(JobList, {"jobs": all_jobs_list}) 
+            : m("span.tag.is-warning.is-light", "Loading all jobs..."),
+            m(NextPage, {page_nbr: v.attrs.page_nbr})
+        ]
     }
 }
 
-
-const TechJobs = {
-    view: function() {
-        return m("h1", "TechJobs")
-    }
-}
-
-
-const CustomerSupportJobs = {
-    view: function() {
-        return m("h1", "CustomerSupportJobs")
-    }
-}
-
-
-const OtherJobs = {
-    view: function() {
-        return m("h1", "OtherJobs")
-    }
-}
-
-
-const Error404 = {
-    view: function() {
-        return m("h1", "Error404")
+const NextPage = {
+    view: v => {
+        
+        let current_page = Number(v.attrs.page_nbr)
+        
+        return [
+            m(".buttons.has-addons.is-centered", [
+                m("button.button.is-primary", 
+                { onclick: _ => {
+                        if (current_page <= 1) {
+                            current_page = 1
+                        }
+                        m.route.set(`/all-jobs/${current_page - 1}`, null, {state: {key: Date.now()}})
+                        window.scrollTo({top: 0}) 
+                }},
+                "< Prev"
+                ),
+                m("button.button.is-primary", 
+                    { onclick: _ => {
+                        if (current_page <= 0) {
+                            current_page = 1
+                        }
+                        m.route.set(`/all-jobs/${current_page + 1}`, null, {state: {key: Date.now()}})
+                        window.scrollTo({top: 0})    
+                }},
+                "Next >"
+                ),
+                
+            ])
+        ]
+        
+        
     }
 }
 
@@ -159,12 +196,12 @@ const Error404 = {
 const App = document.getElementById("app")
 
 m.route(App, "/", {
-    "/": m.route.set("/all-jobs/1"),
+    "/": {
+        onmatch: function() {
+          m.route.set('/all-jobs/1')
+        }
+      },
     "/all-jobs/:page_nbr": AllJobs,
-    "/tech-jobs": TechJobs,
-    "/custumer-support-jobs": CustomerSupportJobs,
-    "/other-jobs": OtherJobs, 
     "/:404...": Error404,  
 })
-
 

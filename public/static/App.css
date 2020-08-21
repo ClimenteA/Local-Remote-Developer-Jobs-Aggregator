@@ -6,8 +6,7 @@
     border-radius: 12px;
 }
 
-
-.job-card > p {
+.job-description {
     max-height: 400px;
     overflow: auto;
 }
