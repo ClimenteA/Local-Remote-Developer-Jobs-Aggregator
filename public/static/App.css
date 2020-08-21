@@ -4,9 +4,14 @@
     padding: 1rem;
     border: 2px solid dodgerblue;
     border-radius: 12px;
+    max-width: 770px;
 }
 
 .job-description {
     max-height: 400px;
     overflow: auto;
+}
+
+.grid {
+    display: grid;
 }
