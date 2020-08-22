@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="{{ url_for('public', path='/static/libs/bulma.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('public', path='/static/App.css') }}">
 
+
     <title>Rjobs - remote jobs!</title>
 </head>
-<body class="section grid">
+<body class="section">
 
     <div id="app" class="container">
         <!-- Dynamic content -->
     </div>
 
     <script src="{{ url_for('public', path='/static/libs/mithril.min.js') }}"></script>    
-    <script defer src="{{ url_for('public', path='/static/App.js') }}"></script>
+    <script defer type="module" src="{{ url_for('public', path='/static/main.js') }}"></script>
+    <script defer src="{{ url_for('public', path='/static/libs/bulma.js') }}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </body>
 </html>

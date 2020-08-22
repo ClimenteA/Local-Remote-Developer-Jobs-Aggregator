@@ -22,14 +22,14 @@ async def root(request: Request):
 async def all_jobs(page_nbr: int = 1):
     """ Show all available jobs """
     query = Jobs.select().order_by(Jobs.date.desc()).paginate(page_nbr)    
-    return {"jobs": [j for j in query.dicts()]}
+    return [j for j in query.dicts()] #{"jobs": [j for j in query.dicts()]}
 
 
-@app.put("/update-job-status/{job_id}")
-async def update_job_status(job_id: int):
+@app.put("/update-job-status/{job_id}/{job_status}")
+async def update_job_status(job_id: int, job_status: str):
     """ Update the status of a job application """
     selected_job = Jobs.get(Jobs.id == job_id)
-    selected_job.status = "applied"
+    selected_job.status = job_status
     selected_job.save()
     return {"status": 200}
 
