@@ -21,17 +21,56 @@ async def root(request: Request):
 @app.get("/all-jobs/{page_nbr}")
 async def all_jobs(page_nbr: int = 1):
     """ Show all available jobs """
-    query = Jobs.select().order_by(Jobs.date.desc()).paginate(page_nbr)    
-    return [j for j in query.dicts()] #{"jobs": [j for j in query.dicts()]}
+    query = Jobs.select()\
+                .order_by(Jobs.date.desc())\
+                .paginate(page_nbr) 
+
+    return [j for j in query.dicts()] 
 
 
-@app.put("/update-job-status/{job_id}/{job_status}")
+@app.get("/applied-jobs/{page_nbr}")
+async def applied_jobs(page_nbr: int = 1):
+    """ Show all applied jobs """
+    query = Jobs.select()\
+            .where(Jobs.status == 'applied')\
+            .order_by(Jobs.date.desc())\
+            .paginate(page_nbr)    
+
+    return [j for j in query.dicts()] 
+
+
+@app.get("/ignored-jobs/{page_nbr}")
+async def ignored_jobs(page_nbr: int = 1):
+    """ Show all ignored jobs """
+    query = Jobs.select()\
+                .where(Jobs.status == 'ignored')\
+                .order_by(Jobs.date.desc())\
+                .paginate(page_nbr)    
+
+    return [j for j in query.dicts()] 
+
+
+@app.get("/new-jobs/{page_nbr}")
+async def ignored_jobs(page_nbr: int = 1):
+    """ Show all ignored jobs """
+    query = Jobs.select()\
+                .where( (Jobs.status != 'ignored') &  (Jobs.status != 'applied') )\
+                .order_by(Jobs.date.desc())\
+                .paginate(page_nbr)    
+
+    return [j for j in query.dicts()] 
+
+
+@app.put("/update-job-status/{job_id}/{job_status}") 
 async def update_job_status(job_id: int, job_status: str):
     """ Update the status of a job application """
     selected_job = Jobs.get(Jobs.id == job_id)
     selected_job.status = job_status
     selected_job.save()
-    return {"status": 200}
+    return {"status": job_status}
+
+
+
 
 
 

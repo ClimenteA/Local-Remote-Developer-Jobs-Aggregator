@@ -6,10 +6,13 @@ m.route(document.getElementById("app"), "/",
 {
     "/": {
         onmatch: function() {
-          m.route.set('/all-jobs/1')
+          m.route.set('/new-jobs/1', null, {state: {key: Date.now()}})            
         }
       },
+    "/new-jobs/:page_nbr": RemoteJobs,                
     "/all-jobs/:page_nbr": RemoteJobs,
+    "/applied-jobs/:page_nbr": RemoteJobs,
+    "/ignored-jobs/:page_nbr": RemoteJobs,
     "/:404...": Error404,  
 })
 

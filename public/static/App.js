@@ -9,6 +9,11 @@ var store = {
 
 function get_job_list(page_nbr) {
     // Get jobs in chunks of 20 per page
+
+    let url = document.URL
+
+    console.log(url)
+
     m.request({
         method: "GET",
         url: `${document.location.origin}/all-jobs/${page_nbr}`
@@ -55,28 +60,22 @@ const RemoteJobs = {
     oninit: v => {
         get_job_list(v.attrs.page_nbr)
     },
-
+    
     view: v => {
-
         return [
-            m("h1.title.is-2", "Remote jobs"),       
+            m("h1.title.is-2", "Remote jobs"),   
+              
+            m(m.route.Link, {href:"/new-jobs/1", class:"ml-3 tag"}, "New"),  
+            m(m.route.Link, {href:"/all-jobs/1", class:"ml-3 tag"}, "All"),  
+            m(m.route.Link, {href:"/applied-jobs/1", class:"ml-3 tag"}, "Applied"),  
+            m(m.route.Link, {href:"/ignored-jobs/1", class:"ml-3 tag"}, "Ignored"), 
+
             store.job_list ? m(JobList, {jobs: store.job_list})
             : m("span.tag.is-warning", "Loading all jobs..."),
             m(Pagination, {page_nbr: v.attrs.page_nbr})
         ]
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
