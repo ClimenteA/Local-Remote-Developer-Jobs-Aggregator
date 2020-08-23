@@ -33,11 +33,7 @@ if latest_update != str(date.today()):
     asession = AsyncHTMLSession()
 
     for idx, site_name in enumerate(website_names):
-
-        # # Debug each site
-        # if idx != 2:
-        #     continue
-
+        
         try:
             asession.run(
                 Scrapper(websites[site_name], previous_links,
@@ -55,9 +51,9 @@ if latest_update != str(date.today()):
         if DEBUG:
             break
 
-    if not DEBUG:
-        with open("latest_update.txt", "w") as f:
-            f.write(str(date.today()))
+
+    with open("latest_update.txt", "w") as f:
+        f.write(str(date.today()))
 
     print("Database updated!")
 
