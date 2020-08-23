@@ -1,3 +1,6 @@
+#Update database with latest jobs
+import remoter
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -45,3 +48,9 @@ async def update_job_status(job_id: int, job_status: str):
     selected_job.status = job_status
     selected_job.save()
     return {"status": job_status}
+
+
+
+
+if __name__ == '__main__':
+    uvicorn.run(app, port=8000)
