@@ -9,7 +9,7 @@ function open_link_in_new_tab(url){
 
 function update_job_status(event, data) {
     
-    console.log("DATA: ", data)
+    // console.log("DATA: ", data)
     event.redraw = false
 
     let status = event.target.value

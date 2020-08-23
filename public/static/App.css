@@ -5,6 +5,8 @@
     border: 2px solid dodgerblue;
     border-radius: 12px;
     max-width: 770px;
+    min-width: 200px;
+    background: white;
 }
 
 .job-description {
@@ -14,4 +16,22 @@
 
 .grid {
     display: grid;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+.hand:hover {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    text-decoration: underline;
+}
+
+body {
+    background: whitesmoke;
+}
+
+
+.hand:active {
+    box-shadow: none;
 }

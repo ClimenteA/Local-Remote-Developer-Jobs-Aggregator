@@ -1,4 +1,6 @@
-import json, os, itertools
+import json
+import os
+import itertools
 from datetime import date
 
 
@@ -6,50 +8,58 @@ DEBUG = False
 
 latest_update = None
 if os.path.isfile("latest_update.txt"):
-  with open("latest_update.txt", "r") as f:
-    latest_update = f.read()
-    print("Latest database update was on:", latest_update)
-
+    with open("latest_update.txt", "r") as f:
+        latest_update = f.read()
+        print("Latest database update was on:", latest_update)
 
 
 if latest_update != str(date.today()):
 
-  print("Fetching latest jobs...")
-  from requests_html import AsyncHTMLSession
-  from scrapper import Scrapper
-  from models import Jobs
+    print("Fetching latest jobs...")
+    from requests_html import AsyncHTMLSession
+    from scrapper import Scrapper
+    from models import Jobs
 
+    # Load websites file
+    with open('websites.json') as f:
+        websites = json.load(f)
 
-  # Load websites file
-  with open('websites.json') as f:
-    websites = json.load(f)
+    website_names = list(websites.keys())
+    print(f"{len(website_names)} job pages to be parsed!")
 
-  website_names = list(websites.keys())
-  print(f"{len(website_names)} job pages to be parsed!")
+    previous_links = [list(link_tuple)[0]
+                      for link_tuple in Jobs.select(Jobs.link).tuples().iterator()]
 
-  job_description_links = [list(link_tuple)[0] for link_tuple in Jobs.select(Jobs.link).tuples().iterator()]
+    asession = AsyncHTMLSession()
 
-  asession = AsyncHTMLSession()
+    for idx, site_name in enumerate(website_names):
 
-  for site_name in website_names: 
-    try:       
-      asession.run(
-          Scrapper(websites[site_name], job_description_links, asession, debug=DEBUG).fetch_jobs
-      )  
-    except Exception as e:
-      Jobs.create(
-          website     = site_name, 
-          link        = websites[site_name]["link"],
-          title       = str(e) 
-      )      
-      print("FAILED:", site_name, websites[site_name]["link"])
-      print(str(e))
-      
+        # # Debug each site
+        # if idx != 2:
+        #     continue
 
-  with open("latest_update.txt", "w") as f:
-      f.write(str(date.today()))
+        try:
+            asession.run(
+                Scrapper(websites[site_name], previous_links,
+                         asession, debug=DEBUG).fetch_jobs
+            )
+        except Exception as e:
+            Jobs.create(
+                website=site_name,
+                link=websites[site_name]["link"],
+                title=str(e)
+            )
+            print("FAILED:", site_name, websites[site_name]["link"])
+            print(str(e))
 
-  print("Database updated!")
+        if DEBUG:
+            break
+
+    if not DEBUG:
+        with open("latest_update.txt", "w") as f:
+            f.write(str(date.today()))
+
+    print("Database updated!")
 
 else:
-  print("Already parsed websites today!")
+    print("Already parsed websites today!")

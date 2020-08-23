@@ -27,7 +27,7 @@ class Jobs(BaseModel):
     company      = CharField(default="")
     description  = TextField(default="")
     tags         = CharField(default="")
-    status       = CharField(default="not aplied") 
+    status       = CharField(default="new") 
     date         = DateField(default=date.today())
 
 
