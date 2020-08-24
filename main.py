@@ -51,6 +51,16 @@ async def update_job_status(job_id: int, job_status: str):
 
 
 
+def get_server_ip():
+    """Get ip address of current device"""
+    import socket
+    ip = (([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")] or [[(s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) + ["no IP found"])[0]
+    return ip
+
+
+this_pc_ip = get_server_ip()
+
 
 if __name__ == '__main__':
-    uvicorn.run(app, port=8000)
+    print("\nConnect to:", this_pc_ip, ":8000\n")
+    uvicorn.run(app, host="0.0.0.0", port=8000)

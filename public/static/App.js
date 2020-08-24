@@ -22,10 +22,14 @@ function get_job_list(data) {
 }
 
 
-const JobList = {
-            
+const JobList = {      
     view: v => {
-    
+
+        if (v.attrs.jobs.length === 0) {
+            return m(".box.has-background-warning.mt-3", 
+                    "No jobs available in this category.")
+        }
+
         return m("ul", v.attrs.jobs.map(job => {
             return m("li.my-6", { key:job.id, id:job.id },     
             m(".job-card", 

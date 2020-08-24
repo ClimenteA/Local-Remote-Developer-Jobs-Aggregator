@@ -2,6 +2,47 @@ from datetime import date
 from urllib.parse import urljoin
 from models import Jobs
 
+# TODO
+# Get job details from:
+# https://jobs.lever.co/tuftandneedle/294edd28-d2d8-4ca9-a58c-f25dc73a4bcf
+# https://boards.greenhouse.io/virtahealth/jobs/2288888?utm_source=DynamiteJobs
+# https://jobs.smartrecruiters.com/Wish/743999716813793-sales-enablement-content-specialist?utm_source=DynamiteJobs
+# https://apply.workable.com/qualio/j/DC1B94CA0C/?utm_source=DynamiteJobs
+# https://nodesk.co/remote-jobs/customer-support/olo-customer-support-specialist/
+# https://nodesk.co/remote-jobs/sales/rapid7-enterprise-account-executive/
+# https://apply.workable.com/futureplc/j/61820BB87C/?utm_source=DynamiteJobs
+
+# Exclude jobs which starts with:
+# https://www.ziprecruiter.co.uk/c/TerraGo/Jobs/Mid-level-JavaScript-Developer?utm_source=zr-go-redirect
+
+# Fix getting job description replace "\n" with "<br>"
+# https://remoteok.io/remote-jobs/98140-remote-cloud-developer-immowelt
+
+# If title, company, job description checks then it's a duplicate
+# Except if title is "Not found"
+
+# Fix get company name from indeed
+# https://ro.indeed.com/viewjob?jk=8a926976eb618342&from=serp&vjs=3
+# This one worked
+# https://ro.indeed.com/viewjob?jk=21efd43d00d436bf&from=serp&vjs=3 
+
+# Checkout tampermonkey plugin to automatically fill forms
+# https://allcloud.io/careers/co/romania/02.81F/cloudops-engineer/all/
+# https://jobs.lever.co/swissborg/97055594-a256-4cb2-b47d-ed1410a0e6d6/apply
+
+# Filter out jobs that are 
+# US only 
+# US Locations Only
+# REMOTE (US)
+# Virtual/Remote- USA
+# US-Remote
+# North America Only
+# Remote, United States
+# US-Remote
+# https://remote.co/job/customer-success-engineer-4/
+
+# If not found then show in the job description the link it tried to scrape
+
 
 class Scrapper:
     """

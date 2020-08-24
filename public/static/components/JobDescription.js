@@ -9,9 +9,8 @@ const JobDescription = () => {
     }
 
     function make_paragraphs(raw_text){
-        // let parts = raw_text.split(".");
-        // let doc = parts.join(".</p><p class='mb-2'>")
-        return m.trust("<div class='job-description'>" + raw_text + "</div>")
+        raw_text = raw_text.replace(/\n/g, '<br>')
+        return m.trust("<div class='job-description' style='white-space: pre-line;'>" + raw_text + "</div>")
     }
     
     return {

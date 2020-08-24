@@ -13,7 +13,7 @@ function update_job_status(event, data) {
     event.redraw = false
 
     let status = event.target.value
-
+    
     m.request({
         method: "PUT",
         url: `${document.location.origin}/update-job-status/${data.job_id}/${status}`,
@@ -25,7 +25,8 @@ function update_job_status(event, data) {
             open_link_in_new_tab(data.link)
         }
         
-        document.getElementById(data.job_id).querySelector(".tag").innerText = status
+        let tag = document.getElementById(data.job_id).querySelector(".tag")
+        tag.innerText = status
 
     })
 

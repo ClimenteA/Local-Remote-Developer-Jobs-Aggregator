@@ -29,6 +29,7 @@
 
 body {
     background: whitesmoke;
+    min-height: 100vh;
 }
 
 
