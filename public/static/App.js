@@ -22,7 +22,8 @@ function get_job_list(data) {
 }
 
 
-const JobList = {      
+const JobList = {     
+    
     view: v => {
 
         if (v.attrs.jobs.length === 0) {

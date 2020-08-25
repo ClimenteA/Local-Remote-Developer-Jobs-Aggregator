@@ -2,18 +2,6 @@ from datetime import date
 from urllib.parse import urljoin
 from models import Jobs
 
-# TODO
-# Get job details from:
-# https://jobs.lever.co/tuftandneedle/294edd28-d2d8-4ca9-a58c-f25dc73a4bcf
-# https://boards.greenhouse.io/virtahealth/jobs/2288888?utm_source=DynamiteJobs
-# https://jobs.smartrecruiters.com/Wish/743999716813793-sales-enablement-content-specialist?utm_source=DynamiteJobs
-# https://apply.workable.com/qualio/j/DC1B94CA0C/?utm_source=DynamiteJobs
-# https://nodesk.co/remote-jobs/customer-support/olo-customer-support-specialist/
-# https://nodesk.co/remote-jobs/sales/rapid7-enterprise-account-executive/
-# https://apply.workable.com/futureplc/j/61820BB87C/?utm_source=DynamiteJobs
-
-# Exclude jobs which starts with:
-# https://www.ziprecruiter.co.uk/c/TerraGo/Jobs/Mid-level-JavaScript-Developer?utm_source=zr-go-redirect
 
 # Fix getting job description replace "\n" with "<br>"
 # https://remoteok.io/remote-jobs/98140-remote-cloud-developer-immowelt
@@ -44,6 +32,8 @@ from models import Jobs
 # If not found then show in the job description the link it tried to scrape
 
 
+exclude_keyword_list = ["ziprecruiter", "remote-companies", "skip"]
+
 class Scrapper:
     """
         - Get link to job description by filtering all links in the page by root link
@@ -66,7 +56,7 @@ class Scrapper:
 
     """
 
-    def __init__(self, site_inital_data, previous_links, async_session, debug=True):
+    def __init__(self, site_inital_data, async_session, debug=True):
         
         """
             site_inital_data: website name, root link, css selectors
@@ -80,10 +70,18 @@ class Scrapper:
         self.root_link = site_inital_data["link"]
         self.selectors = site_inital_data["selectors"]
         self.current_links = []
-        self.previous_links = previous_links 
         self.asession = async_session
         self.debug = debug
-        
+
+
+    async def link_already_exists(self, link):
+        return Jobs.select(Jobs.link == link).exists()
+            
+    async def exclude_link_based_on_kewords(self, link):    
+        for exclude_keyword in exclude_keyword_list:
+            if exclude_keyword in link:
+                return True
+
 
     async def get_job_description_link(self, idx, div):
 
@@ -113,19 +111,18 @@ class Scrapper:
             
             link = await self.get_job_description_link(idx, div)
             
-            if link == "skip": 
-                print("Skipped:", link)
-                continue
-            if link in self.previous_links:
-                print("Duplicated link:", link)
-                continue
             if link in self.current_links:
-                print("Already addded:", link)
-                continue
-            if "remote-companies" in link:
+                print("Already in loop:", link)
                 continue
 
+            if self.link_already_exists(link):
+                print("Already in DB:", link)
+                continue
 
+            if self.exclude_link_based_on_kewords(link):
+                print("Excluded:", link)
+                continue
+            
             print("Waiting to save:", link)
 
             self.current_links.append(link)

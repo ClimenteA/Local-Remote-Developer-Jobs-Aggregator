@@ -27,17 +27,15 @@ if latest_update != str(date.today()):
     website_names = list(websites.keys())
     print(f"{len(website_names)} job pages to be parsed!")
 
-    previous_links = [list(link_tuple)[0]
-                      for link_tuple in Jobs.select(Jobs.link).tuples().iterator()]
-
     asession = AsyncHTMLSession()
 
     for idx, site_name in enumerate(website_names):
         
+        if site_name.startswith("_"): continue
+        
         try:
             asession.run(
-                Scrapper(websites[site_name], previous_links,
-                         asession, debug=DEBUG).fetch_jobs
+                Scrapper(websites, site_name, asession, debug=DEBUG).fetch_jobs
             )
         except Exception as e:
             Jobs.create(

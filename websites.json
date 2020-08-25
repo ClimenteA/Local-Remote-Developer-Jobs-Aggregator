@@ -452,7 +452,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": ".job-desc"
+            "description": "body > main > div > article > div:nth-child(2)"
         }        
     },
 
@@ -463,7 +463,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": ".job-desc"
+            "description": "body > main > div > article > div:nth-child(2)"
         }        
     },
 
@@ -474,7 +474,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": ".job-desc"
+            "description": "body > main > div > article > div:nth-child(2)"
         }        
     },
 
@@ -619,9 +619,57 @@
         }        
     },
 
+    
+    "_jobs_lever": {
+        "name": "jobs_lever",
+        "link": "https://jobs.lever.co",
+        "selectors": {
+            "action": "",
+            "title": ".posting-headline",
+            "company": ".posting-categories",
+            "description": ".section.page-centered"
+        }        
+    },
 
 
-    "reactjobs": {
+    "_boards_greenhouse": {
+        "name": "boards_greenhouse",
+        "link": "https://boards.greenhouse.io",
+        "selectors": {
+            "action": "",
+            "title": ".app-title",
+            "company": ".company-name",
+            "description": "#content"
+        }        
+    },
+
+
+    "_jobs_smartrecruiters": {
+        "name": "jobs_smartrecruiters",
+        "link": "https://jobs.smartrecruiters.com",
+        "selectors": {
+            "action": "",
+            "title": ".job-title",
+            "company": ".job-details",
+            "description": ".job-section"
+        }        
+    },
+
+
+    "_apply_workable": {
+        "name": "apply_workable",
+        "link": "https://apply.workable.com",
+        "selectors": {
+            "action": "",
+            "title": "h1[data-ui='job-title']",
+            "company": "p[class^='job-details']",
+            "description": "div[data-ui='job-description']"
+        }        
+    },
+
+
+
+    "_reactjobs": {
         "name": "reactjobs",
         "link": "https://www.react-jobs.com/remote/",
         "selectors": {
@@ -632,7 +680,7 @@
         }        
     },
 
-    "sitepoint": {
+    "_sitepoint": {
         "name": "sitepoint",
         "link": "https://www.sitepoint.com/jobs/filters?location=Anywhere&last=1",
         "selectors": {
@@ -643,7 +691,8 @@
         }        
     },
 
-    "jobradar24": {
+
+    "_jobradar24": {
         "name": "jobradar24",
         "link": "https://www.jobradar24.ro/locuri-de-munca/remote?sf=1&so=1",
         "selectors": {
@@ -655,7 +704,7 @@
     },
 
 
-    "crossover": {
+    "_crossover": {
         "name": "crossover",
         "link": "https://www.crossover.com/jobs",
         "selectors": {
@@ -666,7 +715,7 @@
         }        
     },
 
-    "stackoverflow": {
+    "_stackoverflow": {
         "name": "stackoverflow",
         "link": "https://stackoverflow.com/jobs?r=true&sort=p",
         "selectors": {
@@ -678,7 +727,7 @@
     },
 
 
-    "hitmarker": {
+    "_hitmarker": {
         "name": "hitmarker",
         "link": "https://hitmarker.net/jobs?location=remote&contract=fullTime",
         "selectors": {
@@ -688,6 +737,8 @@
             "description": ""
         }        
     }
+
+
     
 }
 
