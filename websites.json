@@ -5,9 +5,9 @@
         "link": "https://remotive.io/remote-jobs/software-dev",
         "selectors": {
             "action": ".job-list-item",
-            "title": "#wrapwrap > main > section > div > div:nth-child(3) > div.content > h1",
-            "company": "#wrapwrap > main > section > div > div:nth-child(3) > div.content > h2",
-            "description": ".job-description"
+            "title": ".content > h1",
+            "company": ".content > .company",
+            "description": ".content"
         }
     },
 
@@ -16,9 +16,9 @@
         "link": "https://remotive.io/remote-jobs/customer-support",
         "selectors": {
             "action": ".job-list-item",
-            "title": "#wrapwrap > main > section > div > div:nth-child(3) > div.content > h1",
-            "company": "#wrapwrap > main > section > div > div:nth-child(3) > div.content > h2",
-            "description": ".job-description"
+            "title": ".content > h1",
+            "company": ".content > .company",
+            "description": ".content"
         }
     },
 
@@ -452,7 +452,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": "body > main > div > article > div:nth-child(2)"
+            "description": ".job-desc"
         }        
     },
 
@@ -463,7 +463,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": "body > main > div > article > div:nth-child(2)"
+            "description": ".job-desc"
         }        
     },
 
@@ -474,7 +474,7 @@
             "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
             "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
             "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": "body > main > div > article > div:nth-child(2)"
+            "description": ".job-desc"
         }        
     },
 
@@ -538,6 +538,16 @@
     },
 
 
+    "reactjobs": {
+        "name": "reactjobs",
+        "link": "https://www.react-jobs.com/remote/",
+        "selectors": {
+            "action": "a.ui.header",
+            "title": ".ui.header",
+            "company": ".content.header",
+            "description": ".job-description"
+        }        
+    },
 
     "dynamitejobs_dev": {
         "name": "dynamitejobs_dev",
@@ -619,7 +629,7 @@
         }        
     },
 
-    
+
     "_jobs_lever": {
         "name": "jobs_lever",
         "link": "https://jobs.lever.co",
@@ -668,26 +678,14 @@
     },
 
 
-
-    "_reactjobs": {
-        "name": "reactjobs",
-        "link": "https://www.react-jobs.com/remote/",
-        "selectors": {
-            "action": "a.ui.header",
-            "title": ".ui.header",
-            "company": "#container > div.pusher.content > section > section > section > div:nth-child(3) > div > div > div.ui.items > div > div > div.meta > a > span",
-            "description": ".job-description"
-        }        
-    },
-
-    "_sitepoint": {
+    "sitepoint": {
         "name": "sitepoint",
         "link": "https://www.sitepoint.com/jobs/filters?location=Anywhere&last=1",
         "selectors": {
-            "action": "",
-            "title": "",
-            "company": "",
-            "description": ""
+            "action": ".company_title",
+            "title": ".jobPost-module--company_logo--2ZWbd > h1",
+            "company": ".jobPost-module--company_details--1JU41",
+            "description": ".jobPost-module--description--1Eesb"
         }        
     },
 

@@ -4,7 +4,7 @@ import itertools
 from datetime import date
 
 
-DEBUG = False
+DEBUG = True
 
 latest_update = None
 if os.path.isfile("latest_update.txt"):
@@ -31,8 +31,13 @@ if latest_update != str(date.today()):
 
     for idx, site_name in enumerate(website_names):
         
-        if site_name.startswith("_"): continue
-        
+        #Debug each site
+        if site_name != "sitepoint":
+            continue
+
+        if site_name.startswith("_"): 
+            continue
+
         try:
             asession.run(
                 Scrapper(websites, site_name, asession, debug=DEBUG).fetch_jobs

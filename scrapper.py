@@ -56,32 +56,35 @@ class Scrapper:
 
     """
 
-    def __init__(self, site_inital_data, async_session, debug=True):
+    def __init__(self, websites, site_name, async_session, debug=True):
         
         """
-            site_inital_data: website name, root link, css selectors
-            previous_links: already saved job description links from database
+            websites: website name, root link, css selectors
+            site_name: current site that needs to pe parsed
             async_session: requests_html async sesstion
             debug: if true get only first link from the website
 
         """
+        self.site_name = site_name
+        self.websites = websites
+        self.websites_extra = list(filter(
+                                        lambda key: key if key.startswith("_") else None, 
+                                        websites.keys()))
 
-        self.site_name = site_inital_data["name"]
-        self.root_link = site_inital_data["link"]
-        self.selectors = site_inital_data["selectors"]
+        self.root_link = websites[site_name]["link"]
+        self.selectors = websites[site_name]["selectors"]
         self.current_links = []
         self.asession = async_session
         self.debug = debug
 
 
     async def link_already_exists(self, link):
-        return Jobs.select(Jobs.link == link).exists()
+        return Jobs.select().where(Jobs.link == link).exists()
             
     async def exclude_link_based_on_kewords(self, link):    
         for exclude_keyword in exclude_keyword_list:
             if exclude_keyword in link:
                 return True
-
 
     async def get_job_description_link(self, idx, div):
 
@@ -103,23 +106,27 @@ class Scrapper:
         """
 
         r = await self.asession.get(self.root_link)
-        await r.html.arender()
+        await r.html.arender(sleep=3, timeout=20)
 
         action_divs = r.html.find(self.selectors["action"])
+
+        print("ACTION LINKS CONTAINERS:\n", action_divs)
 
         for idx, div in enumerate(action_divs):      
             
             link = await self.get_job_description_link(idx, div)
+
+            print("Link to job description:\n", link)
             
             if link in self.current_links:
                 print("Already in loop:", link)
                 continue
-
-            if self.link_already_exists(link):
+            
+            if await self.link_already_exists(link):
                 print("Already in DB:", link)
                 continue
 
-            if self.exclude_link_based_on_kewords(link):
+            if await self.exclude_link_based_on_kewords(link):
                 print("Excluded:", link)
                 continue
             
@@ -137,16 +144,41 @@ class Scrapper:
     async def data_from_selector(self, response, selector, html=True):
 
         try:
+
             if html:
                 data = response.html.find(selector, first=True).html
             else:
                 data = response.html.find(selector, first=True).text
+
             if isinstance(data, tuple):
                 data = list(data)[0]
-        except:
+        except:    
             data = "Not found"
         
         return data
+
+
+    async def get_job_details(self, response, job_link, selector, html):
+
+        
+        job_details = await self.data_from_selector(response, selector, html)
+
+        if job_details == "Not found":
+            for extra_name in self.websites_extra:
+                if self.websites[extra_name]["link"] in job_link:
+                    selector = self.websites[extra_name]["selectors"][selector]
+                    job_details = await self.data_from_selector(response, selector, html)
+                    break
+        
+        if selector == "description":
+            job_details = job_details.replace("\n", "<br>")
+
+        print(f""" 
+        Selector: {selector},
+        Data: {job_details}
+        """)
+
+        return job_details
 
   
     async def fetch_jobs(self):
@@ -158,13 +190,14 @@ class Scrapper:
         for job_link in self.current_links:
             
             r = await self.asession.get(job_link)
-            
+            await r.html.arender(sleep=1, timeout=10)
+
             Jobs.create(
                 website     = self.site_name, 
                 link        = job_link, 
-                title       = await self.data_from_selector(r, self.selectors["title"], False), 
-                company     = await self.data_from_selector(r, self.selectors["company"], False),
-                description = await self.data_from_selector(r, self.selectors["description"]),
+                title       = await self.get_job_details(r, job_link, self.selectors["title"], False), 
+                company     = await self.get_job_details(r, job_link, self.selectors["company"], False),
+                description = await self.get_job_details(r, job_link, self.selectors["description"], True),
                 status      = "new"
             )
             
