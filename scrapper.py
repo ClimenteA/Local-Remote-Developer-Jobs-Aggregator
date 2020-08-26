@@ -192,17 +192,22 @@ class Scrapper:
             r = await self.asession.get(job_link)
             # await r.html.arender(sleep=2, timeout=20)
 
-            Jobs.create(
+            try:
+
+                Jobs.create(
                 website     = self.site_name, 
                 link        = job_link, 
                 title       = await self.get_job_details(r, job_link, self.selectors["title"], False), 
                 company     = await self.get_job_details(r, job_link, self.selectors["company"], False),
                 description = await self.get_job_details(r, job_link, self.selectors["description"], True),
                 status      = "new"
-            )
+                )
             
-            print("SAVED:", job_link)
+                print("SAVED:", job_link)
 
+            except:
+                print("UNIQUE constraint failed:", job_link)
+            
             if self.debug:
                 break
 
