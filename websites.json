@@ -630,6 +630,18 @@
     },
 
 
+    "euremotejobs": {
+        "name": "euremotejobs",
+        "link": "https://euremotejobs.com/",
+        "selectors": {
+            "action": ".job_listings",
+            "title": ".page-title",
+            "company": ".job-company",
+            "description": ".job_listing-description"
+        }        
+    },
+
+
     "_jobs_lever": {
         "name": "jobs_lever",
         "link": "https://jobs.lever.co",

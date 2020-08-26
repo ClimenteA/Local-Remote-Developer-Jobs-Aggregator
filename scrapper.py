@@ -110,7 +110,7 @@ class Scrapper:
 
         action_divs = r.html.find(self.selectors["action"])
 
-        print("ACTION LINKS CONTAINERS:\n", action_divs)
+        # print("ACTION LINKS CONTAINERS:\n", action_divs)
 
         for idx, div in enumerate(action_divs):      
             
@@ -173,10 +173,10 @@ class Scrapper:
         if selector == "description":
             job_details = job_details.replace("\n", "<br>")
 
-        print(f""" 
-        Selector: {selector},
-        Data: {job_details}
-        """)
+        # print(f""" 
+        # Selector: {selector},
+        # Data: {job_details}
+        # """)
 
         return job_details
 

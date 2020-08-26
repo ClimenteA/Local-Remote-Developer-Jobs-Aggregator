@@ -4,7 +4,7 @@ import itertools
 from datetime import date
 
 
-DEBUG = True
+DEBUG = False
 
 latest_update = None
 if os.path.isfile("latest_update.txt"):
@@ -32,7 +32,7 @@ if latest_update != str(date.today()):
     for idx, site_name in enumerate(website_names):
         
         #Debug each site
-        if site_name != "sitepoint":
+        if site_name != "euremotejobs":
             continue
 
         if site_name.startswith("_"): 
