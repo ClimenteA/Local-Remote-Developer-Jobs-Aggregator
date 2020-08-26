@@ -116,7 +116,7 @@ class Scrapper:
             
             link = await self.get_job_description_link(idx, div)
 
-            print("Link to job description:\n", link)
+            # print("Link to job description:\n", link)
             
             if link in self.current_links:
                 print("Already in loop:", link)
@@ -190,7 +190,7 @@ class Scrapper:
         for job_link in self.current_links:
             
             r = await self.asession.get(job_link)
-            await r.html.arender(sleep=1, timeout=10)
+            # await r.html.arender(sleep=2, timeout=20)
 
             Jobs.create(
                 website     = self.site_name, 

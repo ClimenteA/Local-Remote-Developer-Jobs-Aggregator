@@ -32,8 +32,8 @@ if latest_update != str(date.today()):
     for idx, site_name in enumerate(website_names):
         
         #Debug each site
-        if site_name != "euremotejobs":
-            continue
+        # if site_name != "euremotejobs":
+        #     continue
 
         if site_name.startswith("_"): 
             continue
