@@ -1,5 +1,6 @@
 #Update database with latest jobs
-import remoter
+# import remoter
+
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles

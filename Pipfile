@@ -12,6 +12,7 @@ peewee = "*"
 [dev-packages]
 jupyter = "*"
 pylint = "*"
+locust = "*"
 
 [requires]
 python_version = "3.8"
