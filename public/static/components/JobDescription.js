@@ -41,7 +41,7 @@ const JobDescription = () => {
             return [
                 m(`div.${show_description ? "is-block" : "is-hidden"}.mb-4`, description),            
                 
-                m("button.button.is-link", 
+                m("button.button.ml-3", 
                 { onclick: ev => toggle_description(ev) }, 
                 show_description ? "Hide description" : "View description" ),
             ]

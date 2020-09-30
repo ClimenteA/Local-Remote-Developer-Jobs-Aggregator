@@ -27,8 +27,11 @@ const JobList = {
     view: v => {
 
         if (v.attrs.jobs.length === 0) {
-            return m(".box.has-background-warning.mt-3", 
-                    "No jobs available in this category.")
+            
+            m.route.set("/rjobs/new/1", null, {state: {key: Date.now()}})
+
+            // return m(".box.has-background-warning.mt-3", 
+            //         "No jobs available in this category.")
         }
 
         return m("ul", v.attrs.jobs.map(job => {
@@ -39,15 +42,18 @@ const JobList = {
                     m("h4.title.is-4", job.title),
                     m("h6.subtitle.is-6", job.company),
                 
-                    m(JobDescription, 
-                        {description: job.description}),
-
                     m(JobAction, 
                         {  
                             link: job.link, 
                             status: job.status, 
                             job_id: job.id
                         }),
+                    
+                    
+                    m(JobDescription, 
+                        {description: job.description}),
+
+                    
                 ])    
             )
         }))

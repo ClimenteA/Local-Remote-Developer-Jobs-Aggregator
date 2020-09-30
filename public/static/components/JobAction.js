@@ -7,12 +7,7 @@ function open_link_in_new_tab(url){
 }
 
 
-function update_job_status(event, data) {
-    
-    // console.log("DATA: ", data)
-    event.redraw = false
-
-    let status = event.target.value
+function update_job_status(status, data) {
     
     m.request({
         method: "PUT",
@@ -33,36 +28,24 @@ function update_job_status(event, data) {
 }
 
 
+
 const JobAction = {
     
     view: v => {
 
-        return m(".select.ml-3", 
+        return [
             
-            m("select", 
-                { name:"job-action", onchange: ev => update_job_status(ev, v.attrs) },
-                
-                 [
-                    m("option", 
-                    {value: "new"}, 
-                    "Select action"
-                    ),
+            m("button.button.is-info.mb-2", 
+            {onclick: _ => update_job_status("applied", v.attrs)}, 
+            "View this job"),
 
-                    m("option", 
-                    {value: "applied"}, 
-                    "View this job"
-                    ),
-
-                    m("option", 
-                    {value: "ignored"}, 
-                    "Ignore this job"
-                    )
-                ]
-            )
-        )
-
+            m("button.button.is-warning.ml-3.mb-2", 
+            {onclick: _ => update_job_status("ignored", v.attrs)}, 
+            "Ignore this job")
+        ]
     }
 }
+
 
 
 export default JobAction
