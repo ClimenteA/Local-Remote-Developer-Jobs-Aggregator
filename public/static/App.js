@@ -27,14 +27,11 @@ const JobList = {
     view: v => {
 
         if (v.attrs.jobs.length === 0) {
-            
-            m.route.set("/rjobs/new/1", null, {state: {key: Date.now()}})
-
-            // return m(".box.has-background-warning.mt-3", 
-            //         "No jobs available in this category.")
+            return m(".box.has-background-warning.mt-3", 
+                    "No jobs available in this category.")
         }
 
-        return m("ul", v.attrs.jobs.map(job => {
+        return m("ul.min-100-vh", v.attrs.jobs.map(job => {
             return m("li.my-6", { key:job.id, id:job.id },     
             m(".job-card", 
                 [
@@ -89,7 +86,7 @@ const RemoteJobs = {
             }}, "Ignored"),
 
             store.job_list ? m(JobList, {jobs: store.job_list})
-            : m("span.tag.is-warning", "Loading all jobs..."),
+            : m(".box.has-background-warning.mt-3", "Loading all jobs..."),
             m(Pagination, {categ: v.attrs.categ, page_nbr: v.attrs.page_nbr})
         ]
     }

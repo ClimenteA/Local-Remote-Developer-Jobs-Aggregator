@@ -8,6 +8,7 @@ notebook = "*"
 requests-html = "*"
 pyppeteer = "*"
 peewee = "*"
+gunicorn = "*"
 
 [dev-packages]
 jupyter = "*"

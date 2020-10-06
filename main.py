@@ -62,6 +62,13 @@ def get_server_ip():
 this_pc_ip = get_server_ip()
 
 
+@app.get("/mock")
+async def root():
+    return {"hello": "world"}
+
+
+
 if __name__ == '__main__':
     print("\nConnect to:", this_pc_ip, ":8000\n")
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    # gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker
