@@ -37,11 +37,11 @@ const JobAction = {
             
             m("button.button.is-info.mb-2", 
             {onclick: _ => update_job_status("applied", v.attrs)}, 
-            "View this job"),
+            "APPLY"),
 
             m("button.button.is-warning.ml-3.mb-2", 
             {onclick: _ => update_job_status("ignored", v.attrs)}, 
-            "Ignore this job")
+            "IGNORE")
         ]
     }
 }

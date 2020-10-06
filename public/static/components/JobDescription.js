@@ -43,7 +43,7 @@ const JobDescription = () => {
                 
                 m("button.button.ml-3", 
                 { onclick: ev => toggle_description(ev) }, 
-                show_description ? "Hide description" : "View description" ),
+                show_description ? "LESS" : "MORE" ),
             ]
         }
     }
