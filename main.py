@@ -40,6 +40,22 @@ async def all_jobs(categ: str = "new", page_nbr: int = 1):
     return [j for j in query.dicts()] 
 
 
+@app.get("/rjobs/stats")
+async def stats():
+
+    applied = Jobs.select().where(
+        (Jobs.status == 'applied') & 
+        (Jobs.description.contains("python"))
+        )    
+
+    # ignored = Jobs.select().where(Jobs.status == 'ignored')    
+
+    return {
+        applied: [j for j in applied.dicts()],
+        # ignored: [j for j in ignored.dicts()]
+    } 
+
+
 @app.put("/update-job-status/{job_id}/{job_status}") 
 async def update_job_status(job_id: int, job_status: str):
     """ 
@@ -69,6 +85,6 @@ async def root():
 
 
 if __name__ == '__main__':
-    print("\nConnect to:", this_pc_ip, ":8000\n")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    print("\nConnect to:", this_pc_ip, ":5000\n")
+    uvicorn.run(app, host="0.0.0.0", port=5000)
     # gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker

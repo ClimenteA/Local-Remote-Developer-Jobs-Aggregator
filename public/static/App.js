@@ -85,6 +85,10 @@ const RemoteJobs = {
                 m.route.set("/rjobs/ignored/1", null, {state: {key: Date.now()}})
             }}, "Ignored"),
 
+            m("span.ml-3.tag.hand.is-link", {onclick: _ => {
+                m.route.set("/rjobs/stats", null, {state: {key: Date.now()}})
+            }}, "Stats"),
+
             store.job_list ? m(JobList, {jobs: store.job_list})
             : m(".box.has-background-warning.mt-3", "Loading all jobs..."),
             m(Pagination, {categ: v.attrs.categ, page_nbr: v.attrs.page_nbr})
