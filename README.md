@@ -5,7 +5,9 @@ Customizable remote jobs aggregator.
 ### Quickstart
 
 - Clone it
-- `pipenv install`
+- `virtualenv venv`;
+- `source ./venv/bin/activate`;
+- `pip install -r requirements.txt`;
 - Fetch new jobs `python3 remoter.py`
 - Run localserver `python3 main.py`
 
@@ -16,6 +18,16 @@ Customizable remote jobs aggregator.
 ### Built with
 - Python3, FastAPI
 - Javascript, Mithril.js
+
+### TODO's
+
+- Filters for EU timezone, US Timezone;
+- Update parsing errors;
+- Maybe replace requests-html;
+- Maybe move to js or golang to make a desktop app;
+- Maybe linkedin jobs;
+- TBD;
+
 
 
 ### List of technologies

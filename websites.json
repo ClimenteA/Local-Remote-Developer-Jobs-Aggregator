@@ -11,42 +11,9 @@
         }
     },
 
-    "remotive_customer_support": {
-        "name": "remotive_customer_support",
-        "link": "https://remotive.io/remote-jobs/customer-support",
-        "selectors": {
-            "action": ".job-list-item",
-            "title": ".content > h1",
-            "company": ".content > .company",
-            "description": ".content"
-        }
-    },
-
     "remoteok_dev": {
         "name": "remoteok_dev",
         "link": "https://remoteok.io/remote-dev-jobs",
-        "selectors": {
-            "action": ".preventLink",
-            "title": "td.company.position.company_and_position h2",
-            "company": "h3:first-child",
-            "description": ".description"
-        }
-    },
-
-    "remoteok_customer_support": {
-        "name": "remoteok_customer_support",
-        "link": "https://remoteok.io/remote-customer-support-jobs",
-        "selectors": {
-            "action": ".preventLink",
-            "title": "td.company.position.company_and_position h2",
-            "company": "h3:first-child",
-            "description": ".description"
-        }
-    },
-
-    "remoteok_non_tech": {
-        "name": "remoteok_non_tech",
-        "link": "https://remoteok.io/remote-non-tech-jobs",
         "selectors": {
             "action": ".preventLink",
             "title": "td.company.position.company_and_position h2",
@@ -111,58 +78,10 @@
             "description": ".job__desc"
         }        
     },
-    
 
     "remoteco_dev": {
         "name": "remoteco_dev",
         "link": "https://remote.co/remote-jobs/developer/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-    
-    "remoteco_customer_support": {
-        "name": "remoteco_customer_support",
-        "link": "https://remote.co/remote-jobs/customer-service/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "remoteco_data_entry": {
-        "name": "remoteco_data_entry",
-        "link": "https://remote.co/remote-jobs/online-data-entry/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-    
-
-    "remoteco_online_editing": {
-        "name": "remoteco_online_editing",
-        "link": "https://remote.co/remote-jobs/online-editing/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-    
-
-    "remoteco_recruiter": {
-        "name": "remoteco_recruiter",
-        "link": "https://remote.co/remote-jobs/recruiter/",
         "selectors": {
             "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
             "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
@@ -183,68 +102,6 @@
         }        
     },
     
-
-    "remoteco_qa": {
-        "name": "remoteco_qa",
-        "link": "https://remote.co/remote-jobs/qa/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-    
-
-    "remoteco_virtual_assistant": {
-        "name": "remoteco_virtual_assistant",
-        "link": "https://remote.co/remote-jobs/virtual-assistant/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "remoteco_online_teaching": {
-        "name": "remoteco_online_teaching",
-        "link": "https://remote.co/remote-jobs/online-teaching/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-
-
-
-    "remoteco_writing": {
-        "name": "remoteco_writing",
-        "link": "https://remote.co/remote-jobs/writing/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "remoteco_other": {
-        "name": "remoteco_other",
-        "link": "https://remote.co/remote-jobs/other/",
-        "selectors": {
-            "action": "a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom",
-            "title": "body > main > div > div > div.col > div:nth-child(3) > div > h1",
-            "company": ".co_name",
-            "description": ".job_description"
-        }        
-    },
-
-
     "jobssup_dev": {
         "name": "jobssup_dev",
         "link": "https://jobssup.com/joburi-tehnologie/remote",
@@ -257,92 +114,9 @@
     },
 
 
-    "jobssup_customer_support": {
-        "name": "jobssup_customer_support",
-        "link": "https://jobssup.com/joburi-serviciu-clienti/remote",
-        "selectors": {
-            "action": ".jobs-block .media-body.ml-2",
-            "title": ".page-title.my-0",
-            "company": ".company-name",
-            "description": "body > div > div.row.content.w-100 > div > div > div > div.col-12.col-md-9.order-1"
-        }        
-    },
-
-
-    "jobssup_administrativ": {
-        "name": "jobssup_administrativ",
-        "link": "https://jobssup.com/joburi-administrativ/remote",
-        "selectors": {
-            "action": ".jobs-block .media-body.ml-2",
-            "title": ".page-title.my-0",
-            "company": ".company-name",
-            "description": "body > div > div.row.content.w-100 > div > div > div > div.col-12.col-md-9.order-1"
-        }        
-    },
-
-    "jobssup_hr": {
-        "name": "jobssup_hr",
-        "link": "https://jobssup.com/joburi-resurse-umane/remote",
-        "selectors": {
-            "action": ".jobs-block .media-body.ml-2",
-            "title": ".page-title.my-0",
-            "company": ".company-name",
-            "description": "body > div > div.row.content.w-100 > div > div > div > div.col-12.col-md-9.order-1"
-        }        
-    },
-
-
-
     "weworkremotely_dev": {
         "name": "weworkremotely_dev",
         "link": "https://weworkremotely.com/categories/remote-programming-jobs#job-listings",
-        "selectors": {
-            "action": ".feature > a",
-            "title": ".listing-header-container > h1",
-            "company": ".company-card > h2 > a",
-            "description": ".listing-container"
-        }        
-    },
-
-
-    "weworkremotely_customer_support": {
-        "name": "weworkremotely_customer_support",
-        "link": "https://weworkremotely.com/categories/remote-customer-support-jobs#job-listings",
-        "selectors": {
-            "action": ".feature > a",
-            "title": ".listing-header-container > h1",
-            "company": ".company-card > h2 > a",
-            "description": ".listing-container"
-        }        
-    },
-
-
-    "weworkremotely_other": {
-        "name": "weworkremotely_other",
-        "link": "https://weworkremotely.com/categories/remote-jobs#job-listings",
-        "selectors": {
-            "action": ".feature > a",
-            "title": ".listing-header-container > h1",
-            "company": ".company-card > h2 > a",
-            "description": ".listing-container"
-        }        
-    },
-
-    "weworkremotely_contract": {
-        "name": "weworkremotely_contract",
-        "link": "https://weworkremotely.com/remote-contract-jobs#job-listings",
-        "selectors": {
-            "action": ".feature > a",
-            "title": ".listing-header-container > h1",
-            "company": ".company-card > h2 > a",
-            "description": ".listing-container"
-        }        
-    },
-
-    
-    "weworkremotely_fulltime": {
-        "name": "weworkremotely_fulltime",
-        "link": "https://weworkremotely.com/remote-full-time-jobs#job-listings",
         "selectors": {
             "action": ".feature > a",
             "title": ".listing-header-container > h1",
@@ -364,41 +138,6 @@
     },
 
     
-    "remoters_other": {
-        "name": "remoters_other",
-        "link": "https://remoters.net/jobs/other-remote-jobs/",
-        "selectors": {
-            "action": ".featured",
-            "title": ".entry-title",
-            "company": ".entry-title > a",
-            "description": ".row.description"
-        }        
-    },
-
-
-    "remoters_customer_support": {
-        "name": "remoters_customer_support",
-        "link": "https://remoters.net/jobs/customer-support/",
-        "selectors": {
-            "action": ".featured",
-            "title": ".entry-title",
-            "company": ".entry-title > a",
-            "description": ".row.description"
-        }        
-    },
-
-    "remoters_copywriting": {
-        "name": "remoters_copywriting",
-        "link": "https://remoters.net/jobs/copywriting/",
-        "selectors": {
-            "action": ".featured",
-            "title": ".entry-title",
-            "company": ".entry-title > a",
-            "description": ".row.description"
-        }        
-    },
-
-
     "workingnomads_dev": {
         "name": "workingnomads_dev",
         "link": "https://www.workingnomads.co/remote-development-jobs",
@@ -411,40 +150,6 @@
     },
     
 
-    "workingnomads_writing": {
-        "name": "workingnomads_writing",
-        "link": "https://www.workingnomads.co/remote-writing-jobs",
-        "selectors": {
-            "action": ".job > .media-body > h4 > a:last-child",
-            "title": ".job-heading",
-            "company": ".company-description > .parameters > div",
-            "description": ".job-description"
-        }        
-    },
-
-    "workingnomads_customer_support": {
-        "name": "workingnomads_customer_support",
-        "link": "https://www.workingnomads.co/remote-customer-success-jobs",
-        "selectors": {
-            "action": ".job > .media-body > h4 > a:last-child",
-            "title": ".job-heading",
-            "company": ".company-description > .parameters > div",
-            "description": ".job-description"
-        }        
-    },
-
-    "workingnomads_hr": {
-        "name": "workingnomads_hr",
-        "link": "https://www.workingnomads.co/remote-human-resources-jobs",
-        "selectors": {
-            "action": ".job > .media-body > h4 > a:last-child",
-            "title": ".job-heading",
-            "company": ".company-description > .parameters > div",
-            "description": ".job-description"
-        }        
-    },
-
-
     "nodesk_dev": {
         "name": "nodesk_dev",
         "link": "https://nodesk.co/remote-jobs/engineering/",
@@ -456,29 +161,6 @@
         }        
     },
 
-    "nodesk_non_tech": {
-        "name": "nodesk_non_tech",
-        "link": "https://nodesk.co/remote-jobs/non-tech/",
-        "selectors": {
-            "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
-            "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
-            "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": ".job-desc"
-        }        
-    },
-
-    "nodesk_customer_support": {
-        "name": "nodesk_customer_support",
-        "link": "https://nodesk.co/remote-jobs/customer_support/",
-        "selectors": {
-            "action": "article > ul > li > div.ml2.ml3-ns.pl1-l > div > div.dtc.v-top > h1 > a",
-            "title": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > h1",
-            "company": "main > div > article > div.dt.w-100.ph3.pv4 > div.ml2.ml3-ns.pl2-l > div > p.dtc.v-mid.dib.f5.f4-m.f3-l.fw5.lh-copy.mv0 > a",
-            "description": ".job-desc"
-        }        
-    },
-
-
     "justremote_dev": {
         "name": "justremote_dev",
         "link": "https://justremote.co/remote-developer-jobs",
@@ -489,54 +171,6 @@
             "description": "div[class^='job-textarea__StyledJobTextArea']"
         }        
     },
-
-    "justremote_customer_support": {
-        "name": "justremote_customer_support",
-        "link": "https://justremote.co/remote-customer-service-jobs",
-        "selectors": {
-            "action": "a[class^='new-job-item__JobMeta']",
-            "title": "h1[class^='job-title__StyledJobTitle']",
-            "company": "a[class^='new-job-preview-details__CompanyName']",
-            "description": "div[class^='job-textarea__StyledJobTextArea']"
-        }        
-    },
-
-
-    "justremote_editing_jobs": {
-        "name": "justremote_editing_jobs",
-        "link": "https://justremote.co/remote-editing-jobs",
-        "selectors": {
-            "action": "a[class^='new-job-item__JobMeta']",
-            "title": "h1[class^='job-title__StyledJobTitle']",
-            "company": "a[class^='new-job-preview-details__CompanyName']",
-            "description": "div[class^='job-textarea__StyledJobTextArea']"
-        }        
-    },
-
-
-    "justremote_hr": {
-        "name": "justremote_hr",
-        "link": "https://justremote.co/remote-hr-jobs",
-        "selectors": {
-            "action": "a[class^='new-job-item__JobMeta']",
-            "title": "h1[class^='job-title__StyledJobTitle']",
-            "company": "a[class^='new-job-preview-details__CompanyName']",
-            "description": "div[class^='job-textarea__StyledJobTextArea']"
-        }        
-    },
-
-
-    "justremote_writing": {
-        "name": "justremote_writing",
-        "link": "https://justremote.co/remote-writing-jobs",
-        "selectors": {
-            "action": "a[class^='new-job-item__JobMeta']",
-            "title": "h1[class^='job-title__StyledJobTitle']",
-            "company": "a[class^='new-job-preview-details__CompanyName']",
-            "description": "div[class^='job-textarea__StyledJobTextArea']"
-        }        
-    },
-
 
     "reactjobs": {
         "name": "reactjobs",
@@ -560,76 +194,6 @@
         }        
     },
 
-    "dynamitejobs_customer_service": {
-        "name": "dynamitejobs_customer_service",
-        "link": "https://www.dynamitejobs.com/remote-customer-service-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-    "dynamitejobs_data_analyst": {
-        "name": "dynamitejobs_data_analyst",
-        "link": "https://www.dynamitejobs.com/remote-data-analyst-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-    "dynamitejobs_hr": {
-        "name": "dynamitejobs_hr",
-        "link": "https://www.dynamitejobs.com/remote-recruiter-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "dynamitejobs_tech_support": {
-        "name": "dynamitejobs_tech_support",
-        "link": "https://www.dynamitejobs.com/remote-tech-support-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "dynamitejobs_writing": {
-        "name": "dynamitejobs_writing",
-        "link": "https://www.dynamitejobs.com/remote-writing-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-
-    "dynamitejobs_virtual_assistant": {
-        "name": "dynamitejobs_virtual_assistant",
-        "link": "https://www.dynamitejobs.com/virtual-assistant-jobs/",
-        "selectors": {
-            "action": ".apply_btn",
-            "title": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > h1",
-            "company": "article > div > div.top-part.shadow-cont > div.desc-wrapper > div > div.desc-content > div.first-row > p",
-            "description": ".job_description"
-        }        
-    },
-
-
     "euremotejobs": {
         "name": "euremotejobs",
         "link": "https://euremotejobs.com/",
@@ -639,117 +203,7 @@
             "company": ".job-company",
             "description": ".job_listing-description"
         }        
-    },
-
-
-    "_jobs_lever": {
-        "name": "jobs_lever",
-        "link": "https://jobs.lever.co",
-        "selectors": {
-            "action": "",
-            "title": ".posting-headline",
-            "company": ".posting-categories",
-            "description": ".section.page-centered"
-        }        
-    },
-
-
-    "_boards_greenhouse": {
-        "name": "boards_greenhouse",
-        "link": "https://boards.greenhouse.io",
-        "selectors": {
-            "action": "",
-            "title": ".app-title",
-            "company": ".company-name",
-            "description": "#content"
-        }        
-    },
-
-
-    "_jobs_smartrecruiters": {
-        "name": "jobs_smartrecruiters",
-        "link": "https://jobs.smartrecruiters.com",
-        "selectors": {
-            "action": "",
-            "title": ".job-title",
-            "company": ".job-details",
-            "description": ".job-section"
-        }        
-    },
-
-
-    "_apply_workable": {
-        "name": "apply_workable",
-        "link": "https://apply.workable.com",
-        "selectors": {
-            "action": "",
-            "title": "h1[data-ui='job-title']",
-            "company": "p[class^='job-details']",
-            "description": "div[data-ui='job-description']"
-        }        
-    },
-
-
-    "sitepoint": {
-        "name": "sitepoint",
-        "link": "https://www.sitepoint.com/jobs/filters?location=Anywhere&last=1",
-        "selectors": {
-            "action": ".company_title",
-            "title": ".jobPost-module--company_logo--2ZWbd > h1",
-            "company": ".jobPost-module--company_details--1JU41",
-            "description": ".jobPost-module--description--1Eesb"
-        }        
-    },
-
-
-    "_jobradar24": {
-        "name": "jobradar24",
-        "link": "https://www.jobradar24.ro/locuri-de-munca/remote?sf=1&so=1",
-        "selectors": {
-            "action": "",
-            "title": "",
-            "company": "",
-            "description": ""
-        }        
-    },
-
-
-    "_crossover": {
-        "name": "crossover",
-        "link": "https://www.crossover.com/jobs",
-        "selectors": {
-            "action": "",
-            "title": "",
-            "company": "",
-            "description": ""
-        }        
-    },
-
-    "_stackoverflow": {
-        "name": "stackoverflow",
-        "link": "https://stackoverflow.com/jobs?r=true&sort=p",
-        "selectors": {
-            "action": "",
-            "title": "",
-            "company": "",
-            "description": ""
-        }        
-    },
-
-
-    "_hitmarker": {
-        "name": "hitmarker",
-        "link": "https://hitmarker.net/jobs?location=remote&contract=fullTime",
-        "selectors": {
-            "action": "",
-            "title": "",
-            "company": "",
-            "description": ""
-        }        
-    }
-
-
-    
+    }    
 }
 
    

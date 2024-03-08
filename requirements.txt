@@ -1,0 +1,5 @@
+fastapi[all]
+requests-html
+pyppeteer
+peewee
+gunicorn
