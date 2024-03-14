@@ -5,13 +5,19 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from multiprocessing import cpu_count
+from common.sqlite import init_db
 from apps import routers
 from config import cfg
+from contextlib import asynccontextmanager
 
-app = FastAPI(
-    title="RestAPI",
-    description="Useful RestAPI's",
-)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
+app = FastAPI(title="RestAPI", description="Useful RestAPI's", lifespan=lifespan)
 
 
 @app.get("/")

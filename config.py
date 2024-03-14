@@ -19,6 +19,7 @@ class Config(BaseSettings):
     LOG_RETENTION: str = "1 week"
     PORT: int = 3000
     SECRET: str = DEVPASS
+    SQLITE_URI: str = "sqlite:///database.db"
 
 
 cfg = Config()
