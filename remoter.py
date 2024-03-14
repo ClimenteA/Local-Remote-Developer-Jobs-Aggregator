@@ -1,19 +1,9 @@
 import json
 import os
-import itertools
 from datetime import date
+import traceback
 
-
-def grouper(size, iterable):
-    it = iter(iterable)
-    while True:
-        group = list(itertools.islice(it, None, size))
-        if not group:
-            break
-        yield group
-
-
-DEBUG = False
+DEBUG = True
 
 latest_update = None
 if os.path.isfile("latest_update.txt"):
@@ -23,45 +13,30 @@ if os.path.isfile("latest_update.txt"):
 
 
 if latest_update != str(date.today()):
-
     print("Fetching latest jobs...")
     from requests_html import AsyncHTMLSession
     from scrapper import Scrapper
-    from models import Jobs
 
     asession = AsyncHTMLSession()
 
     # Load websites file
-    with open('websites.json') as f:
+    with open("websites.json") as f:
         websites = json.load(f)
 
     website_names = [w for w in list(websites.keys()) if not w.startswith("_")]
     print(f"{len(website_names)} job pages to be parsed!")
 
-    # Size depends on the number of websites added in websites.json
-    # If more added then assestion.run funcs must be modified to avoid an index error
-    website_names_grouped = list(grouper(size=8, iterable=website_names))
-    
-    for site_names_grouped in website_names_grouped:
-        print(f"\nWorking on group: {site_names_grouped}\n")
+    for site_data in website_names:
         try:
             asession.run(
-                Scrapper(websites, site_names_grouped[0], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[1], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[2], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[3], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[4], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[5], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[6], asession, debug=DEBUG).fetch_jobs,
-                Scrapper(websites, site_names_grouped[7], asession, debug=DEBUG).fetch_jobs,
+                Scrapper(websites, site_data, asession, debug=DEBUG).fetch_jobs
             )
         except Exception as e:
-            print("FAILED:", site_names_grouped)
-            print(str(e))
+            print("FAILED:", site_data)
+            print(e, traceback.format_exc())
 
         if DEBUG:
             break
-
 
     with open("latest_update.txt", "w") as f:
         f.write(str(date.today()))
@@ -70,4 +45,3 @@ if latest_update != str(date.today()):
 
 else:
     print("Already parsed websites today!")
-

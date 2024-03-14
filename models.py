@@ -3,11 +3,11 @@ from datetime import date
 from peewee import (
     SqliteDatabase,
     Model,
-    CharField, 
-    DateField, 
-    TextField, 
+    CharField,
+    DateField,
+    TextField,
     ForeignKeyField,
-    chunked
+    chunked,
 )
 
 
@@ -21,20 +21,18 @@ class BaseModel(Model):
 
 
 class Jobs(BaseModel):
-    website      = CharField()
-    link         = TextField()
-    title        = CharField(default="") 
-    company      = CharField(default="")
-    description  = TextField(default="")
-    tags         = CharField(default="")
-    status       = CharField(default="new") 
-    date         = DateField(default=date.today())
+    website = CharField()
+    link = TextField()
+    title = CharField(default="")
+    company = CharField(default="")
+    description = TextField(default="")
+    tags = CharField(default="")
+    status = CharField(default="new")
+    date = DateField(default=date.today())
 
     class Meta:
         # Unique constrain index - from columns
-        indexes = (
-            (('website', 'title', 'company', 'description'), True),
-        )
+        indexes = ((("website", "title", "company", "description"), True),)
 
 
 class Users(BaseModel):
@@ -44,8 +42,8 @@ class Users(BaseModel):
 
 class UserApplications(BaseModel):
     user = ForeignKeyField(Users)
-    job  = ForeignKeyField(Users)
-    status = CharField() 
+    job = ForeignKeyField(Users)
+    status = CharField()
 
 
 with DB:
@@ -54,12 +52,10 @@ with DB:
 
 def save_list_dict(MyModel, data_source, chunk_size=100):
     """
-        Insert rows 100 at a time.
-        Save a list of dicts [{}, {} etc] to a model in chunks
+    Insert rows 100 at a time.
+    Save a list of dicts [{}, {} etc] to a model in chunks
 
     """
     with DB.atomic():
         for batch in chunked(data_source, chunk_size):
             MyModel.insert_many(batch).execute()
-
-

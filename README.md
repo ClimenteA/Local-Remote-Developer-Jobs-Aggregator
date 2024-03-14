@@ -19,6 +19,45 @@ Customizable remote jobs aggregator.
 - Python3, FastAPI
 - Javascript, Mithril.js
 
+
+### Remote websites
+
+- https://remotive.com
+- https://remoteok.com
+- https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/it---telecom/sort-publish
+- https://www.bestjobs.eu/ro/locuri-de-munca/it-telecomunicatii/middle-2-5-ani,senior-5-10-ani/remote/recent
+- https://vuejobs.com/jobs
+- https://reactjobs.io/?isRemote=true
+- https://www.remotepython.com/jobs/?q=python
+- https://devjob.ro/en/jobs/Python/remote
+- https://devjob.ro/en/jobs/JavaScript/remote
+- https://devjob.ro/en/jobs/Golang/remote
+- https://euremotejobs.com/jobs/remote-software-engineering-jobs/
+- https://remote.co
+- https://weworkremotely.com/categories/remote-full-stack-programming-jobs
+- https://weworkremotely.com/categories/remote-front-end-programming-jobs
+- https://weworkremotely.com/categories/remote-back-end-programming-jobs
+- https://www.workingnomads.com/jobs?category=development&location=anywhere,europe
+- https://nodesk.co/remote-jobs/engineering/
+- https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer
+- https://www.remote.io/remote-software-development-jobs?pg=1
+- https://4dayweek.io/remote-jobs/engineering
+- https://builtin.com/jobs/remote/dev-engineering/golang/javascript/python/mid-level/senior?daysSinceUpdated=3
+- https://landing.jobs/jobs?page=1&gr=true&fr=true&c%5B%5D=3&c%5B%5D=1&c%5B%5D=2&match=all&pd=7&hd=false&t_co=false&t_st=false
+- https://www.pyjobs.com/?remoteLevel[0]=1&remoteLevel[1]=2&date=72&regions[0]=RO
+- https://remote.works-hub.com/jobs/search?remote=true&tags=JavaScript;Python
+- https://berlinstartupjobs.com/skill-areas/javascript/
+- https://berlinstartupjobs.com/skill-areas/python/
+- https://berlinstartupjobs.com/skill-areas/typescript/
+- https://startup.jobs/?remote=true
+- https://www.reed.co.uk/jobs/work-from-home-it-jobs?dateCreatedOffSet=lastthreedays
+- https://www.startupjobs.com/
+- https://workinstartups.com/job-board/jobs/developers/
+- https://www.workatastartup.com/
+
+
+
+
 ### TODO's
 
 - Filters for EU timezone, US Timezone;
