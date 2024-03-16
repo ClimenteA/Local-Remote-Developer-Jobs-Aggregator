@@ -9,4 +9,6 @@ def add_jobs(session: Session, jobs: list[Job]):
 
 
 def get_all_jobs(session: Session):
+    # delete all jobs older than 1 week
+    # delete all jobs that are ignored
     return session.exec(select(Job)).all()
