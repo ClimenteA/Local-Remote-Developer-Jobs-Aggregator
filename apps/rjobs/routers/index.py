@@ -2,31 +2,30 @@ from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from common.sqlite import SqliteDBDep
 from common.render_template import render_template
-from apps.rjobs.models.job import Job
-from apps.rjobs.views.job import add_jobs, get_all_jobs
 
 router = APIRouter(tags=["RemoteJobs"], prefix="/remote-jobs")
 
 
-@router.get("/", response_class=HTMLResponse)
-async def get_index_template(request: Request, session: SqliteDBDep):
-    # TODO Get jobs from DB
-    jobs = [
-        Job(
-            title="Software Eng1", description="The best software eng", link="http etc"
-        ),
-        Job(
-            title="Software Eng2", description="The best software eng", link="http etc"
-        ),
-        Job(
-            title="Software Eng3", description="The best software eng", link="http etc"
-        ),
-    ]
-
-    add_jobs(session, jobs)
-
-    saved_jobs = get_all_jobs(session)
-
+@router.get("/new", response_class=HTMLResponse)
+async def get_new_jobs(request: Request, session: SqliteDBDep):
     return await render_template(
-        request, "rjobs/index.html", context={"jobs": saved_jobs}
+        request, "rjobs/index.html", context={"active_page": "new", "jobs": []}
+    )
+
+
+@router.get("/applied", response_class=HTMLResponse)
+async def get_applied_jobs(request: Request, session: SqliteDBDep):
+    return await render_template(
+        request,
+        "rjobs/index.html",
+        context={"active_page": "applied", "jobs": []},
+    )
+
+
+@router.get("/ignored", response_class=HTMLResponse)
+async def get_ignored_jobs(request: Request, session: SqliteDBDep):
+    return await render_template(
+        request,
+        "rjobs/index.html",
+        context={"active_page": "ignored", "jobs": []},
     )

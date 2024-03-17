@@ -79,9 +79,18 @@
 <div class="row mt-5">
 
     <div class="btn-group">
-        <a href="/remote-jobs/new" class="btn btn-outline-secondary active" aria-current="page">New</a>
-        <a href="/remote-jobs/applied" class="btn btn-outline-secondary">Applied</a>
-        <a href="/remote-jobs/ignored" class="btn btn-outline-secondary">Ignored</a>
+        <a href="/remote-jobs/new"
+            class="btn btn-outline-secondary {% if active_page == 'new' %} active aria-current='page' {% endif %}">
+            New
+        </a>
+        <a href="/remote-jobs/applied"
+            class="btn btn-outline-secondary {% if active_page == 'applied' %} active aria-current='page' {% endif %}">
+            Applied
+        </a>
+        <a href="/remote-jobs/ignored"
+            class="btn btn-outline-secondary {% if active_page == 'ignored' %} active aria-current='page' {% endif %}">
+            Ignored
+        </a>
     </div>
 
 </div>

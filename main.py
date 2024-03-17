@@ -22,7 +22,7 @@ app = FastAPI(title="RestAPI", description="Useful RestAPI's", lifespan=lifespan
 
 @app.get("/")
 def it_works():
-    return RedirectResponse("/remote-jobs", status_code=302)
+    return RedirectResponse("/remote-jobs/new", status_code=302)
 
 
 [app.include_router(router) for router in routers]
