@@ -33,6 +33,8 @@ Customizable remote jobs aggregator.
 - https://devjob.ro/en/jobs/JavaScript/remote
 - https://devjob.ro/en/jobs/Golang/remote
 - https://euremotejobs.com/jobs/remote-software-engineering-jobs/
+
+
 - https://remote.co
 - https://weworkremotely.com/categories/remote-full-stack-programming-jobs
 - https://weworkremotely.com/categories/remote-front-end-programming-jobs
