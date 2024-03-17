@@ -6,7 +6,7 @@ from apps.rjobs.models.job import Job
 from common.logger import log
 
 
-class ScrapeDebjob(IScrapper):
+class ScrapeDevjob(IScrapper):
     """
     Scrapper for: https://devjob.ro
 
