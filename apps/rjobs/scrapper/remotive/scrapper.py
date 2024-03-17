@@ -5,15 +5,12 @@ from apps.rjobs.models.job import Job
 from common.logger import log
 
 
-URL = "https://remotive.com/api/remote-jobs?category=software-dev"
-
-
 class ScrapeRemotive(IScrapper):
     """
 
     Scrapper for: https://remotive.com/
 
-    Using the api provided that retunrs
+    Using the api provided that returns:
 
     {
         "00-warning": "Remotive main domain moved to remotive.com ! Please make your API calls on remotive.com/api/remote-jobs instead of remotive.io now ;) Legacy endpoint remotive.io/api/remote-jobs will be terminated in June 2022. Thank you!",
@@ -40,19 +37,22 @@ class ScrapeRemotive(IScrapper):
 
     """
 
-    def scrape(self, url: str = URL):
+    def scrape(self):
         try:
+            url = "https://remotive.com/api/remote-jobs?category=software-dev"
+
             response = requests.get(url)
             jsonData = response.json()
 
-            return [
-                Job(
+            jobs = []
+            for d in jsonData["jobs"]:
+                job = Job(
                     title=d["title"],
                     description=f"""
                     <div>
                         <h1>Company: {d["company_name"]}</h1>
                         <p>{", ".join(d["tags"])}</p>
-                        <p>Required Location: {d["candidate_required_location"]}</p>
+                        <p>Location: {d["candidate_required_location"]}</p>
                         <div>{d["description"]}</div>
                     </div>
                     """,
@@ -61,8 +61,10 @@ class ScrapeRemotive(IScrapper):
                         d["publication_date"]
                     ).isoformat(),
                 )
-                for d in jsonData["jobs"]
-            ]
+
+                jobs.append(job)
+
+            return jobs
 
         except Exception as err:
             log.exception(err)

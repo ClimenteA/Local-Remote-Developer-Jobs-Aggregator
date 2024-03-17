@@ -28,7 +28,7 @@ Customizable remote jobs aggregator.
 - https://www.bestjobs.eu/ro/locuri-de-munca/it-telecomunicatii/middle-2-5-ani,senior-5-10-ani/remote/recent
 - https://vuejobs.com/jobs
 - https://reactjobs.io/?isRemote=true
-- https://www.remotepython.com/jobs/?q=python
+- https://www.remotepython.com/jobs/?q=python - mostly US jobs
 - https://devjob.ro/en/jobs/Python/remote
 - https://devjob.ro/en/jobs/JavaScript/remote
 - https://devjob.ro/en/jobs/Golang/remote
