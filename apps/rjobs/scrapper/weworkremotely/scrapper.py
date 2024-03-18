@@ -6,9 +6,9 @@ from apps.rjobs.models.job import Job
 from common.logger import log
 
 
-class ScrapeEuRemoteJobs(IScrapper):
+class ScrapeWeWorkRemotely(IScrapper):
     """
-    Scrapper for: https://euremotejobs.com
+    Scrapper for: https://weworkremotely.com/
 
     """
 
@@ -18,38 +18,32 @@ class ScrapeEuRemoteJobs(IScrapper):
             "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43",
         }
 
-        data = {
-            "lang": "",
-            "search_categories[]": "engineering",
-            "search_keywords": "",
-            "search_location": "",
-            "per_page": "12",
-            "orderby": "featured",
-            "order": "DESC",
-            "show_pagination": "false",
-        }
+        urls = [
+            "https://weworkremotely.com/categories/remote-full-stack-programming-jobs",
+            "https://weworkremotely.com/categories/remote-front-end-programming-jobs",
+            "https://weworkremotely.com/categories/remote-back-end-programming-jobs",
+        ]
 
-        url = "https://euremotejobs.com/jm-ajax/get_listings/"
-
-        # Get links to job description
         job_description_urls = []
-        for page in range(2):
-            data["page"] = str(page + 1)
-            response = requests.post(url, headers=headers, data=data)
-            data = response.json()
-            data_href_matches = re.findall(r'data-href="(.*?)"', data["showing_links"])
-            job_description_urls.extend(data_href_matches)
+        for url in urls:
+            response = requests.get(url, headers=headers)
+            href_matches = re.findall(r'<a href="/remote-jobs/{.*?}">', response.text)
+            href_matches = [
+                f"https://weworkremotely.com/remote-jobs/{partial_url}"
+                for partial_url in href_matches
+            ]
+            job_description_urls.extend(href_matches)
             time.sleep(0.3)  # trying not to get blocked
 
         return job_description_urls
 
     def get_job_title(self, textHTML: str):
         """
-        <h1 class="page-title">
+        <h1>
             Senior Machine Learning Engineer
         </h1>
         """
-        h1_pattern = re.compile(r'<h1 class="page-title"[^>]*>(.*?)<\/h1>', re.DOTALL)
+        h1_pattern = re.compile(r"<h1>(.*?)<\/h1>", re.DOTALL)
         match = h1_pattern.search(textHTML)
         if match:
             return match.group(1).strip()
@@ -57,12 +51,10 @@ class ScrapeEuRemoteJobs(IScrapper):
 
     def get_job_description(self, textHTML: str):
         """
-        <h2 class="widget-title widget-title--job_listing-top job-overview-title">Overview</h2>
-        job description here
-        <p class="job_tags">
+        <div class="listing-container" id="job-listing-show-container">JD</div>
         """
         pattern = re.compile(
-            r'<h2 class="widget-title widget-title--job_listing-top job-overview-title">Overview<\/h2>(.*?)<p class="job_tags">',
+            r'<div class="listing-container" id="job-listing-show-container">(.*?)<\/div>',
             re.DOTALL,
         )
         match = pattern.search(textHTML)
