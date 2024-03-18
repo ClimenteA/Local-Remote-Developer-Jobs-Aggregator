@@ -27,14 +27,12 @@ Customizable remote jobs aggregator.
 - https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/it---telecom/sort-publish
 - https://www.bestjobs.eu/ro/locuri-de-munca/it-telecomunicatii/middle-2-5-ani,senior-5-10-ani/remote/recent
 - https://vuejobs.com/jobs
-- https://reactjobs.io/?isRemote=true
+- https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true
 - https://www.remotepython.com/jobs/?q=python - mostly US jobs
 - https://devjob.ro/en/jobs/Python/remote
 - https://devjob.ro/en/jobs/JavaScript/remote
 - https://devjob.ro/en/jobs/Golang/remote
 - https://euremotejobs.com/jobs/remote-software-engineering-jobs/
-
-
 - https://remote.co
 - https://weworkremotely.com/categories/remote-full-stack-programming-jobs
 - https://weworkremotely.com/categories/remote-front-end-programming-jobs

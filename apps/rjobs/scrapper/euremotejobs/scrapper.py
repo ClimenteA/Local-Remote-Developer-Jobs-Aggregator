@@ -10,7 +10,6 @@ class ScrapeEuRemoteJobs(IScrapper):
     """
     Scrapper for: https://euremotejobs.com
 
-    
     """
 
     def get_job_description_urls(self):
@@ -94,4 +93,3 @@ class ScrapeEuRemoteJobs(IScrapper):
         except Exception as err:
             log.exception(err)
             return None
-
