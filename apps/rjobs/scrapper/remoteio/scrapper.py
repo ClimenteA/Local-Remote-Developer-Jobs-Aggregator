@@ -6,9 +6,9 @@ from apps.rjobs.models.job import Job
 from common.logger import log
 
 
-class ScrapeWeWorkRemotely(IScrapper):
+class ScrapeRemoteIo(IScrapper):
     """
-    Scrapper for: https://weworkremotely.com/
+    Scrapper for: https://remote.io
 
     """
 
@@ -19,17 +19,22 @@ class ScrapeWeWorkRemotely(IScrapper):
         }
 
         urls = [
-            "https://weworkremotely.com/categories/remote-full-stack-programming-jobs",
-            "https://weworkremotely.com/categories/remote-front-end-programming-jobs",
-            "https://weworkremotely.com/categories/remote-back-end-programming-jobs",
+            "https://www.remote.io/remote-software-development-jobs?pg=1",
         ]
 
         job_description_urls = []
         for url in urls:
             response = requests.get(url, headers=headers)
-            href_matches = re.findall(r'<a href="/remote-jobs/(.*?)">', response.text)
+            """
+            <a class="font-500 text-lg text-black whitespace-pre-wrap" data-title="true" href="/remote-software-development-jobs/senior-software-engineer-dataapi-40090">Senior Software Engineer DataAPI</a>
+            https://www.remote.io/remote-software-development-jobs/senior-software-engineer-dataapi-40090
+            """
+            href_matches = re.findall(
+                r'<a class="font-500 text-lg text-black whitespace-pre-wrap" data-title="true" href="/remote-software-development-jobs/(.*)">',
+                response.text,
+            )
             href_matches = [
-                f"https://weworkremotely.com/remote-jobs/{partial_url}"
+                f"https://www.remote.io/remote-software-development-jobs/{partial_url}"
                 for partial_url in href_matches
             ]
             job_description_urls.extend(href_matches)
@@ -39,11 +44,12 @@ class ScrapeWeWorkRemotely(IScrapper):
 
     def get_job_title(self, textHTML: str):
         """
-        <h1>
-            Senior Machine Learning Engineer
-        </h1>
+        <h1 data-rewrite="job-title" class="styles_title__3gFK4">Senior Software Engineer DataAPI</h1>
         """
-        h1_pattern = re.compile(r"<h1>(.*?)<\/h1>", re.DOTALL)
+        h1_pattern = re.compile(
+            r'<h1 data-rewrite="job-title" class="styles_title__.{5}">(.*)<\/h1>',
+            re.DOTALL,
+        )
         match = h1_pattern.search(textHTML)
         if match:
             return match.group(1).strip()
@@ -51,10 +57,12 @@ class ScrapeWeWorkRemotely(IScrapper):
 
     def get_job_description(self, textHTML: str):
         """
-        <div class="listing-container" id="job-listing-show-container">JD</div>
+        <div id="job-description" data-rewrite="job-description" class="max-w-none prose text-gray-100 break-words styles_jobDescription__1oCrk">
+        JD
+        </div>
         """
         pattern = re.compile(
-            r'<div class="listing-container" id="job-listing-show-container">(.*?)<\/div>',
+            r'<div id="job-description" data-rewrite="job-description" class="max-w-none prose text-gray-100 break-words styles_jobDescription__.{5}">(.*?)</div>',
             re.DOTALL,
         )
         match = pattern.search(textHTML)

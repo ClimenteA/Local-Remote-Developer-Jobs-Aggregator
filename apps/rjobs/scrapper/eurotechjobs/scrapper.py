@@ -6,9 +6,9 @@ from apps.rjobs.models.job import Job
 from common.logger import log
 
 
-class ScrapeWeWorkRemotely(IScrapper):
+class ScrapeEuroTechJobs(IScrapper):
     """
-    Scrapper for: https://weworkremotely.com/
+    Scrapper for: https://eurotechjobs.com
 
     """
 
@@ -19,17 +19,19 @@ class ScrapeWeWorkRemotely(IScrapper):
         }
 
         urls = [
-            "https://weworkremotely.com/categories/remote-full-stack-programming-jobs",
-            "https://weworkremotely.com/categories/remote-front-end-programming-jobs",
-            "https://weworkremotely.com/categories/remote-back-end-programming-jobs",
+            "https://www.eurotechjobs.com/job_search/category/developer/category/front_end_developer/category/python_developer/category/web_developer",
         ]
 
         job_description_urls = []
         for url in urls:
             response = requests.get(url, headers=headers)
-            href_matches = re.findall(r'<a href="/remote-jobs/(.*?)">', response.text)
+            """
+            <a href="/job_display/253366/Audio_Software_Manager_Jabra_Ballerup">Audio Software Manager</a>
+            https://www.eurotechjobs.com/job_display/253366/Audio_Software_Manager_Jabra_Ballerup
+            """
+            href_matches = re.findall(r'<a href="/job_display/(.*?)">', response.text)
             href_matches = [
-                f"https://weworkremotely.com/remote-jobs/{partial_url}"
+                f"https://www.eurotechjobs.com/job_display/{partial_url}"
                 for partial_url in href_matches
             ]
             job_description_urls.extend(href_matches)
@@ -39,11 +41,14 @@ class ScrapeWeWorkRemotely(IScrapper):
 
     def get_job_title(self, textHTML: str):
         """
-        <h1>
-            Senior Machine Learning Engineer
-        </h1>
+        <div class="jobDisplay">
+        <!-- Job Description start -->
+        <h2 style="text-align: center;">Audio Software Manager</h2>
         """
-        h1_pattern = re.compile(r"<h1>(.*?)<\/h1>", re.DOTALL)
+        h1_pattern = re.compile(
+            r'<div class="jobDisplay">.*<h2 style="text-align: center;">(.*)</h2>',
+            re.DOTALL,
+        )
         match = h1_pattern.search(textHTML)
         if match:
             return match.group(1).strip()
@@ -51,10 +56,10 @@ class ScrapeWeWorkRemotely(IScrapper):
 
     def get_job_description(self, textHTML: str):
         """
-        <div class="listing-container" id="job-listing-show-container">JD</div>
+        <div class="jobDisplay">JD</div>
         """
         pattern = re.compile(
-            r'<div class="listing-container" id="job-listing-show-container">(.*?)<\/div>',
+            r'<div class="jobDisplay">(.*)<\/div>',
             re.DOTALL,
         )
         match = pattern.search(textHTML)
