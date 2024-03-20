@@ -41,9 +41,7 @@ Customizable remote jobs aggregator.
 - https://nodesk.co/remote-jobs/engineering/
 - https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer
 - https://www.remote.io/remote-software-development-jobs?pg=1
-
-
-- https://4dayweek.io/remote-jobs/engineering
+- https://4dayweek.io/remote-jobs/engineering/europe/fully-remote
 - https://builtin.com/jobs/remote/dev-engineering/golang/javascript/python/mid-level/senior?daysSinceUpdated=3
 - https://landing.jobs/jobs?page=1&gr=true&fr=true&c%5B%5D=3&c%5B%5D=1&c%5B%5D=2&match=all&pd=7&hd=false&t_co=false&t_st=false
 - https://www.pyjobs.com/?remoteLevel[0]=1&remoteLevel[1]=2&date=72&regions[0]=RO
@@ -51,7 +49,11 @@ Customizable remote jobs aggregator.
 - https://berlinstartupjobs.com/skill-areas/javascript/
 - https://berlinstartupjobs.com/skill-areas/python/
 - https://berlinstartupjobs.com/skill-areas/typescript/
+
+
 - https://startup.jobs/?remote=true
+
+
 - https://www.reed.co.uk/jobs/work-from-home-it-jobs?dateCreatedOffSet=lastthreedays
 - https://www.startupjobs.com/
 - https://workinstartups.com/job-board/jobs/developers/
