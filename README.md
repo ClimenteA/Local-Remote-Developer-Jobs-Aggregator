@@ -49,14 +49,11 @@ Customizable remote jobs aggregator.
 - https://berlinstartupjobs.com/skill-areas/javascript/
 - https://berlinstartupjobs.com/skill-areas/python/
 - https://berlinstartupjobs.com/skill-areas/typescript/
-
-
 - https://startup.jobs/?remote=true
-
-
 - https://www.reed.co.uk/jobs/work-from-home-it-jobs?dateCreatedOffSet=lastthreedays
 - https://www.startupjobs.com/
 - https://workinstartups.com/job-board/jobs/developers/
+- TODO:
 - https://www.workatastartup.com/
 
 
