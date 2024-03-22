@@ -1,8 +1,7 @@
 import re
 import requests
 import time
-from apps.rjobs.scrapper.scrapper_interface import IScrapper
-from apps.rjobs.models.job import Job
+from ..scrapper_interface import IScrapper, Job
 from common.logger import log
 
 
