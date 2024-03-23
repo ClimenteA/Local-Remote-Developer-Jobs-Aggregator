@@ -5,9 +5,9 @@ from ..scrapper_interface import IScrapper, Job
 from common.logger import log
 
 
-class ScrapeEuroTechJobs(IScrapper):
+class ScrapeBerlinStartupJobs(IScrapper):
     """
-    Scrapper for: https://eurotechjobs.com
+    Scrapper for: berlinstartupjobs.com
 
     """
 
@@ -18,36 +18,41 @@ class ScrapeEuroTechJobs(IScrapper):
         }
 
         urls = [
-            "https://www.eurotechjobs.com/job_search/category/developer/category/front_end_developer/category/python_developer/category/web_developer",
+            "https://berlinstartupjobs.com/skill-areas/javascript/",
+            "https://berlinstartupjobs.com/skill-areas/python/",
+            "https://berlinstartupjobs.com/skill-areas/typescript/",
         ]
 
         job_description_urls = []
         for url in urls:
+            log.info(f"Getting urls to JD from: {url}")
             response = requests.get(url, headers=headers)
             """
-            <a href="/job_display/253366/Audio_Software_Manager_Jabra_Ballerup">Audio Software Manager</a>
-            https://www.eurotechjobs.com/job_display/253366/Audio_Software_Manager_Jabra_Ballerup
+            <a href="https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/">(Senior) Developer Fullstack (Typescript / Javascript / Node.js)</a>
+            https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/
             """
-            href_matches = re.findall(r'<a href="/job_display/(.*?)">', response.text)
+            href_matches = re.findall(
+                r'<a href="https://berlinstartupjobs.com/engineering/(.*?)">',
+                response.text,
+            )
             href_matches = [
-                f"https://www.eurotechjobs.com/job_display/{partial_url}"
+                f"https://berlinstartupjobs.com/engineering/{partial_url}"
                 for partial_url in href_matches
             ]
             job_description_urls.extend(href_matches)
             time.sleep(0.3)  # trying not to get blocked
+            log.info("Done!")
 
+        log.success("Finished getting urls for JD")
         return job_description_urls
 
     def get_job_title(self, textHTML: str):
         """
-        <div class="jobDisplay">
-        <!-- Job Description start -->
-        <h2 style="text-align: center;">Audio Software Manager</h2>
+        <h1>
+            PHP Laravel Developer
+        </h1>
         """
-        h1_pattern = re.compile(
-            r'<div class="jobDisplay">.*<h2 style="text-align: center;">(.*)</h2>',
-            re.DOTALL,
-        )
+        h1_pattern = re.compile(r"<h1>(.*?)<\/h1>", re.DOTALL)
         match = h1_pattern.search(textHTML)
         if match:
             return match.group(1).strip()
@@ -55,10 +60,10 @@ class ScrapeEuroTechJobs(IScrapper):
 
     def get_job_description(self, textHTML: str):
         """
-        <div class="jobDisplay">JD</div>
+        <div class="bsj-template__content">JD</div>
         """
         pattern = re.compile(
-            r'<div class="jobDisplay">(.*)<\/div>',
+            r'<div class="bsj-template__content">(.*)</div>',
             re.DOTALL,
         )
         match = pattern.search(textHTML)
@@ -76,6 +81,7 @@ class ScrapeEuroTechJobs(IScrapper):
 
             jobs = []
             for job_url in job_description_urls:
+                log.info(f"Getting JD from url: ", job_url)
                 response = requests.get(job_url, headers=headers)
                 job = Job(
                     title=self.get_job_title(response.text),
@@ -84,7 +90,9 @@ class ScrapeEuroTechJobs(IScrapper):
                 )
                 jobs.append(job)
                 time.sleep(0.5)  # trying not to get blocked
+                log.info("Done!")
 
+            log.success("Finished getting JD!")
             return jobs
 
         except Exception as err:

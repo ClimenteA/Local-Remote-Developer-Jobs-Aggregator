@@ -5,10 +5,10 @@ from ..scrapper_interface import IScrapper, Job
 from common.logger import log
 
 
-class ScrapeBerlinStartupJobs(IScrapper):
+class ScrapeEuroTechJobs(IScrapper):
     """
-    Scrapper for: berlinstartupjobs.com
-
+    Scrapper for: https://eurotechjobs.com
+    
     """
 
     def get_job_description_urls(self):
@@ -18,24 +18,19 @@ class ScrapeBerlinStartupJobs(IScrapper):
         }
 
         urls = [
-            "https://berlinstartupjobs.com/skill-areas/javascript/",
-            "https://berlinstartupjobs.com/skill-areas/python/",
-            "https://berlinstartupjobs.com/skill-areas/typescript/",
+            "https://www.eurotechjobs.com/job_search/category/developer/category/front_end_developer/category/python_developer/category/web_developer",
         ]
 
         job_description_urls = []
         for url in urls:
             response = requests.get(url, headers=headers)
             """
-            <a href="https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/">(Senior) Developer Fullstack (Typescript / Javascript / Node.js)</a>
-            https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/
+            <a href="/job_display/253366/Audio_Software_Manager_Jabra_Ballerup">Audio Software Manager</a>
+            https://www.eurotechjobs.com/job_display/253366/Audio_Software_Manager_Jabra_Ballerup
             """
-            href_matches = re.findall(
-                r'<a href="https://berlinstartupjobs.com/engineering/(.*?)">',
-                response.text,
-            )
+            href_matches = re.findall(r'<a href="/job_display/(.*?)">', response.text)
             href_matches = [
-                f"https://berlinstartupjobs.com/engineering/{partial_url}"
+                f"https://www.eurotechjobs.com/job_display/{partial_url}"
                 for partial_url in href_matches
             ]
             job_description_urls.extend(href_matches)
@@ -45,11 +40,14 @@ class ScrapeBerlinStartupJobs(IScrapper):
 
     def get_job_title(self, textHTML: str):
         """
-        <h1>
-            PHP Laravel Developer
-        </h1>
+        <div class="jobDisplay">
+        <!-- Job Description start -->
+        <h2 style="text-align: center;">Audio Software Manager</h2>
         """
-        h1_pattern = re.compile(r"<h1>(.*?)<\/h1>", re.DOTALL)
+        h1_pattern = re.compile(
+            r'<div class="jobDisplay">.*<h2 style="text-align: center;">(.*)</h2>',
+            re.DOTALL,
+        )
         match = h1_pattern.search(textHTML)
         if match:
             return match.group(1).strip()
@@ -57,10 +55,10 @@ class ScrapeBerlinStartupJobs(IScrapper):
 
     def get_job_description(self, textHTML: str):
         """
-        <div class="bsj-template__content">JD</div>
+        <div class="jobDisplay">JD</div>
         """
         pattern = re.compile(
-            r'<div class="bsj-template__content">(.*)</div>',
+            r'<div class="jobDisplay">(.*)<\/div>',
             re.DOTALL,
         )
         match = pattern.search(textHTML)
