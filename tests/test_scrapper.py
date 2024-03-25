@@ -1,4 +1,5 @@
 import unittest
+import json
 from scrapper.berlinstartupjobs.scrapper import ScrapeBerlinStartupJobs
 
 
@@ -10,4 +11,9 @@ class TestScrapper(unittest.TestCase):
     def test_berlin_startup_jobs(self):
         scrapper = ScrapeBerlinStartupJobs()
         data = scrapper.scrape()
-        self.assertIsNotNone(data)
+
+        self.assertIsInstance(data, list)
+        self.assertGreater(len(data), 0)
+
+        with open("jobs.json", "w") as f:
+            f.write(json.dumps(data))

@@ -12,11 +12,6 @@ class ScrapeBerlinStartupJobs(IScrapper):
     """
 
     def get_job_description_urls(self):
-        headers = {
-            "accept": "*/*",
-            "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43",
-        }
-
         urls = [
             "https://berlinstartupjobs.com/skill-areas/javascript/",
             "https://berlinstartupjobs.com/skill-areas/python/",
@@ -26,11 +21,14 @@ class ScrapeBerlinStartupJobs(IScrapper):
         job_description_urls = []
         for url in urls:
             log.info(f"Getting urls to JD from: {url}")
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=self.headers)
             """
             <a href="https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/">(Senior) Developer Fullstack (Typescript / Javascript / Node.js)</a>
             https://berlinstartupjobs.com/engineering/senior-developer-fullstack-typescript-javascript-node-js-m-f-d-datatroniq/
             """
+
+            raise Exception(response.text)
+
             href_matches = re.findall(
                 r'<a href="https://berlinstartupjobs.com/engineering/(.*?)">',
                 response.text,
@@ -43,7 +41,7 @@ class ScrapeBerlinStartupJobs(IScrapper):
             time.sleep(0.3)  # trying not to get blocked
             log.info("Done!")
 
-        log.success("Finished getting urls for JD")
+        log.success(f"Finished getting urls for JD Urls: {job_description_urls}")
         return job_description_urls
 
     def get_job_title(self, textHTML: str):
@@ -75,14 +73,10 @@ class ScrapeBerlinStartupJobs(IScrapper):
         try:
             job_description_urls = self.get_job_description_urls()
 
-            headers = {
-                "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43",
-            }
-
             jobs = []
             for job_url in job_description_urls:
-                log.info(f"Getting JD from url: ", job_url)
-                response = requests.get(job_url, headers=headers)
+                log.info("Getting JD from url: ", job_url)
+                response = requests.get(job_url, headers=self.headers)
                 job = Job(
                     title=self.get_job_title(response.text),
                     description=self.get_job_description(response.text),
@@ -93,7 +87,7 @@ class ScrapeBerlinStartupJobs(IScrapper):
                 log.info("Done!")
 
             log.success("Finished getting JD!")
-            return jobs
+            return [job.as_dict() for job in jobs]
 
         except Exception as err:
             log.exception(err)
