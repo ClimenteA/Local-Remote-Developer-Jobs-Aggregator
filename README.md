@@ -17,11 +17,16 @@ Customizable remote jobs aggregator.
 
 ### Remote websites
 
-- https://remotive.com
-- https://remoteok.com
+With cookies:
+
 - https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/it---telecom/sort-publish
 - https://www.bestjobs.eu/ro/locuri-de-munca/it-telecomunicatii/middle-2-5-ani,senior-5-10-ani/remote/recent
+
+
+- https://remotive.com
+- https://remoteok.com
 - https://vuejobs.com/jobs
+
 - https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true
 - https://www.remotepython.com/jobs/?q=python - mostly US jobs
 - https://devjob.ro/en/jobs/Python/remote

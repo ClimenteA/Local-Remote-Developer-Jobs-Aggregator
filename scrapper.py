@@ -1,97 +1,150 @@
-import asyncio
 import json
-from playwright.async_api import async_playwright, Page
+from bs4 import BeautifulSoup
+from playwright.sync_api import sync_playwright, Page
 
 
 def save_jobs(name: str, jobs: list[dict]):
-    with open(f"{name}.json", "w") as f:
+    with open(f"./raw_jobs/{name}.json", "w") as f:
         f.write(json.dumps(jobs))
     return name
 
 
-async def get_remotive_jobs(page: Page):
+def get_remotive_jobs(page: Page):
     base_urls = [
         "https://remotive.com/remote-jobs/software-dev?query=Python",
         "https://remotive.com/remote-jobs/software-dev?query=Javascript",
         "https://remotive.com/remote-jobs/software-dev?query=Golang",
     ]
 
+    jobs = []
+    common_url = "/remote-jobs/software-dev"
     for base_url in base_urls:
-        await page.goto(base_url, wait_until="domcontentloaded")
+        page.goto(base_url, wait_until="domcontentloaded")
 
-        job_cards = await page.locator("css=.job-tile-title").all()
+        html_doc = page.content()
+        soup = BeautifulSoup(html_doc, "html.parser")
 
-        jobs = []
-        for card in job_cards:
-            href = await card.locator("css=a").get_attribute("href")
-            job_title = await card.locator("css=a").inner_text()
-            job_url = "https://remotive.com" + href
+        for link in soup.find_all("a"):
+            job_url = link.get("href")
+
+            if job_url is None:
+                continue
+
+            if not job_url.startswith(common_url):
+                continue
+
+            if not len(job_url) > len(common_url):
+                continue
+
+            spans = link.find_all("span")
+
+            if len(spans) == 0:
+                continue
+
+            job_url = "https://remotive.com" + job_url
+            job_title = spans[0].get_text()
             jobs.append({"title": job_title, "url": job_url, "source": base_url})
 
     return save_jobs("remotive", jobs)
 
 
-async def get_remoteok_jobs(page: Page):
+def get_remoteok_jobs(page: Page):
     base_urls = [
         "https://remoteok.com/remote-python-jobs?order_by=date",
         "https://remoteok.com/remote-javascript-jobs?order_by=date",
         "https://remoteok.com/remote-golang-jobs?order_by=date",
     ]
 
+    jobs = []
+    common_url = "/remote-jobs"
     for base_url in base_urls:
-        await page.goto(base_url, wait_until="domcontentloaded")
+        page.goto(base_url, wait_until="domcontentloaded")
 
-        job_cards = await page.locator(
-            "css=.company.position.company_and_position"  # error here
-        ).all()
+        html_doc = page.content()
+        soup = BeautifulSoup(html_doc, "html.parser")
 
-        jobs = []
-        for card in job_cards:
-            href = await card.locator("css=a").get_attribute("href")
-            job_title = await card.locator("css=a").inner_text()
-            job_url = "https://remoteok.com" + href
+        for link in soup.find_all("a"):
+            job_url = link.get("href")
+
+            if job_url is None:
+                continue
+
+            if not job_url.startswith(common_url + "/"):
+                continue
+
+            h2s = link.find_all("h2")
+
+            if len(h2s) == 0:
+                continue
+
+            job_title = h2s[0].get_text()
+            job_url = "https://remoteok.com" + job_url
+
             jobs.append({"title": job_title, "url": job_url, "source": base_url})
 
-    return save_jobs("remotive", jobs)
+    return save_jobs("remoteok", jobs)
 
 
-async def get_ejobs_jobs(page: Page):
-    base_urls = [
-        "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/it---telecom/sort-publish",
-    ]
+def get_ejobs_jobs(page: Page):
+    """
+    "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/it---telecom/sort-publish",
+    """
+    # not scrapable
 
+
+def get_vuejobs_jobs(page: Page):
+    base_urls = ["https://vuejobs.com/jobs"]
+
+    jobs = []
+    common_url = "/jobs"
     for base_url in base_urls:
-        await page.goto(base_url, wait_until="domcontentloaded")
+        page.goto(base_url, wait_until="domcontentloaded")
 
-        job_cards = await page.locator("css=.JCContentMiddle").all()
+        page.locator("css=#headlessui-switch-13").click()
+        page.wait_for_load_state("domcontentloaded")
 
-        jobs = []
-        for card in job_cards:
-            href = await card.locator("css=a").get_attribute("href")
-            job_title = await card.locator("css=a").inner_text()
-            job_url = "https://www.ejobs.ro" + href
+        html_doc = page.content()
+        soup = BeautifulSoup(html_doc, "html.parser")
+
+        for link in soup.find_all("a"):
+            job_url = link.get("href")
+
+            if job_url is None:
+                continue
+
+            if not job_url.startswith(common_url + "/"):
+                continue
+
+            titles = link.find_all("div.font-display.text-lg.leading-tight.font-bold")
+
+            if len(titles) == 0:
+                continue
+
+            job_title = titles[0].get_text()
+            job_url = "https://vuejobs.com/jobs" + job_url
+
             jobs.append({"title": job_title, "url": job_url, "source": base_url})
 
-    return save_jobs("ejobs", jobs)
+    return save_jobs("vuejobs", jobs)
 
 
 JOB_FUNCS = [
-    get_remotive_jobs,
-    get_remoteok_jobs,
-    get_ejobs_jobs,
+    # get_remotive_jobs,
+    # get_remoteok_jobs,
+    get_vuejobs_jobs,
 ]
 
 
-async def main(job_funcs: list[callable]):
-    async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
+def main(job_funcs: list[callable]):
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=False)
+        page = browser.new_page()
 
         for func in job_funcs:
-            await func(page)
+            func(page)
 
-        await browser.close()
+        browser.close()
 
 
 if __name__ == "__main__":
-    asyncio.run(main(JOB_FUNCS))
+    main(JOB_FUNCS)
