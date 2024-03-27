@@ -98,10 +98,22 @@ def get_vuejobs_jobs(page: Page):
     jobs = []
     common_url = "/jobs"
     for base_url in base_urls:
-        page.goto(base_url, wait_until="")
+        print("loading page")
+        page.goto(base_url, wait_until="domcontentloaded")
 
-        page.locator("css=#headlessui-switch-13").click()
-        page.wait_for_load_state("domcontentloaded")
+        print("page loaded")
+        # selector="css=#headlessui-switch-49"
+        elem = page.get_by_label("Remote", exact=True)
+
+        print("located:", elem.text_content, elem.is_checked())
+
+        elem.check()
+
+        print("located:", elem.text_content, elem.is_checked())
+
+        print("checked, waiting to load")
+        page.wait_for_load_state("networkidle")
+        print("done")
 
         html_doc = page.content()
         soup = BeautifulSoup(html_doc, "html.parser")
