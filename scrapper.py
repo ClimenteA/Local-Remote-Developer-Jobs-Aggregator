@@ -98,7 +98,7 @@ def get_vuejobs_jobs(page: Page):
     jobs = []
     common_url = "/jobs"
     for base_url in base_urls:
-        page.goto(base_url, wait_until="domcontentloaded")
+        page.goto(base_url, wait_until="")
 
         page.locator("css=#headlessui-switch-13").click()
         page.wait_for_load_state("domcontentloaded")
