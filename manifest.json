@@ -1,0 +1,28 @@
+{
+    "name": "MyJobsTracker",
+    "version": "0.0.1",
+    "description": "keep track of jobs",
+    "manifest_version": 3,
+    "author": "Alin Climente",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "MyJobsTracker"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "content_scripts": [
+        {
+            "run_at": "document_end",
+            "matches": [
+                "https://vuejobs.com/*",
+                "https://reactjobs.io/*",
+                "https://www.ejobs.ro/*"
+            ],
+            "js": [
+                "content-script.js"
+            ]
+        }
+    ]
+}
