@@ -20,7 +20,9 @@
                 "https://reactjobs.io/*",
                 "https://www.ejobs.ro/*",
                 "https://www.bestjobs.eu/ro/locuri-de-munca/*",
-                "https://jsjobbs.com/jobs*"
+                "https://jsjobbs.com/jobs*",
+                "https://remotive.com/*",
+                "https://remoteok.com/*"
             ],
             "js": [
                 "content-script.js"

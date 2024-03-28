@@ -85,8 +85,8 @@ async function getJsJobbsJobs() {
         "credentials": "include"
     }
 
-    let resp = await fetch("https://jsjobbs.com/api/jobs/published?pageNum=1&pageSize=100", fetchOptions)
-    let data = await resp.json()
+    const resp = await fetch("https://jsjobbs.com/api/jobs/published?pageNum=1&pageSize=100", fetchOptions)
+    const data = await resp.json()
 
     const jobs = []
     for (const job of data.jobs) {
@@ -102,12 +102,56 @@ async function getJsJobbsJobs() {
 }
 
 
+async function getRemotiveJobs() {
+
+    let resp = await fetch("https://remotive.com/api/remote-jobs?category=software-dev", { "method": "GET" })
+    let data = await resp.json()
+
+    const jobs = []
+    for (const job of data.jobs) {
+        jobs.push({
+            url: job.url,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
+
+async function getRemoteOkJobs() {
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+
+        if (link.getAttribute("href").startsWith("/remote-jobs/")) {
+
+            const title = link.querySelector("h2")
+            if (!title) continue
+
+            data.push({
+                url: link.href,
+                title: title.textContent,
+                source: document.location.host
+            })
+        }
+    }
+
+    return data
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
     "www.bestjobs.eu": getBestJobsJobs,
-    "jsjobbs.com": getJsJobbsJobs
+    "jsjobbs.com": getJsJobbsJobs,
+    "remotive.com": getRemotiveJobs,
+    "remotive.com": getRemotiveJobs,
+    "remoteok.com": getRemoteOkJobs
 }
 
 
