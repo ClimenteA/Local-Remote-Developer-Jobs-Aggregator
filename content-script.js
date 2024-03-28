@@ -384,6 +384,28 @@ async function getNoDeskJobs() {
 }
 
 
+async function getEuroTechJobsJobs() {
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href").startsWith("/job_display/")) {
+
+            const title = link.textContent.replaceAll("\n", "").trim()
+            if (!title) continue
+
+            data.push({
+                url: link.href,
+                title: title,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return data
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -398,7 +420,8 @@ const mapper = {
     "remote.co": getRemoteCoJobs,
     "weworkremotely.com": getWeWorkRemotelyJobs,
     "www.workingnomads.com": getWorkingNomadsJobs,
-    "nodesk.co": getNoDeskJobs
+    "nodesk.co": getNoDeskJobs,
+    "www.eurotechjobs.com": getEuroTechJobsJobs
 }
 
 
