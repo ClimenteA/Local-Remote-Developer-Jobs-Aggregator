@@ -248,6 +248,33 @@ async function getEuRemoteJobsJobs() {
 }
 
 
+
+
+async function getRemoteCoJobs() {
+
+    const links = document.querySelectorAll("a.card.m-0.border-left-0.border-right-0.border-top-0.border-bottom")
+
+    const data = []
+    for (const link of links) {
+
+        if (link.getAttribute("href").startsWith("/job/")) {
+
+            const title = link.querySelector("span")
+            if (!title) continue
+
+            data.push({
+                url: link.href,
+                title: title.textContent,
+                source: document.location.host
+            })
+        }
+    }
+
+    return data
+}
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
@@ -257,7 +284,8 @@ const mapper = {
     "remoteok.com": getRemoteOkJobs,
     "reactjobs.io": getReactJobsJobs,
     "devjob.ro": getDevJobJobs,
-    "euremotejobs.com": getEuRemoteJobsJobs
+    "euremotejobs.com": getEuRemoteJobsJobs,
+    "remote.co": getRemoteCoJobs
 }
 
 
