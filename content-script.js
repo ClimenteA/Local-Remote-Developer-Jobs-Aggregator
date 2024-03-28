@@ -191,6 +191,62 @@ async function getDevJobJobs() {
 }
 
 
+async function getEuRemoteJobsJobs() {
+
+    const headers = {
+        "accept": "*/*",
+        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.74 Safari/537.36 Edg/79.0.309.43"
+    }
+
+    const data = {
+        "lang": "",
+        "search_categories[]": "engineering",
+        "search_keywords": "",
+        "search_location": "",
+        "per_page": "12",
+        "orderby": "featured",
+        "order": "DESC",
+        "show_pagination": "false"
+    }
+
+    const url = "https://euremotejobs.com/jm-ajax/get_listings/"
+
+    const titleRegex = /data-title=\"(.*?)\"/g
+    const urlRegex = /data-href=\"(.*?)\"/g
+
+    const jobs = []
+    for (let page = 1; page <= 3; page++) {
+        data["page"] = String(page)
+
+        const response = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: new URLSearchParams(data)
+        });
+
+        const responseData = await response.json()
+
+        const titleMatches = [...responseData.html.matchAll(titleRegex)]
+        const urlMatches = [...responseData.html.matchAll(urlRegex)]
+
+        if (titleMatches.length == 0) continue
+        if (urlMatches.length == 0) continue
+
+        for (let i = 0; titleMatches.length > i; i++) {
+            const title = titleMatches[i][1]
+            const url = urlMatches[i][1]
+
+            jobs.push({
+                url: url,
+                title: title,
+                source: document.location.host
+            })
+        }
+    }
+
+    return jobs
+}
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -200,7 +256,8 @@ const mapper = {
     "remotive.com": getRemotiveJobs,
     "remoteok.com": getRemoteOkJobs,
     "reactjobs.io": getReactJobsJobs,
-    "devjob.ro": getDevJobJobs
+    "devjob.ro": getDevJobJobs,
+    "euremotejobs.com": getEuRemoteJobsJobs
 }
 
 

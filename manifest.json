@@ -24,7 +24,8 @@
                 "https://remotive.com/*",
                 "https://remoteok.com/*",
                 "https://reactjobs.io/*",
-                "https://devjob.ro/*"
+                "https://devjob.ro/*",
+                "https://euremotejobs.com/*"
             ],
             "js": [
                 "content-script.js"
