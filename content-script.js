@@ -426,6 +426,46 @@ async function getRemoteIoJobs() {
 }
 
 
+async function get4dayweekJobs() {
+
+    const response = await fetch("https://4dayweek.io/data/jobs/list.json?filter=engineering&location=europe&remote_option=fully-remote&limit=100", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin"
+        },
+        "referrerPolicy": "no-referrer",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    })
+
+    const data = await response.json()
+
+    const jobs = []
+    for (const job of data) {
+
+        const jobUrl = "https://4dayweek.io" + job.url
+
+        jobs.push({
+            url: jobUrl,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -442,7 +482,8 @@ const mapper = {
     "www.workingnomads.com": getWorkingNomadsJobs,
     "nodesk.co": getNoDeskJobs,
     "www.eurotechjobs.com": getEuroTechJobsJobs,
-    "www.remote.io": getRemoteIoJobs
+    "www.remote.io": getRemoteIoJobs,
+    "4dayweek.io": get4dayweekJobs
 }
 
 

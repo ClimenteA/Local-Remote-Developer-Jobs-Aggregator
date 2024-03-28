@@ -31,7 +31,8 @@
                 "https://www.workingnomads.com/*",
                 "https://nodesk.co/*",
                 "https://www.eurotechjobs.com/*",
-                "https://www.remote.io/*"
+                "https://www.remote.io/*",
+                "https://4dayweek.io/*"
             ],
             "js": [
                 "content-script.js"
