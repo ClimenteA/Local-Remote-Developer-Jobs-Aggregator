@@ -33,7 +33,8 @@
                 "https://www.eurotechjobs.com/*",
                 "https://www.remote.io/*",
                 "https://4dayweek.io/*",
-                "https://builtin.com/*"
+                "https://builtin.com/*",
+                "https://landing.jobs/*"
             ],
             "js": [
                 "content-script.js"

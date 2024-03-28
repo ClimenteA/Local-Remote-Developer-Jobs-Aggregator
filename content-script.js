@@ -469,10 +469,6 @@ async function get4dayweekJobs() {
 
 async function getBuiltinJobs() {
 
-    `
-    <a id="job-card-alias" href="/job/senior-software-engineer-identity-and-access-management-trust/2416047" target="_blank" class="hover-underline link-visited-color">Senior Software Engineer - Identity and Access Management, Trust</a>
-    `
-
     const data = []
     for (const link of document.querySelectorAll("a")) {
         if (link.getAttribute("href").startsWith("/job/")) {
@@ -493,6 +489,48 @@ async function getBuiltinJobs() {
 }
 
 
+async function getLandingJobsJobs() {
+
+    const response = await fetch("https://landing.jobs/jobs/search.json?page=1&gr=true&fr=true&c%5B%5D=1&c%5B%5D=2&c%5B%5D=3&match=all&pd=7&hd=false&t_co=false&t_st=false", {
+        "headers": {
+            "accept": "application/json, text/javascript, */*; q=0.01",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "x-csrf-token": "Gl2rqQe1804mTSnl7oaju6bGvN8K7v1LbNDRpUEKUt8qgmI/8qCdDZJvqhal5dLFpLOsRkmUnrxm+XeBoND0gg==",
+            "x-requested-with": "XMLHttpRequest"
+        },
+        "referrer": "https://landing.jobs/jobs?page=1&gr=true&fr=true&c%5B%5D=1&c%5B%5D=2&c%5B%5D=3&match=all&pd=7&hd=false&t_co=false&t_st=false",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    })
+
+    const data = await response.json()
+
+    const jobs = []
+    for (const job of data.offers) {
+
+        if (!job.full_remote) continue
+
+        jobs.push({
+            url: job.url,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
 
 
 const mapper = {
@@ -512,11 +550,12 @@ const mapper = {
     "www.eurotechjobs.com": getEuroTechJobsJobs,
     "www.remote.io": getRemoteIoJobs,
     "4dayweek.io": get4dayweekJobs,
-    "builtin.com": getBuiltinJobs
+    "builtin.com": getBuiltinJobs,
+    "landing.jobs": getLandingJobsJobs
 }
 
 
 
 mapper[document.location.host]().then(results => {
-    console.log(results)
+    console.log("Found jobs:", results)
 })
