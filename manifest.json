@@ -35,7 +35,8 @@
                 "https://4dayweek.io/*",
                 "https://builtin.com/*",
                 "https://landing.jobs/*",
-                "https://www.pyjobs.com/*"
+                "https://www.pyjobs.com/*",
+                "https://remote.works-hub.com/*"
             ],
             "js": [
                 "content-script.js"

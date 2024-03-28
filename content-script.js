@@ -556,6 +556,10 @@ async function getPyJobsJobs() {
 }
 
 
+async function getRemoteWorksHubJobs() {
+    // WIP
+}
+
 
 
 const mapper = {
@@ -577,7 +581,8 @@ const mapper = {
     "4dayweek.io": get4dayweekJobs,
     "builtin.com": getBuiltinJobs,
     "landing.jobs": getLandingJobsJobs,
-    "www.pyjobs.com": getPyJobsJobs
+    "www.pyjobs.com": getPyJobsJobs,
+    "remote.works-hub.com": getRemoteWorksHubJobs
 }
 
 
