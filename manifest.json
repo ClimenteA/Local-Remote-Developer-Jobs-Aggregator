@@ -23,7 +23,8 @@
                 "https://jsjobbs.com/jobs*",
                 "https://remotive.com/*",
                 "https://remoteok.com/*",
-                "https://reactjobs.io/*"
+                "https://reactjobs.io/*",
+                "https://devjob.ro/*"
             ],
             "js": [
                 "content-script.js"

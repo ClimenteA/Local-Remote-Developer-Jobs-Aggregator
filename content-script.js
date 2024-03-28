@@ -166,6 +166,32 @@ async function getReactJobsJobs() {
 }
 
 
+
+async function getDevJobJobs() {
+
+    let resp = await fetch("https://devjob.ro/api/jobsLight", { "method": "GET" })
+    let data = await resp.json()
+
+    const jobs = []
+    for (const job of data) {
+
+        if (!job.isFullRemote) continue
+
+        const jobUrl = "https://devjob.ro/jobs/" + job.jobUrl
+
+        jobs.push({
+            url: jobUrl,
+            title: job.name,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
@@ -174,6 +200,7 @@ const mapper = {
     "remotive.com": getRemotiveJobs,
     "remoteok.com": getRemoteOkJobs,
     "reactjobs.io": getReactJobsJobs,
+    "devjob.ro": getDevJobJobs
 }
 
 
