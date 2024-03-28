@@ -27,7 +27,8 @@
                 "https://devjob.ro/*",
                 "https://euremotejobs.com/*",
                 "https://remote.co/*",
-                "https://weworkremotely.com/categories/*"
+                "https://weworkremotely.com/categories/*",
+                "https://www.workingnomads.com/*"
             ],
             "js": [
                 "content-script.js"

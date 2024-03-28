@@ -297,6 +297,51 @@ async function getWeWorkRemotelyJobs() {
 }
 
 
+async function getWorkingNomadsJobs() {
+
+    const response = await fetch("https://www.workingnomads.com/jobsapi/_search?track_total_hits=true&sort=premium:desc,pub_date:desc&_source=company,company_slug,category_name,locations,location_base,salary_range,salary_range_short,number_of_applicants,instructions,id,external_id,slug,title,pub_date,tags,source,apply_option,apply_email,apply_url,premium,expired,use_ats,position_type&size=100&from=0&q=(category_name.raw:%22Development%22)%20AND%20(locations:%22Anywhere%22%20OR%20locations:%22EU%22%20OR%20locations:%22Europe%22%20OR%20locations:%22EMEA%22%20OR%20locations:%22Spain%22%20OR%20locations:%22Portugal%22%20OR%20locations:%22Netherlands%22%20OR%20locations:%22Poland%22%20OR%20locations:%22Germany%22%20OR%20locations:%22Belgium%22%20OR%20locations:%22Czechia%22%20OR%20locations:%22Bulgaria%22%20OR%20locations:%22Ireland%22%20OR%20locations:%22Italy%22%20OR%20locations:%22Romania%22%20OR%20locations:%22Slovakia%22%20OR%20locations:%22Switzerland%22%20OR%20locations:%22Ukraine%22)", {
+        "headers": {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin"
+        },
+        "referrer": "https://www.workingnomads.com/jobs?category=development&location=anywhere,europe",
+        "referrerPolicy": "same-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    })
+
+    const data = await response.json()
+
+    const jobs = []
+    for (const job of data.hits.hits) {
+
+        if (!job._source.slug) continue
+
+        const jobUrl = "https://www.workingnomads.com/jobs/" + job._source.slug
+
+        jobs.push({
+            url: jobUrl,
+            title: job._source.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
@@ -308,7 +353,8 @@ const mapper = {
     "devjob.ro": getDevJobJobs,
     "euremotejobs.com": getEuRemoteJobsJobs,
     "remote.co": getRemoteCoJobs,
-    "weworkremotely.com": getWeWorkRemotelyJobs
+    "weworkremotely.com": getWeWorkRemotelyJobs,
+    "www.workingnomads.com": getWorkingNomadsJobs
 }
 
 
