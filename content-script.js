@@ -533,6 +533,31 @@ async function getLandingJobsJobs() {
 }
 
 
+async function getPyJobsJobs() {
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href").startsWith("https://www.pyjobs.com/job/")) {
+
+            const spanTitle = link.querySelectorAll("span")[1]
+            if (!spanTitle) continue
+
+            data.push({
+                url: link.href,
+                title: spanTitle.textContent,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return data
+
+}
+
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
@@ -551,7 +576,8 @@ const mapper = {
     "www.remote.io": getRemoteIoJobs,
     "4dayweek.io": get4dayweekJobs,
     "builtin.com": getBuiltinJobs,
-    "landing.jobs": getLandingJobsJobs
+    "landing.jobs": getLandingJobsJobs,
+    "www.pyjobs.com": getPyJobsJobs
 }
 
 
