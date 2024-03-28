@@ -18,7 +18,9 @@
             "matches": [
                 "https://vuejobs.com/*",
                 "https://reactjobs.io/*",
-                "https://www.ejobs.ro/*"
+                "https://www.ejobs.ro/*",
+                "https://www.bestjobs.eu/ro/locuri-de-munca/*",
+                "https://jsjobbs.com/jobs*"
             ],
             "js": [
                 "content-script.js"

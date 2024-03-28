@@ -1,7 +1,7 @@
 console.log("Loaded:", document.location.host)
 
 
-function getVueJobs() {
+async function getVueJobs() {
 
     const data = []
     const titleSelector = "div.font-display.text-lg.leading-tight.font-bold"
@@ -21,27 +21,23 @@ function getVueJobs() {
 
 }
 
-function getEjobsJobs() {
+async function getEjobsJobs() {
 
-    console.log("Helooooooo NUXT:", window.__NUXT__.pinia.jobs.items.listItems)
+    const textContent = document.documentElement.outerHTML
+    const regex = /id:(\d{7}),title:"(.*?)"/g
 
+    let match
     const data = []
-
-    for (const link of document.querySelectorAll('a')) {
-
-        if (link.getAttribute("href").startsWith("/user/locuri-de-munca/")) {
-
-            const title = link.querySelector("span")
-
-            if (!title) continue
-
-            data.push({
-                url: link.href,
-                title: title.textContent,
-                source: document.location.host
-            })
-
-        }
+    while ((match = regex.exec(textContent)) !== null) {
+        const id = match[1];
+        const title = match[2];
+        const slug = title.toLowerCase().replaceAll(" ", "-")
+        const url = `https://www.ejobs.ro/user/locuri-de-munca/${slug}/${id}`
+        data.push({
+            url: url,
+            title: title,
+            source: document.location.host
+        })
     }
 
     return data
@@ -49,20 +45,73 @@ function getEjobsJobs() {
 }
 
 
+async function getBestJobsJobs() {
 
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href").startsWith("https://www.bestjobs.eu/ro/loc-de-munca/")) {
+            data.push({
+                url: link.href,
+                title: link.querySelector("span").textContent,
+                source: document.location.host
+            })
+        }
+    }
 
+    return data
+}
+
+async function getJsJobbsJobs() {
+
+    const fetchOptions = {
+        "headers": {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "authorization": "Bearer",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin"
+        },
+        "referrer": "https://jsjobbs.com/jobs",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    }
+
+    let resp = await fetch("https://jsjobbs.com/api/jobs/published?pageNum=1&pageSize=100", fetchOptions)
+    let data = await resp.json()
+
+    const jobs = []
+    for (const job of data.jobs) {
+        jobs.push({
+            url: job.applyLinkOrEmail,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
 
 
 
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
+    "www.bestjobs.eu": getBestJobsJobs,
+    "jsjobbs.com": getJsJobbsJobs
 }
 
 
-const results = mapper[document.location.host]()
 
-
-console.log(results)
-
-
+mapper[document.location.host]().then(results => {
+    console.log(results)
+})
