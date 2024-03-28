@@ -341,6 +341,49 @@ async function getWorkingNomadsJobs() {
 }
 
 
+async function getNoDeskJobs() {
+
+    const response = await fetch("https://0586l1sok8-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.9.1)%3B%20Browser%20(lite)%3B%20instantsearch.js%20(4.23.0)%3B%20JS%20Helper%20(3.4.4)&x-algolia-api-key=8dacb58c6f375cba28e19ecf1f03e9e1&x-algolia-application-id=0586L1SOK8", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site"
+        },
+        "referrer": "https://nodesk.co/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": "{\"requests\":[{\"indexName\":\"jobPosts\",\"params\":\"filters=searchFilter%3Aremote-jobs%2Fengineering&hitsPerPage=75&query=&highlightPreTag=__ais-highlight__&highlightPostTag=__%2Fais-highlight__&facets=%5B%22applicantLocationRegions%22%5D&tagFilters=\"}]}",
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit"
+    })
+
+    const data = await response.json()
+
+    const jobs = []
+    for (const job of data.results[0].hits) {
+
+        const jobUrl = "https://nodesk.co" + job.permalink
+
+        jobs.push({
+            url: jobUrl,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -354,7 +397,8 @@ const mapper = {
     "euremotejobs.com": getEuRemoteJobsJobs,
     "remote.co": getRemoteCoJobs,
     "weworkremotely.com": getWeWorkRemotelyJobs,
-    "www.workingnomads.com": getWorkingNomadsJobs
+    "www.workingnomads.com": getWorkingNomadsJobs,
+    "nodesk.co": getNoDeskJobs
 }
 
 

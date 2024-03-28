@@ -28,7 +28,8 @@
                 "https://euremotejobs.com/*",
                 "https://remote.co/*",
                 "https://weworkremotely.com/categories/*",
-                "https://www.workingnomads.com/*"
+                "https://www.workingnomads.com/*",
+                "https://nodesk.co/*"
             ],
             "js": [
                 "content-script.js"
