@@ -467,6 +467,34 @@ async function get4dayweekJobs() {
 }
 
 
+async function getBuiltinJobs() {
+
+    `
+    <a id="job-card-alias" href="/job/senior-software-engineer-identity-and-access-management-trust/2416047" target="_blank" class="hover-underline link-visited-color">Senior Software Engineer - Identity and Access Management, Trust</a>
+    `
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href").startsWith("/job/")) {
+
+            if (link.textContent == "Apply") continue
+
+            data.push({
+                url: link.href,
+                title: link.textContent,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return data
+
+}
+
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobsJobs,
@@ -483,7 +511,8 @@ const mapper = {
     "nodesk.co": getNoDeskJobs,
     "www.eurotechjobs.com": getEuroTechJobsJobs,
     "www.remote.io": getRemoteIoJobs,
-    "4dayweek.io": get4dayweekJobs
+    "4dayweek.io": get4dayweekJobs,
+    "builtin.com": getBuiltinJobs
 }
 
 

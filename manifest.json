@@ -32,7 +32,8 @@
                 "https://nodesk.co/*",
                 "https://www.eurotechjobs.com/*",
                 "https://www.remote.io/*",
-                "https://4dayweek.io/*"
+                "https://4dayweek.io/*",
+                "https://builtin.com/*"
             ],
             "js": [
                 "content-script.js"
