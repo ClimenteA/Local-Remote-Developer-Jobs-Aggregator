@@ -143,6 +143,28 @@ async function getRemoteOkJobs() {
 }
 
 
+async function getReactJobsJobs() {
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+
+        if (link.getAttribute("href").startsWith("https://reactjobs.io/react-jobs/")) {
+
+            const title = link.textContent.replaceAll("\n", "").trim()
+            if (title == "View") continue
+
+            data.push({
+                url: link.href,
+                title: title,
+                source: document.location.host
+            })
+        }
+    }
+
+    return data
+
+}
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -150,8 +172,8 @@ const mapper = {
     "www.bestjobs.eu": getBestJobsJobs,
     "jsjobbs.com": getJsJobbsJobs,
     "remotive.com": getRemotiveJobs,
-    "remotive.com": getRemotiveJobs,
-    "remoteok.com": getRemoteOkJobs
+    "remoteok.com": getRemoteOkJobs,
+    "reactjobs.io": getReactJobsJobs,
 }
 
 
