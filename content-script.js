@@ -406,6 +406,26 @@ async function getEuroTechJobsJobs() {
 }
 
 
+async function getRemoteIoJobs() {
+
+    const data = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href").startsWith("/remote-software-development-jobs/")) {
+
+            data.push({
+                url: link.href,
+                title: link.textContent,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return data
+
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -421,7 +441,8 @@ const mapper = {
     "weworkremotely.com": getWeWorkRemotelyJobs,
     "www.workingnomads.com": getWorkingNomadsJobs,
     "nodesk.co": getNoDeskJobs,
-    "www.eurotechjobs.com": getEuroTechJobsJobs
+    "www.eurotechjobs.com": getEuroTechJobsJobs,
+    "www.remote.io": getRemoteIoJobs
 }
 
 
