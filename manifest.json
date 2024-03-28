@@ -26,7 +26,8 @@
                 "https://reactjobs.io/*",
                 "https://devjob.ro/*",
                 "https://euremotejobs.com/*",
-                "https://remote.co/*"
+                "https://remote.co/*",
+                "https://weworkremotely.com/categories/*"
             ],
             "js": [
                 "content-script.js"
