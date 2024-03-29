@@ -735,6 +735,50 @@ async function getWorkingInStartupsJobs() {
 
 }
 
+
+
+async function getWorkAtAStartupJobs() {
+
+    const jobs = []
+    const callback = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+            if (mutation.type === "childList") {
+                if (!mutation.addedNodes.length > 0) continue
+
+                for (const link of mutation.addedNodes[0].querySelectorAll("a")) {
+                    if (!link.getAttribute("href")?.startsWith("https://www.workatastartup.com/jobs/")) continue
+                    if (link.textContent == "View Job") continue
+
+                    jobs.push({
+                        url: link.href,
+                        title: link.textContent,
+                        source: document.location.host
+                    })
+                }
+
+                if (jobs.length < 200) window.scrollTo(0, document.body.scrollHeight)
+            }
+        }
+    }
+
+    console.log("Observing mutations...")
+    const observer = new MutationObserver(callback)
+
+    observer.observe(
+        document.querySelector("div.directory-list.list-compact"),
+        { attributes: false, childList: true, subtree: true }
+    )
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log("Disconnecting observer")
+            observer.disconnect()
+            resolve(jobs)
+        }, 15000)
+    })
+}
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -760,7 +804,8 @@ const mapper = {
     "startup.jobs": getStartupJobs,
     "www.reed.co.uk": getReedCoUkJobs,
     "www.startupjobs.com": getStartupComJobs,
-    "workinstartups.com": getWorkingInStartupsJobs
+    "workinstartups.com": getWorkingInStartupsJobs,
+    "www.workatastartup.com": getWorkAtAStartupJobs
 }
 
 

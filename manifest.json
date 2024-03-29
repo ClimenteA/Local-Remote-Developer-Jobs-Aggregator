@@ -41,7 +41,8 @@
                 "https://startup.jobs/*",
                 "https://www.reed.co.uk/*",
                 "https://www.startupjobs.com/jobs*",
-                "https://workinstartups.com/job-board/*"
+                "https://workinstartups.com/job-board/*",
+                "https://www.workatastartup.com/*"
             ],
             "js": [
                 "content-script.js"
