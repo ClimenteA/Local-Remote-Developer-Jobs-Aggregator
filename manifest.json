@@ -38,7 +38,8 @@
                 "https://www.pyjobs.com/*",
                 "https://remote.works-hub.com/*",
                 "https://berlinstartupjobs.com/*",
-                "https://startup.jobs/*"
+                "https://startup.jobs/*",
+                "https://www.reed.co.uk/*"
             ],
             "js": [
                 "content-script.js"

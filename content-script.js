@@ -621,7 +621,7 @@ async function getStartupJobs() {
         },
         "referrer": "https://startup.jobs/",
         "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"query\":\"\",\"attributesToRetrieve\":[\"path\",\"company_slug\",\"company_logo_url\",\"title\",\"company_name\",\"_tags\",\"remote\",\"location\",\"location_html\"],\"hitsPerPage\":100,\"page\":0,\"facets\":[\"commitment\"],\"filters\":\"\",\"tagFilters\":[\"\"],\"facetFilters\":[[\"commitment:Full-Time\",\"commitment:Part-Time\",\"commitment:Internship\",\"commitment:Contractor\"],\"remote:true\"],\"ruleContexts\":[],\"analyticsTags\":[\"frontend\"]}",
+        "body": "{\"query\":\"\",\"attributesToRetrieve\":[\"path\",\"company_slug\",\"company_logo_url\",\"title\",\"company_name\",\"_tags\",\"remote\",\"location\",\"location_html\"],\"hitsPerPage\":100,\"page\":0,\"facets\":[\"commitment\"],\"filters\":\"\",\"tagFilters\":[\"\"],\"facetFilters\":[[\"commitment:Full-Time\",\"commitment:Part-Time\",\"commitment:Contractor\"],\"remote:true\"],\"ruleContexts\":[],\"analyticsTags\":[\"frontend\"]}",
         "method": "POST",
         "mode": "cors",
         "credentials": "omit"
@@ -639,6 +639,26 @@ async function getStartupJobs() {
             title: job.title,
             source: document.location.host
         })
+    }
+
+    return jobs
+
+}
+
+
+async function getReedCoUkJobs() {
+
+    const jobs = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href")?.startsWith("/jobs/") && link.getAttribute("data-element") == "job_title") {
+
+            jobs.push({
+                url: link.href,
+                title: link.textContent,
+                source: document.location.host
+            })
+
+        }
     }
 
     return jobs
@@ -668,8 +688,8 @@ const mapper = {
     "www.pyjobs.com": getPyJobs,
     "remote.works-hub.com": getRemoteWorksHubJobs,
     "berlinstartupjobs.com": getBerlinStartupJobs,
-    "startup.jobs": getStartupJobs
-
+    "startup.jobs": getStartupJobs,
+    "www.reed.co.uk": getReedCoUkJobs
 }
 
 
