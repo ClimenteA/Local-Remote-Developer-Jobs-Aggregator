@@ -37,7 +37,8 @@
                 "https://landing.jobs/*",
                 "https://www.pyjobs.com/*",
                 "https://remote.works-hub.com/*",
-                "https://berlinstartupjobs.com/*"
+                "https://berlinstartupjobs.com/*",
+                "https://startup.jobs/*"
             ],
             "js": [
                 "content-script.js"

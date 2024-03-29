@@ -603,6 +603,48 @@ async function getBerlinStartupJobs() {
 }
 
 
+async function getStartupJobs() {
+
+    const response = await fetch("https://4cqmtmmk73-dsn.algolia.net/1/indexes/Post_production/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.20.0)%3B%20Browser%20(lite)&x-algolia-api-key=17cd9f3c024650820efaa17c39ea2b1d&x-algolia-application-id=4CQMTMMK73", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "content-type": "application/x-www-form-urlencoded",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Linux\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site"
+        },
+        "referrer": "https://startup.jobs/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": "{\"query\":\"\",\"attributesToRetrieve\":[\"path\",\"company_slug\",\"company_logo_url\",\"title\",\"company_name\",\"_tags\",\"remote\",\"location\",\"location_html\"],\"hitsPerPage\":100,\"page\":0,\"facets\":[\"commitment\"],\"filters\":\"\",\"tagFilters\":[\"\"],\"facetFilters\":[[\"commitment:Full-Time\",\"commitment:Part-Time\",\"commitment:Internship\",\"commitment:Contractor\"],\"remote:true\"],\"ruleContexts\":[],\"analyticsTags\":[\"frontend\"]}",
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit"
+    })
+
+    const data = await response.json()
+
+    const jobs = []
+    for (const job of data.hits) {
+
+        if (!job.remote) continue
+
+        jobs.push({
+            url: "https://startup.jobs" + job.path,
+            title: job.title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+
+}
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -626,6 +668,7 @@ const mapper = {
     "www.pyjobs.com": getPyJobs,
     "remote.works-hub.com": getRemoteWorksHubJobs,
     "berlinstartupjobs.com": getBerlinStartupJobs,
+    "startup.jobs": getStartupJobs
 
 }
 
