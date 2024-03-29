@@ -39,7 +39,8 @@
                 "https://remote.works-hub.com/*",
                 "https://berlinstartupjobs.com/*",
                 "https://startup.jobs/*",
-                "https://www.reed.co.uk/*"
+                "https://www.reed.co.uk/*",
+                "https://www.startupjobs.com/jobs*"
             ],
             "js": [
                 "content-script.js"

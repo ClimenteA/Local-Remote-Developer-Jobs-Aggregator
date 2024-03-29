@@ -666,6 +666,52 @@ async function getReedCoUkJobs() {
 }
 
 
+async function getStartupComJobs() {
+
+    const fetchOptions = {
+        "headers": {
+            "accept": "application/json",
+            "accept-language": "en-US,en;q=0.9,ro;q=0.8",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\"Chromium\";v=\"122\", \"Not(A:Brand\";v=\"24\", \"Microsoft Edge\";v=\"122\"",
+            "sec-ch-ua-platform": "\"Linux\"",
+        },
+        "referrer": "https://www.startupjobs.com/jobs?seniority=medior,senior&technologies=python,javascript,go,typescript&form-of-collaboration=freelance,remote",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "method": "GET",
+        "mode": "no-cors",
+        "credentials": "include"
+    }
+
+
+    const jobs = []
+    for (const page of [1, 2, 3]) {
+
+        const url = `https://www.startupjobs.com/api/offers?page=${page}&collaboration%5B%5D=remote&collaboration%5B%5D=freelance&technological-tag%5B%5D=python&technological-tag%5B%5D=javascript&technological-tag%5B%5D=go&technological-tag%5B%5D=typescript&seniority%5B%5D=medior&seniority%5B%5D=senior&disable-reorder=1`
+
+        const response = await fetch(url, fetchOptions)
+        const data = await response.json()
+
+        for (const job of data.resultSet) {
+
+            if (!job.isRemote) continue
+
+            jobs.push({
+                url: "https://www.startupjobs.com" + job.url,
+                title: job.name,
+                source: document.location.host
+            })
+        }
+
+        if (page == data.paginator.max) break
+    }
+
+    return jobs
+
+}
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -689,7 +735,8 @@ const mapper = {
     "remote.works-hub.com": getRemoteWorksHubJobs,
     "berlinstartupjobs.com": getBerlinStartupJobs,
     "startup.jobs": getStartupJobs,
-    "www.reed.co.uk": getReedCoUkJobs
+    "www.reed.co.uk": getReedCoUkJobs,
+    "www.startupjobs.com": getStartupComJobs
 }
 
 
