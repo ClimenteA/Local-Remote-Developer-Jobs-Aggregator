@@ -712,6 +712,29 @@ async function getStartupComJobs() {
 }
 
 
+
+async function getWorkingInStartupsJobs() {
+
+    const jobs = []
+    for (const link of document.querySelectorAll("a")) {
+        if (!link.getAttribute("href")?.startsWith("https://workinstartups.com/job-board/job/")) continue
+
+        const remoteBadge = link.querySelector("span.job-listing-category.badge.badge-pill.badge-primary")
+
+        if (remoteBadge?.textContent.trim() == "Remote") {
+            jobs.push({
+                url: link.href,
+                title: link.getAttribute("title"),
+                source: document.location.host
+            })
+        }
+
+    }
+
+    return jobs
+
+}
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -736,7 +759,8 @@ const mapper = {
     "berlinstartupjobs.com": getBerlinStartupJobs,
     "startup.jobs": getStartupJobs,
     "www.reed.co.uk": getReedCoUkJobs,
-    "www.startupjobs.com": getStartupComJobs
+    "www.startupjobs.com": getStartupComJobs,
+    "workinstartups.com": getWorkingInStartupsJobs
 }
 
 

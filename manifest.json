@@ -40,7 +40,8 @@
                 "https://berlinstartupjobs.com/*",
                 "https://startup.jobs/*",
                 "https://www.reed.co.uk/*",
-                "https://www.startupjobs.com/jobs*"
+                "https://www.startupjobs.com/jobs*",
+                "https://workinstartups.com/job-board/*"
             ],
             "js": [
                 "content-script.js"
