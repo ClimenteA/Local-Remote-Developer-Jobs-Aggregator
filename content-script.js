@@ -557,7 +557,29 @@ async function getPyJobsJobs() {
 
 
 async function getRemoteWorksHubJobs() {
-    // WIP
+
+    const loadMoreBtn = document.querySelector("a.chakra-button.css-1lhclv2")
+
+    if (loadMoreBtn) {
+        loadMoreBtn.scrollIntoView()
+        loadMoreBtn.click()
+    }
+
+    const jobs = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href")?.startsWith("/jobs/")) {
+
+            jobs.push({
+                url: link.href,
+                title: link.querySelector("h3").textContent,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return jobs
+
 }
 
 
