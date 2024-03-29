@@ -21,7 +21,7 @@ async function getVueJobs() {
 
 }
 
-async function getEjobsJobs() {
+async function getEjobs() {
 
     const textContent = document.documentElement.outerHTML
     const regex = /id:(\d{7}),title:"(.*?)"/g
@@ -45,7 +45,7 @@ async function getEjobsJobs() {
 }
 
 
-async function getBestJobsJobs() {
+async function getBestJobs() {
 
     const data = []
     for (const link of document.querySelectorAll("a")) {
@@ -143,7 +143,7 @@ async function getRemoteOkJobs() {
 }
 
 
-async function getReactJobsJobs() {
+async function getReactJobs() {
 
     const data = []
     for (const link of document.querySelectorAll("a")) {
@@ -191,7 +191,7 @@ async function getDevJobJobs() {
 }
 
 
-async function getEuRemoteJobsJobs() {
+async function getEuRemoteJobs() {
 
     const headers = {
         "accept": "*/*",
@@ -384,7 +384,7 @@ async function getNoDeskJobs() {
 }
 
 
-async function getEuroTechJobsJobs() {
+async function getEuroTechJobs() {
 
     const data = []
     for (const link of document.querySelectorAll("a")) {
@@ -489,7 +489,7 @@ async function getBuiltinJobs() {
 }
 
 
-async function getLandingJobsJobs() {
+async function getLandingJobs() {
 
     const response = await fetch("https://landing.jobs/jobs/search.json?page=1&gr=true&fr=true&c%5B%5D=1&c%5B%5D=2&c%5B%5D=3&match=all&pd=7&hd=false&t_co=false&t_st=false", {
         "headers": {
@@ -533,7 +533,7 @@ async function getLandingJobsJobs() {
 }
 
 
-async function getPyJobsJobs() {
+async function getPyJobs() {
 
     const data = []
     for (const link of document.querySelectorAll("a")) {
@@ -583,28 +583,50 @@ async function getRemoteWorksHubJobs() {
 }
 
 
+async function getBerlinStartupJobs() {
+
+    const jobs = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("href")?.startsWith("https://berlinstartupjobs.com/engineering/")) {
+
+            jobs.push({
+                url: link.href,
+                title: link.textContent,
+                source: document.location.host
+            })
+
+        }
+    }
+
+    return jobs
+
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
-    "www.ejobs.ro": getEjobsJobs,
-    "www.bestjobs.eu": getBestJobsJobs,
+    "www.ejobs.ro": getEjobs,
+    "www.bestjobs.eu": getBestJobs,
     "jsjobbs.com": getJsJobbsJobs,
     "remotive.com": getRemotiveJobs,
     "remoteok.com": getRemoteOkJobs,
-    "reactjobs.io": getReactJobsJobs,
+    "reactjobs.io": getReactJobs,
     "devjob.ro": getDevJobJobs,
-    "euremotejobs.com": getEuRemoteJobsJobs,
+    "euremotejobs.com": getEuRemoteJobs,
     "remote.co": getRemoteCoJobs,
     "weworkremotely.com": getWeWorkRemotelyJobs,
     "www.workingnomads.com": getWorkingNomadsJobs,
     "nodesk.co": getNoDeskJobs,
-    "www.eurotechjobs.com": getEuroTechJobsJobs,
+    "www.eurotechjobs.com": getEuroTechJobs,
     "www.remote.io": getRemoteIoJobs,
     "4dayweek.io": get4dayweekJobs,
     "builtin.com": getBuiltinJobs,
-    "landing.jobs": getLandingJobsJobs,
-    "www.pyjobs.com": getPyJobsJobs,
-    "remote.works-hub.com": getRemoteWorksHubJobs
+    "landing.jobs": getLandingJobs,
+    "www.pyjobs.com": getPyJobs,
+    "remote.works-hub.com": getRemoteWorksHubJobs,
+    "berlinstartupjobs.com": getBerlinStartupJobs,
+
 }
 
 

@@ -36,7 +36,8 @@
                 "https://builtin.com/*",
                 "https://landing.jobs/*",
                 "https://www.pyjobs.com/*",
-                "https://remote.works-hub.com/*"
+                "https://remote.works-hub.com/*",
+                "https://berlinstartupjobs.com/*"
             ],
             "js": [
                 "content-script.js"
