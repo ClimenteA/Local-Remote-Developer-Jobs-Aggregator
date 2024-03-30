@@ -42,7 +42,8 @@
                 "https://www.reed.co.uk/*",
                 "https://www.startupjobs.com/jobs*",
                 "https://workinstartups.com/job-board/*",
-                "https://www.workatastartup.com/*"
+                "https://www.workatastartup.com/*",
+                "https://justremote.co/*"
             ],
             "js": [
                 "content-script.js"

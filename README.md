@@ -45,6 +45,14 @@ Customizable remote jobs aggregator.
 - https://www.startupjobs.com/jobs
 - https://workinstartups.com/job-board/jobs/developers?location=remote
 - https://www.workatastartup.com/
+- https://justremote.co/remote-developer-jobs
+
+- https://dynamitejobs.com/remote-jobs
+- https://himalayas.app/jobs/developer?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent
+- https://remoters.net/jobs/software-development/filters?jobs-location=anywhere
+- https://www.totaljobs.com/jobs/it?sort=2&action=sort_publish&postedWithin=3
+- https://www.monster.com/jobs/q-it-jobs?page=3
+- https://www.linkedin.com/jobs
 
 
 

@@ -779,6 +779,50 @@ async function getWorkAtAStartupJobs() {
 }
 
 
+
+async function getJustRemoteJobs() {
+
+
+    const jobs = []
+    const callback = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+            if (mutation.type === "childList") {
+                if (!mutation.addedNodes.length > 0) continue
+
+                for (const link of mutation.addedNodes[0].querySelectorAll("a")) {
+                    if (!link.getAttribute("href")?.startsWith("remote-developer-jobs/")) continue
+
+                    jobs.push({
+                        url: link.href,
+                        title: link.querySelector("h3").textContent,
+                        source: document.location.host
+                    })
+                }
+
+            }
+        }
+    }
+
+    console.log("Observing mutations...")
+    const observer = new MutationObserver(callback)
+
+    observer.observe(
+        document.querySelector("div.job-listings__Right-sc-8ldju0-3.giucRt"),
+        { attributes: false, childList: true, subtree: true }
+    )
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log("Disconnecting observer")
+            observer.disconnect()
+            resolve(jobs)
+        }, 5000)
+    })
+
+}
+
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -805,7 +849,9 @@ const mapper = {
     "www.reed.co.uk": getReedCoUkJobs,
     "www.startupjobs.com": getStartupComJobs,
     "workinstartups.com": getWorkingInStartupsJobs,
-    "www.workatastartup.com": getWorkAtAStartupJobs
+    "www.workatastartup.com": getWorkAtAStartupJobs,
+    "justremote.co": getJustRemoteJobs,
+
 }
 
 
