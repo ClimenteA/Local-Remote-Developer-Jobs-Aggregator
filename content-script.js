@@ -782,7 +782,6 @@ async function getWorkAtAStartupJobs() {
 
 async function getJustRemoteJobs() {
 
-
     const jobs = []
     const callback = (mutationList, observer) => {
         for (const mutation of mutationList) {
@@ -822,6 +821,38 @@ async function getJustRemoteJobs() {
 }
 
 
+function wait(ms) {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res(true)
+        }, ms)
+    })
+}
+
+
+async function getDynamiteJobs() {
+
+    await wait(5000)
+
+    const ul = document.querySelector("[observer-id]")
+    const h2s = ul.querySelectorAll("h2")
+
+    const jobs = []
+    for (const h2 of h2s) {
+        const href = h2.getAttribute("href")
+        if (!href?.startsWith("/company/")) continue
+
+        jobs.push({
+            url: "https://dynamitejobs.com" + href,
+            title: h2.textContent,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+}
+
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -851,6 +882,7 @@ const mapper = {
     "workinstartups.com": getWorkingInStartupsJobs,
     "www.workatastartup.com": getWorkAtAStartupJobs,
     "justremote.co": getJustRemoteJobs,
+    "dynamitejobs.com": getDynamiteJobs
 
 }
 

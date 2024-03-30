@@ -43,7 +43,8 @@
                 "https://www.startupjobs.com/jobs*",
                 "https://workinstartups.com/job-board/*",
                 "https://www.workatastartup.com/*",
-                "https://justremote.co/*"
+                "https://justremote.co/*",
+                "https://dynamitejobs.com/*"
             ],
             "js": [
                 "content-script.js"
