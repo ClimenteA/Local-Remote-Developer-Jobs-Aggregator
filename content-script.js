@@ -876,6 +876,26 @@ async function getHimalayasAppJobs() {
 }
 
 
+async function getRemotersNetJobs() {
+
+    const jobsTable = document.querySelector("table.table.table-striped.table-jobs")
+
+    const jobs = []
+    for (const link of jobsTable.querySelectorAll("td > a")) {
+        if (!link.getAttribute("href")?.startsWith("https://remoters.net/jobs/")) continue
+
+        jobs.push({
+            url: link.href,
+            title: link.textContent,
+            source: document.location.host
+        })
+
+    }
+
+    return jobs
+}
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -905,7 +925,8 @@ const mapper = {
     "www.workatastartup.com": getWorkAtAStartupJobs,
     "justremote.co": getJustRemoteJobs,
     "dynamitejobs.com": getDynamiteJobs,
-    "himalayas.app": getHimalayasAppJobs
+    "himalayas.app": getHimalayasAppJobs,
+    "remoters.net": getRemotersNetJobs
 
 }
 
