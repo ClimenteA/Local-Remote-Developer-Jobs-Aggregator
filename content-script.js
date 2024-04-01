@@ -917,6 +917,39 @@ async function getTotalJobs() {
 }
 
 
+
+async function getLinkedinJobs() {
+
+    console.log("Waiting for linkedin jobs to load...")
+    await wait(20000)
+    console.log("Done waiting for linkedin jobs to load!")
+
+    const jobsContainer = document.querySelector("ul.scaffold-layout__list-container")
+    const items = jobsContainer.querySelectorAll("li[data-occludable-job-id]")
+
+    items[items.length - 1].scrollIntoView({ behavior: "smooth" })
+    await wait(3000)
+
+    const jobs = []
+    for (const item of items) {
+
+        item.scrollIntoView({ behavior: "smooth" })
+        await wait(1000)
+
+        const jobId = item.getAttribute("data-occludable-job-id")
+        const title = item.querySelector("strong").textContent
+
+        jobs.push({
+            url: "https://www.linkedin.com/jobs/view/" + jobId,
+            title: title,
+            source: document.location.host
+        })
+    }
+
+    return jobs
+}
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -948,7 +981,8 @@ const mapper = {
     "dynamitejobs.com": getDynamiteJobs,
     "himalayas.app": getHimalayasAppJobs,
     "remoters.net": getRemotersNetJobs,
-    "www.totaljobs.com": getTotalJobs
+    "www.totaljobs.com": getTotalJobs,
+    "www.linkedin.com": getLinkedinJobs
 
 }
 

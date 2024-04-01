@@ -47,7 +47,8 @@
                 "https://dynamitejobs.com/*",
                 "https://himalayas.app/*",
                 "https://remoters.net/jobs/*",
-                "https://www.totaljobs.com/jobs/remote-*"
+                "https://www.totaljobs.com/jobs/remote-*",
+                "https://www.linkedin.com/jobs/collections/*"
             ],
             "js": [
                 "content-script.js"
