@@ -44,7 +44,8 @@
                 "https://workinstartups.com/job-board/*",
                 "https://www.workatastartup.com/*",
                 "https://justremote.co/*",
-                "https://dynamitejobs.com/*"
+                "https://dynamitejobs.com/*",
+                "https://himalayas.app/*"
             ],
             "js": [
                 "content-script.js"

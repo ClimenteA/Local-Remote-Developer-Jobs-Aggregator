@@ -853,6 +853,28 @@ async function getDynamiteJobs() {
 }
 
 
+async function getHimalayasAppJobs() {
+
+    const linkClass = "text-xl font-medium text-gray-900 md:w-112 md:truncate"
+
+    const jobs = []
+    for (const link of document.querySelectorAll("a")) {
+        if (link.getAttribute("class") != linkClass) continue
+        const href = link.getAttribute("href")
+        if (!href?.startsWith("/companies/")) continue
+
+        jobs.push({
+            url: "https://dynamitejobs.com" + href,
+            title: link.textContent,
+            source: document.location.host
+        })
+
+    }
+
+    return jobs
+
+}
+
 
 const mapper = {
     "vuejobs.com": getVueJobs,
@@ -882,7 +904,8 @@ const mapper = {
     "workinstartups.com": getWorkingInStartupsJobs,
     "www.workatastartup.com": getWorkAtAStartupJobs,
     "justremote.co": getJustRemoteJobs,
-    "dynamitejobs.com": getDynamiteJobs
+    "dynamitejobs.com": getDynamiteJobs,
+    "himalayas.app": getHimalayasAppJobs
 
 }
 
