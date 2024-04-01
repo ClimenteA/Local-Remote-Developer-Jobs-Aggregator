@@ -46,7 +46,8 @@
                 "https://justremote.co/*",
                 "https://dynamitejobs.com/*",
                 "https://himalayas.app/*",
-                "https://remoters.net/jobs/*"
+                "https://remoters.net/jobs/*",
+                "https://www.totaljobs.com/jobs/remote-*"
             ],
             "js": [
                 "content-script.js"

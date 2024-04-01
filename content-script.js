@@ -896,6 +896,27 @@ async function getRemotersNetJobs() {
 }
 
 
+async function getTotalJobs() {
+
+    const jobsContainer = document.querySelector('[data-genesis-element="CARD_GROUP_CONTAINER"]')
+    const links = jobsContainer.querySelectorAll('h2 > a')
+
+    const jobs = []
+    for (const link of links) {
+
+        jobs.push({
+            url: link.href,
+            title: link.textContent,
+            source: document.location.host
+        })
+
+    }
+
+    return jobs
+
+}
+
+
 const mapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -926,7 +947,8 @@ const mapper = {
     "justremote.co": getJustRemoteJobs,
     "dynamitejobs.com": getDynamiteJobs,
     "himalayas.app": getHimalayasAppJobs,
-    "remoters.net": getRemotersNetJobs
+    "remoters.net": getRemotersNetJobs,
+    "www.totaljobs.com": getTotalJobs
 
 }
 
