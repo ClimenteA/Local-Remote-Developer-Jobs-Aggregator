@@ -18,11 +18,11 @@ export interface Job extends RawJob {
 export class Repo {
     db: Database
 
-    constructor(dbPath: string = "./jobs.db"){
+    constructor(dbPath: string = "./jobs.db") {
         this.db = Repo.initialize_jobs_database(dbPath)
     }
 
-    static initialize_jobs_database(dbPath: string){
+    static initialize_jobs_database(dbPath: string) {
 
         const db = new Database(dbPath, { create: true })
         db.exec("PRAGMA journal_mode = WAL;")
@@ -37,10 +37,37 @@ export class Repo {
             timestamp TEXT);
         `).run()
 
+
+        db.query(`
+        CREATE TABLE IF NOT EXISTS scrape (
+            url TEXT,
+            scrapping BOOLEAN,
+            timestamp TEXT);
+        `).run()
+
         db.query(`CREATE UNIQUE INDEX IF NOT EXISTS url_IDX ON "jobs" (url)`).run()
 
         return db
 
+    }
+
+    scrappingInProgress() {
+        return this.db.query(`SELECT * FROM scrape WHERE scrapping = $scrapping`).get({ $scrapping: 1 })
+    }
+
+    setScrapping(url: string, started: number) {
+        const currentDate = new Date().toISOString()
+        const exists: any = this.db.query(`SELECT * FROM scrape WHERE url = $url`).get({ $url: url })
+
+        if (exists) {
+            this.db.query(
+                `UPDATE scrape SET scrapping = ${started}, timestamp = "${currentDate}"  WHERE url = "${url}"`
+            ).run()
+        } else {
+            this.db.query(
+                `INSERT INTO scrape(url, scrapping, timestamp) VALUES("${url}", ${started}, "${currentDate}")`
+            ).run()
+        }
     }
 
     static getLimitOffsetFromPage(page: number, itemsPerPage: number = 100) {
@@ -51,40 +78,47 @@ export class Repo {
             page = 1
         }
         const limit = itemsPerPage
-        const offset = page == 1 ? 0: (page - 1) * itemsPerPage
-        return {limit, offset}
+        const offset = page == 1 ? 0 : (page - 1) * itemsPerPage
+        return { limit, offset }
     }
 
-    saveJobs(rawJobs: Array<RawJob>){
+    saveJobs(rawJobs: Array<RawJob>) {
 
         const currentDate = new Date().toISOString()
         const urlQuery = this.db.query(`SELECT * FROM jobs WHERE url = $url`)
-    
+
+        const sources: Set<string> = new Set([])
         const values: Array<string> = []
-        for (const rawjob of rawJobs){
-    
-            if (urlQuery.get({$url: rawjob.url})) continue
-    
-            const job = {...rawjob, applied: 0, ignored: 0, timestamp: currentDate}
-    
-            values.push(`("${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`)     
+        for (const rawjob of rawJobs) {
+
+            sources.add(rawjob.source)
+
+            if (urlQuery.get({ $url: rawjob.url })) continue
+
+            const job = { ...rawjob, applied: 0, ignored: 0, timestamp: currentDate }
+
+            values.push(`("${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`)
         }
-    
+
+        for (const src of sources) {
+            this.setScrapping(src, 0)
+        }
+
         if (values.length == 0) return
-    
+
         this.db.query(`
-        INSERT INTO jobs (url, title, source, applied, ignored, timestamp) 
+        INSERT INTO jobs(url, title, source, applied, ignored, timestamp) 
         VALUES ${values.join(", ") + ";"}`
         ).run()
-    
+
     }
 
-    getJobs(jobType: string, page: number = 1){
+    getJobs(jobType: string, page: number = 1) {
 
-        const {limit, offset} = Repo.getLimitOffsetFromPage(page)
+        const { limit, offset } = Repo.getLimitOffsetFromPage(page)
 
         let filters: string
-        if (jobType == "new"){
+        if (jobType == "new") {
             filters = "applied = 0 AND ignored = 0"
         } else if (jobType == "applied") {
             filters = "applied = 1"
@@ -95,21 +129,21 @@ export class Repo {
         }
 
         const rows = this.db.query(
-            `SELECT * FROM jobs WHERE ${filters} LIMIT ${limit} OFFSET ${offset};`
+            `SELECT * FROM jobs WHERE ${filters} LIMIT ${limit} OFFSET ${offset}; `
         ).all()
         return rows
     }
 
-    getNewJobs(page: number = 1){
+    getNewJobs(page: number = 1) {
         return this.getJobs("new", page)
     }
 
-    getAppliedJobs(page: number = 1){
+    getAppliedJobs(page: number = 1) {
         return this.getJobs("applied", page)
     }
-    
-    getIgnoredJobs(page: number = 1){
+
+    getIgnoredJobs(page: number = 1) {
         return this.getJobs("ignored", page)
     }
-    
+
 }

@@ -22,7 +22,7 @@ async function getVueJobs() {
             jobs.push({
                 url: link.href,
                 title: link.querySelector(titleSelector).textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -49,7 +49,7 @@ async function getEjobs() {
         data.push({
             url: url,
             title: title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -66,7 +66,7 @@ async function getBestJobs() {
             data.push({
                 url: link.href,
                 title: link.querySelector("span").textContent,
-                source: document.location.host
+                source: document.location.href
             })
         }
     }
@@ -106,7 +106,7 @@ async function getJsJobbsJobs() {
         jobs.push({
             url: job.applyLinkOrEmail,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -125,7 +125,7 @@ async function getRemotiveJobs() {
         jobs.push({
             url: job.url,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -147,7 +147,7 @@ async function getRemoteOkJobs() {
             data.push({
                 url: link.href,
                 title: title.textContent,
-                source: document.location.host
+                source: document.location.href
             })
         }
     }
@@ -169,7 +169,7 @@ async function getReactJobs() {
             data.push({
                 url: link.href,
                 title: title,
-                source: document.location.host
+                source: document.location.href
             })
         }
     }
@@ -195,7 +195,7 @@ async function getDevJobJobs() {
         jobs.push({
             url: jobUrl,
             title: job.name,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -252,7 +252,7 @@ async function getEuRemoteJobs() {
             jobs.push({
                 url: url,
                 title: title,
-                source: document.location.host
+                source: document.location.href
             })
         }
     }
@@ -277,7 +277,7 @@ async function getRemoteCoJobs() {
             data.push({
                 url: link.href,
                 title: title.textContent,
-                source: document.location.host
+                source: document.location.href
             })
         }
     }
@@ -301,7 +301,7 @@ async function getWeWorkRemotelyJobs() {
         data.push({
             url: link.href,
             title: title.textContent,
-            source: document.location.host
+            source: document.location.href
         })
 
     }
@@ -345,7 +345,7 @@ async function getWorkingNomadsJobs() {
         jobs.push({
             url: jobUrl,
             title: job._source.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -388,7 +388,7 @@ async function getNoDeskJobs() {
         jobs.push({
             url: jobUrl,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -409,7 +409,7 @@ async function getEuroTechJobs() {
             data.push({
                 url: link.href,
                 title: title,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -428,7 +428,7 @@ async function getRemoteIoJobs() {
             data.push({
                 url: link.href,
                 title: link.textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -471,7 +471,7 @@ async function get4dayweekJobs() {
         jobs.push({
             url: jobUrl,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -491,7 +491,7 @@ async function getBuiltinJobs() {
             data.push({
                 url: link.href,
                 title: link.textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -537,7 +537,7 @@ async function getLandingJobs() {
         jobs.push({
             url: job.url,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -558,7 +558,7 @@ async function getPyJobs() {
             data.push({
                 url: link.href,
                 title: spanTitle.textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -585,7 +585,7 @@ async function getRemoteWorksHubJobs() {
             jobs.push({
                 url: link.href,
                 title: link.querySelector("h3").textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -605,7 +605,7 @@ async function getBerlinStartupJobs() {
             jobs.push({
                 url: link.href,
                 title: link.textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -650,7 +650,7 @@ async function getStartupJobs() {
         jobs.push({
             url: "https://startup.jobs" + job.path,
             title: job.title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -668,7 +668,7 @@ async function getReedCoUkJobs() {
             jobs.push({
                 url: link.href,
                 title: link.textContent,
-                source: document.location.host
+                source: document.location.href
             })
 
         }
@@ -713,7 +713,7 @@ async function getStartupComJobs() {
             jobs.push({
                 url: "https://www.startupjobs.com" + job.url,
                 title: job.name,
-                source: document.location.host
+                source: document.location.href
             })
         }
 
@@ -738,7 +738,7 @@ async function getWorkingInStartupsJobs() {
             jobs.push({
                 url: link.href,
                 title: link.getAttribute("title"),
-                source: document.location.host
+                source: document.location.href
             })
         }
 
@@ -765,7 +765,7 @@ async function getWorkAtAStartupJobs() {
                     jobs.push({
                         url: link.href,
                         title: link.textContent,
-                        source: document.location.host
+                        source: document.location.href
                     })
                 }
 
@@ -807,7 +807,7 @@ async function getJustRemoteJobs() {
                     jobs.push({
                         url: link.href,
                         title: link.querySelector("h3").textContent,
-                        source: document.location.host
+                        source: document.location.href
                     })
                 }
 
@@ -858,7 +858,7 @@ async function getDynamiteJobs() {
         jobs.push({
             url: "https://dynamitejobs.com" + href,
             title: h2.textContent,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
@@ -879,7 +879,7 @@ async function getHimalayasAppJobs() {
         jobs.push({
             url: "https://himalayas.app" + href,
             title: link.textContent,
-            source: document.location.host
+            source: document.location.href
         })
 
     }
@@ -900,7 +900,7 @@ async function getRemotersNetJobs() {
         jobs.push({
             url: link.href,
             title: link.textContent,
-            source: document.location.host
+            source: document.location.href
         })
 
     }
@@ -920,7 +920,7 @@ async function getTotalJobs() {
         jobs.push({
             url: link.href,
             title: link.textContent,
-            source: document.location.host
+            source: document.location.href
         })
 
     }
@@ -955,7 +955,7 @@ async function getLinkedinJobs() {
         jobs.push({
             url: "https://www.linkedin.com/jobs/view/" + jobId,
             title: title,
-            source: document.location.host
+            source: document.location.href
         })
     }
 
