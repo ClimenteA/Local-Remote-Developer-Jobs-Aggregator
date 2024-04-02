@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block jobs %}
+
+{% for job in jobs %}
+<article class="job-article">
+    <h2>{{ job.title }}</h2>
+    <div role="group">
+        <a href="{{ job.url }}" target="_blank" class="primary" role="button">View job</a>
+        <a href="#" target="_blank" class="outline" role="button">I've applied</a>
+        <a href="#" target="_blank" class="outline" role="button">Ignore</a>
+    </div>
+</article>
+{% else %}
+
+<div class="flex-col-items-center">
+    <p>No {{ jobType }} jobs available</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}

@@ -98,6 +98,7 @@ while (true) {
 
 console.log("Scrapping done!")
 
+// This doesn't work..
 for (const urlProc of urlProcs) {
     console.log("Closing ", urlProc.url)
     urlProc.proc.kill()

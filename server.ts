@@ -3,32 +3,37 @@ import { serveStatic } from 'hono/bun'
 import { logger } from 'hono/logger'
 import { cors } from 'hono/cors'
 import { Repo, RawJob } from './repo'
-
+import nunjucks from 'nunjucks'
 
 const app = new Hono()
 const repo = new Repo()
 
 app.use(logger())
-app.use('/api/*', cors())
-app.get('/', serveStatic({ path: './index.html' }))
+app.use('*', cors())
 
+nunjucks.configure('templates', { autoescape: true })
 
-app.get('/api/new/:page', (c) => {
+app.get('/', (c) => {
+    const newJobs = repo.getNewJobs()
+    return c.html(nunjucks.render('jobs.html', { jobs: newJobs, jobType: 'new', page: 1 }))
+})
+
+app.get('/new/:page', (c) => {
     const page = Number(c.req.param('page'))
     const newJobs = repo.getNewJobs(page)
-    return c.json({ jobs: newJobs, page: page })
+    return c.html(nunjucks.render('jobs.html', { jobs: newJobs, jobType: 'new', page: page }))
 })
 
-app.get('/api/applied/:page', (c) => {
+app.get('/applied/:page', (c) => {
     const page = Number(c.req.param('page'))
     const appliedJobs = repo.getAppliedJobs(page)
-    return c.json({ jobs: appliedJobs, page: page })
+    return c.html(nunjucks.render('jobs.html', { jobs: appliedJobs, jobType: 'applied', page: page }))
 })
 
-app.get('/api/ignored/:page', (c) => {
+app.get('/ignored/:page', (c) => {
     const page = Number(c.req.param('page'))
     const ignoredJobs = repo.getIgnoredJobs(page)
-    return c.json({ jobs: ignoredJobs, page: page })
+    return c.html(nunjucks.render('jobs.html', { jobs: ignoredJobs, jobType: 'ignored', page: page }))
 })
 
 
