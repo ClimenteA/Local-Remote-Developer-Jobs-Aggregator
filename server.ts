@@ -15,25 +15,29 @@ nunjucks.configure('templates', { autoescape: true })
 
 app.get('/', (c) => {
     const newJobs = repo.getNewJobs()
-    return c.html(nunjucks.render('jobs.html', { jobs: newJobs, jobType: 'new', page: 1 }))
+    return c.html(nunjucks.render('jobs.html',
+        { jobs: newJobs, jobType: 'new', page: 1, nextPage: 2, prevPage: 1 }))
 })
 
 app.get('/new/:page', (c) => {
     const page = Number(c.req.param('page'))
     const newJobs = repo.getNewJobs(page)
-    return c.html(nunjucks.render('jobs.html', { jobs: newJobs, jobType: 'new', page: page }))
+    return c.html(nunjucks.render('jobs.html',
+        { jobs: newJobs, jobType: 'new', page: page, nextPage: page + 1, prevPage: page - 1 }))
 })
 
 app.get('/applied/:page', (c) => {
     const page = Number(c.req.param('page'))
     const appliedJobs = repo.getAppliedJobs(page)
-    return c.html(nunjucks.render('jobs.html', { jobs: appliedJobs, jobType: 'applied', page: page }))
+    return c.html(nunjucks.render('jobs.html',
+        { jobs: appliedJobs, jobType: 'applied', page: page, nextPage: page + 1, prevPage: page - 1 }))
 })
 
 app.get('/ignored/:page', (c) => {
     const page = Number(c.req.param('page'))
     const ignoredJobs = repo.getIgnoredJobs(page)
-    return c.html(nunjucks.render('jobs.html', { jobs: ignoredJobs, jobType: 'ignored', page: page }))
+    return c.html(nunjucks.render('jobs.html',
+        { jobs: ignoredJobs, jobType: 'ignored', page: page, nextPage: page + 1, prevPage: page - 1 }))
 })
 
 
