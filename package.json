@@ -1,5 +1,5 @@
 {
-  "dependencies": { "hono": "^4.1.7" },
+  "dependencies": { "hono": "^4.1.7", "open": "^10.1.0" },
   "devDependencies": {
     "@types/bun": "^1.0.12"
   }

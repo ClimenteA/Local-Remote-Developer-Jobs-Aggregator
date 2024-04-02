@@ -3,3 +3,4 @@ jobs.db
 jobs.db-shm
 jobs.db-wal
 bun.lockb
+.backup

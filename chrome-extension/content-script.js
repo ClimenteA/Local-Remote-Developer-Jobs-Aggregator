@@ -1,17 +1,25 @@
 console.log("Loaded:", document.location.host)
 
 
-const saveUrl = "http://localhost:3000/api/save-jobs"
+async function saveJobs(jobs) {
+    const response = await fetch(
+        "http://localhost:3000/api/save-jobs", {
+        method: "POST",
+        mode: 'no-cors',
+        body: JSON.stringify(jobs)
+    })
+    console.log(response)
+}
 
 
 async function getVueJobs() {
 
-    const data = []
+    const jobs = []
     const titleSelector = "div.font-display.text-lg.leading-tight.font-bold"
     for (const link of document.querySelectorAll("a")) {
         if (link.getAttribute("href").startsWith("/jobs/")) {
 
-            data.push({
+            jobs.push({
                 url: link.href,
                 title: link.querySelector(titleSelector).textContent,
                 source: document.location.host
@@ -20,7 +28,9 @@ async function getVueJobs() {
         }
     }
 
-    return data
+    await saveJobs(jobs)
+
+    return jobs
 
 }
 
@@ -990,12 +1000,10 @@ const mapper = {
 }
 
 
-mapper[document.location.host]().then(results => {
-    console.log("Found jobs:", results)
+if (document.location.host == "vuejobs.com") {
 
-    fetch(saveUrl, {
-        method: "POST",
-        body: JSON.stringify(results)
+    mapper[document.location.host]().then(results => {
+        console.log("Found jobs:", results)
     })
 
-})
+}
