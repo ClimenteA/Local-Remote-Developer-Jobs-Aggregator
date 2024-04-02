@@ -96,7 +96,7 @@ while (true) {
     await new Promise((res, rej) => setTimeout(() => res(true), 1000))
 }
 
-console.log("Scrapping done!")
+console.log("Scrapping done!\nPress Ctrl+Shift+W to close all open tabs!")
 
 // This doesn't work..
 for (const urlProc of urlProcs) {

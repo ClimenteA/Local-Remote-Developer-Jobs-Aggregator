@@ -1,4 +1,5 @@
 import { Database } from "bun:sqlite"
+import { randomUUID } from 'crypto';
 
 
 export interface RawJob {
@@ -29,6 +30,7 @@ export class Repo {
 
         db.query(`
         CREATE TABLE IF NOT EXISTS jobs (
+            jobid TEXT,
             url TEXT,
             title TEXT,
             source TEXT,
@@ -70,6 +72,41 @@ export class Repo {
         }
     }
 
+
+    updateJobIdStatus(jobid: string, field: string, status: number) {
+        this.db.query(
+            `UPDATE jobs SET ${field} = ${status} WHERE jobid = "${jobid}"`
+        ).run()
+    }
+
+    toggleApplied(jobid: string) {
+        const applied = this.db.query(
+            `SELECT * FROM jobs WHERE jobid = $jobid AND applied = $applied`
+        ).get({ $jobid: jobid, $applied: 1 })
+
+        if (applied) {
+            this.updateJobIdStatus(jobid, "applied", 0)
+            return 0
+        } else {
+            this.updateJobIdStatus(jobid, "applied", 1)
+            return 1
+        }
+    }
+
+    toggleIgnored(jobid: string) {
+        const ignored = this.db.query(
+            `SELECT * FROM jobs WHERE jobid = $jobid AND ignored = $ignored`
+        ).get({ $jobid: jobid, $ignored: 1 })
+
+        if (ignored) {
+            this.updateJobIdStatus(jobid, "ignored", 0)
+            return 0
+        } else {
+            this.updateJobIdStatus(jobid, "ignored", 1)
+            return 1
+        }
+    }
+
     static getLimitOffsetFromPage(page: number, itemsPerPage: number = 100) {
         try {
             page = Math.abs(Number(page))
@@ -95,9 +132,9 @@ export class Repo {
 
             if (urlQuery.get({ $url: rawjob.url })) continue
 
-            const job = { ...rawjob, applied: 0, ignored: 0, timestamp: currentDate }
+            const job = { ...rawjob, jobid: randomUUID(), applied: 0, ignored: 0, timestamp: currentDate }
 
-            values.push(`("${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`)
+            values.push(`("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`)
         }
 
         for (const src of sources) {
@@ -107,7 +144,7 @@ export class Repo {
         if (values.length == 0) return
 
         this.db.query(`
-        INSERT INTO jobs(url, title, source, applied, ignored, timestamp) 
+        INSERT INTO jobs(jobid, url, title, source, applied, ignored, timestamp) 
         VALUES ${values.join(", ") + ";"}`
         ).run()
 

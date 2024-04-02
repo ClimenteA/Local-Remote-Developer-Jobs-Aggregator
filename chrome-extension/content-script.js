@@ -5,10 +5,12 @@ async function saveJobs(jobs) {
     const response = await fetch(
         "http://localhost:3000/api/save-jobs", {
         method: "POST",
-        mode: 'no-cors',
         body: JSON.stringify(jobs)
     })
-    console.log(response)
+
+    const data = await response.json()
+
+    console.log(data)
 }
 
 

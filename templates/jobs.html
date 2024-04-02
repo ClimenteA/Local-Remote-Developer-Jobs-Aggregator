@@ -4,20 +4,38 @@
 {% block jobs %}
 
 {% for job in jobs %}
-<article class="job-article">
+<article x-data="{applied: {{job.applied}}, ignored: {{job.ignored}}}" id="{{ job.jobid }}" class="job-article">
     <h2>{{ job.title }}</h2>
     <div role="group">
         <a href="{{ job.url }}" target="_blank" class="primary" role="button">View job</a>
-        <a href="#" target="_blank" class="outline" role="button">I've applied</a>
-        <a href="#" target="_blank" class="outline" role="button">Ignore</a>
+        <a @click="async () => await applyiedToJob('{{ job.jobid }}')" class="outline" role="button">I've applied</a>
+        <a @click="async () => await ignoreThisJob('{{ job.jobid }}')" class="outline" role="button">Ignore</a>
     </div>
 </article>
 {% else %}
-
 <div class="flex-col-items-center">
     <p>No {{ jobType }} jobs available</p>
 </div>
-
 {% endfor %}
+
+
+<script>
+
+    async function applyiedToJob(jobid) {
+        const url = '/api/applied/' + jobid
+        const response = await fetch(url, { method: "POST" })
+        const data = await response.json()
+        return data.status == "ok"
+    }
+
+    async function ignoreThisJob(jobid) {
+        const url = '/api/ignored/' + jobid
+        const response = await fetch(url, { method: "POST" })
+        const data = await response.json()
+        return data.status == "ok"
+    }
+
+</script>
+
 
 {% endblock %}

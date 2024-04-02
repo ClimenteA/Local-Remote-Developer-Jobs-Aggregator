@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { serveStatic } from 'hono/bun'
 import { logger } from 'hono/logger'
 import { cors } from 'hono/cors'
 import { Repo, RawJob } from './repo'
@@ -45,6 +44,18 @@ app.post('/api/save-jobs', async (c) => {
     const jobs: Array<RawJob> = await c.req.json()
     repo.saveJobs(jobs)
     return c.json({ jobs: jobs.length })
+})
+
+app.post('/api/applied/:jobid', async (c) => {
+    const jobid = c.req.param('jobid')
+    repo.toggleApplied(jobid)
+    return c.json({ status: "ok" })
+})
+
+app.post('/api/ignored/:jobid', async (c) => {
+    const jobid = c.req.param('jobid')
+    repo.toggleIgnored(jobid)
+    return c.json({ status: "ok" })
 })
 
 
