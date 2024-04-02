@@ -1,6 +1,9 @@
 console.log("Loaded:", document.location.host)
 
 
+const saveUrl = "http://localhost:3000/api/save-jobs"
+
+
 async function getVueJobs() {
 
     const data = []
@@ -864,7 +867,7 @@ async function getHimalayasAppJobs() {
         if (!href?.startsWith("/companies/")) continue
 
         jobs.push({
-            url: "https://dynamitejobs.com" + href,
+            url: "https://himalayas.app" + href,
             title: link.textContent,
             source: document.location.host
         })
@@ -987,7 +990,12 @@ const mapper = {
 }
 
 
-
 mapper[document.location.host]().then(results => {
     console.log("Found jobs:", results)
+
+    fetch(saveUrl, {
+        method: "POST",
+        body: JSON.stringify(results)
+    })
+
 })

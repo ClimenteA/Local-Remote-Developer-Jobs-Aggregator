@@ -55,7 +55,7 @@ export class Repo {
         return {limit, offset}
     }
 
-    insertJobs(rawJobs: Array<RawJob>){
+    saveJobs(rawJobs: Array<RawJob>){
 
         const currentDate = new Date().toISOString()
         const urlQuery = this.db.query(`SELECT * FROM jobs WHERE url = $url`)

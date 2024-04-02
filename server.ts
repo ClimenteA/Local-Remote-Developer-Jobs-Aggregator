@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/bun'
 import { logger } from 'hono/logger'
-import { Repo } from './repo'
+import { Repo, RawJob } from './repo'
 
 
 const app = new Hono()
@@ -27,6 +27,13 @@ app.get('/api/ignored/:page', (c) => {
     const page = Number(c.req.param('page'))
     const ignoredJobs = repo.getIgnoredJobs(page)
     return c.json({ jobs: ignoredJobs, page: page })
+})
+
+
+app.post('/api/save-jobs', async (c) => {
+    const jobs: Array<RawJob> = await c.req.json()
+    repo.saveJobs(jobs)
+    return c.json({ jobs: jobs.length })
 })
 
 
