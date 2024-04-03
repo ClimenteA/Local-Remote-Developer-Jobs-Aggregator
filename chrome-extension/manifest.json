@@ -1,0 +1,67 @@
+{
+    "name": "Local Remote Developer Jobs Aggregator",
+    "version": "0.0.1",
+    "description": "Scrape job boards and save locally. Hack the code as you need.",
+    "manifest_version": 3,
+    "author": "Alin Climente",
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Local Remote Developer Jobs Aggregator"
+    },
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
+    "background": {
+        "service_worker": "service-worker.js",
+        "type": "module"
+    },
+    "content_scripts": [
+        {
+            "run_at": "document_end",
+            "matches": [
+                "https://vuejobs.com/*",
+                "https://reactjobs.io/*",
+                "https://www.ejobs.ro/*",
+                "https://www.bestjobs.eu/ro/locuri-de-munca/*",
+                "https://jsjobbs.com/jobs*",
+                "https://remotive.com/*",
+                "https://remoteok.com/*",
+                "https://reactjobs.io/*",
+                "https://devjob.ro/*",
+                "https://euremotejobs.com/*",
+                "https://remote.co/*",
+                "https://weworkremotely.com/categories/*",
+                "https://www.workingnomads.com/*",
+                "https://nodesk.co/*",
+                "https://www.eurotechjobs.com/*",
+                "https://www.remote.io/*",
+                "https://4dayweek.io/*",
+                "https://builtin.com/*",
+                "https://landing.jobs/*",
+                "https://www.pyjobs.com/*",
+                "https://remote.works-hub.com/*",
+                "https://berlinstartupjobs.com/*",
+                "https://startup.jobs/*",
+                "https://www.reed.co.uk/*",
+                "https://www.startupjobs.com/jobs*",
+                "https://workinstartups.com/job-board/*",
+                "https://www.workatastartup.com/*",
+                "https://justremote.co/*",
+                "https://dynamitejobs.com/*",
+                "https://himalayas.app/*",
+                "https://remoters.net/jobs/*",
+                "https://www.totaljobs.com/jobs/remote-*",
+                "https://www.linkedin.com/jobs/collections/*"
+            ],
+            "js": [
+                "content-script.js"
+            ]
+        }
+    ]
+}

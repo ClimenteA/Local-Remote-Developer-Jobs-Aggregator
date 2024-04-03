@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <title>Local Remote Developer Jobs Aggregator</title>
+</head>
+
+<body style="width: 600px;">
+
+    <main class="container">
+
+        <h3>Local Remote Dev. Jobs Agg.</h3>
+
+        <p>
+            Start the server to receive incoming collected jobs then click 'Open job boards' button. After it's done
+            click keep the server running and click 'View collected jobs' button.
+        </p>
+
+        <div style="display: grid; place-content: center; margin-bottom: 1rem;">
+            <div role="group" style="margin-top: 1rem;">
+                <button id="open-tabs" role="button">Open job boards</button>
+                <a href="http://localhost:3000" target="_blank" role="button">View collected jobs</a>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="./index.js" type="module"></script>
+
+</body>
+
+</html>

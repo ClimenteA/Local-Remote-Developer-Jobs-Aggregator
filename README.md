@@ -1,65 +1,48 @@
-# Rjobs
+# Local Remote Developer Jobs Aggregator
 
-Customizable remote jobs aggregator.
+Easily keep track the jobs you've applied in one place. 
+Fork it and modify it with your own prefered job boards.
 
-### Quickstart
 
-- Clone it
-- `virtualenv venv`;
-- `source ./venv/bin/activate`;
-- `pip install -r requirements.txt`;
-- Fetch new jobs `python3 remoter.py`
-- Run localserver `python3 main.py`
+## Quickstart
 
-![Header](./shots/header.png)
-![Jobs](./shots/description.png)
-![Footer](./shots/footer.png)
+- clone this repo;
+- [install bunjs](https://bun.sh/docs/installation);
+- load extension in browser (`edge://extensions/` or `chrome://extensions/` then `Load unpacked` point to `chrome-extension` folder);
+- run `bun server.ts`;
+- click `Open job boards` button (let it do it's thing);
+- after it's done, keep the server running and click `View collected jobs` button;
 
-### Built with
-- Python3, FastAPI
-- Javascript, Mithril.js
+You can checkout the remote job boards scrapped in the chrome-extension/manifest.json file `content_scripts.matches` and in the `service-worker.js` in `JOB_BOARDS` constant.
 
-### TODO's
+The extension:
 
-- Filters for EU timezone, US Timezone;
-- Update parsing errors;
-- Maybe replace requests-html;
-- Maybe move to js or golang to make a desktop app;
-- Maybe linkedin jobs;
-- TBD;
+![](./pics/ext.png)
+
+The interface:
+
+![](./pics/ui.png)
 
 
 
-### List of technologies
+## How it works?
 
-- Tech: tech I was curios 
-- Frequency: the amound of times found in about 4k remote jobs gathered (2020)
-
-| Tech       | Frequency | 
-|------------|-----------| 
-| React      | 1854      | 
-| Python     | 1217      | 
-| Javascript | 976       | 
-| Docker     | 833       | 
-| Java       | 819       | 
-| PHP        | 673       | 
-| Angular    | 631       | 
-| C#         | 526       | 
-| Vue        | 491       | 
-| Typescript | 382       | 
-| Django     | 221       | 
-| Kotlin     | 181       | 
-| Golang     | 167       | 
-| Flask      | 122       | 
-| Firebase   | 80        | 
-| Koa        | 28        | 
-| Express.js | 25        | 
-| Elm        | 18        | 
-| Mithril    | 1         | 
+When you click on the extension button `Open job boards` a chrome runtime event `startScrapping` is sent to the `service-worker.js` which opens in a new window a job board url. 
+Once the url is loaded in a new window `content-script.js` will be invoked and the page will be scrapped based on the `mapper` object. Data scrapped is sent to the server (built with [HonoJs](https://hono.dev/)) and saved into a sqlite database.
+The `content-script.js` once is finished scrapping and sending the data will also emit a chrome runtime event `closeTab` to `service-worker.js` which will close the window/tab opened.
+If something goes wrong an alert popup will be invoked on the website with the issue and if posible the error will be sent and saved on the server.
 
 
-Not a surprise React + Typescript and AWS the most demanded tech.
-After JS, Python and PHP come very close then the oldies Java and C#. 
+
+## Why a chrome extension and not pupeteer, playwright, selenium?
+
+I tried doing that, but the amount of dependencies just to get it working is absurd (in ubuntu a ton of lib* files were needed).
+Some websites have heavy protection for bots, scrappers which complicates even further the setup and code.
+With the chrome extension you can bypass a lot of those and just act "like a user" on the website.
+No cookies to accept, login session and so on because it uses the session already available in the browser.
+
+**Scrapping is slowish** because if opening all the 70 or so job boards at once will break the server and the browser will not load all the websites in order to save some resources - resulting in the content-script.js to not run.
 
 
-*This is just an MVP, but I found it good enough for my needs.*
+
+**😁 Good luck job hunting!**
