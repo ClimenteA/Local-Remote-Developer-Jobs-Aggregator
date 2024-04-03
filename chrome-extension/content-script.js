@@ -569,20 +569,27 @@ async function getPyJobs() {
 
 async function getRemoteWorksHubJobs() {
 
-    const loadMoreBtn = document.querySelector("a.chakra-button.css-1lhclv2")
+    await wait(5000)
 
-    if (loadMoreBtn) {
-        loadMoreBtn.scrollIntoView()
-        loadMoreBtn.click()
+    for (const i of [1, 2, 3]) {
+        if (document.querySelector("a.chakra-button.css-1lhclv2")) {
+            document.querySelector("a.chakra-button.css-1lhclv2").scrollIntoView()
+            document.querySelector("a.chakra-button.css-1lhclv2").click()
+            await wait(5000)
+        }
     }
 
     const jobs = []
     for (const link of document.querySelectorAll("a")) {
         if (link.getAttribute("href")?.startsWith("/jobs/")) {
 
+            const title = link.querySelector("h3")?.textContent
+
+            if (!title) continue
+
             jobs.push({
                 url: link.href,
-                title: link.querySelector("h3").textContent,
+                title: title,
                 source: document.location.href
             })
 
@@ -1011,6 +1018,9 @@ async function main() {
 
         try {
 
+            console.error(error)
+            console.log("Trying to save error")
+
             await saveJobs([{
                 url: document.location.host + String(Math.random()),
                 title: `Extension Failed to scrape! Because: ${error}`,
@@ -1031,8 +1041,6 @@ async function main() {
 
 main().then(saved => {
     if (saved) {
-        chrome.runtime.sendMessage({ msg: "tab_close_msg" }, function (response) {
-            console.log("Response from background:", response)
-        })
+        chrome.runtime.sendMessage({ msg: "closeTab" })
     }
 })
