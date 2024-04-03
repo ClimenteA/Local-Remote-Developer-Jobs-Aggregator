@@ -8,9 +8,7 @@ async function saveJobs(jobs) {
         body: JSON.stringify(jobs)
     })
 
-    const data = await response.json()
-
-    console.log(data)
+    return response.status == 201
 }
 
 
@@ -29,8 +27,6 @@ async function getVueJobs() {
 
         }
     }
-
-    await saveJobs(jobs)
 
     return jobs
 
@@ -1002,10 +998,41 @@ const mapper = {
 }
 
 
-if (document.location.host == "vuejobs.com") {
+async function main() {
 
-    mapper[document.location.host]().then(results => {
-        console.log("Found jobs:", results)
-    })
+    try {
+
+        const jobs = await mapper[document.location.host]()
+        const saved = await saveJobs(jobs)
+        console.log("Found jobs:", jobs)
+        return saved
+
+    } catch (error) {
+
+        try {
+
+            await saveJobs([{
+                url: document.location.host + String(Math.random()),
+                title: `Extension Failed to scrape! Because: ${error}`,
+                source: document.location.href
+            }])
+
+            alert(error)
+            return false
+
+        } catch (error) {
+            alert(error)
+            return false
+        }
+    }
 
 }
+
+
+main().then(saved => {
+    if (saved) {
+        chrome.runtime.sendMessage({ msg: "tab_close_msg" }, function (response) {
+            console.log("Response from background:", response)
+        })
+    }
+})

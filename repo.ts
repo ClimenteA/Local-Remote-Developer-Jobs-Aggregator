@@ -122,31 +122,27 @@ export class Repo {
     saveJobs(rawJobs: Array<RawJob>) {
 
         const currentDate = new Date().toISOString()
-        const urlQuery = this.db.query(`SELECT * FROM jobs WHERE url = $url`)
 
         const sources: Set<string> = new Set([])
-        const values: Array<string> = []
         for (const rawjob of rawJobs) {
 
             sources.add(rawjob.source)
 
-            if (urlQuery.get({ $url: rawjob.url })) continue
-
             const job = { ...rawjob, jobid: randomUUID(), applied: 0, ignored: 0, timestamp: currentDate }
 
-            values.push(`("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`)
+            const values = `("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`
+
+            try {
+                this.db.query(`
+                INSERT INTO jobs(jobid, url, title, source, applied, ignored, timestamp) VALUES ${values};`
+                ).run()
+            } catch (error) {
+                console.log("Already in database. Skipping... ", values)
+            }
+
         }
 
-        for (const src of sources) {
-            this.setScrapping(src, 0)
-        }
-
-        if (values.length == 0) return
-
-        this.db.query(`
-        INSERT INTO jobs(jobid, url, title, source, applied, ignored, timestamp) 
-        VALUES ${values.join(", ") + ";"}`
-        ).run()
+        for (const src of sources) this.setScrapping(src, 0)
 
     }
 

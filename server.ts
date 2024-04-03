@@ -42,20 +42,27 @@ app.get('/ignored/:page', (c) => {
 
 app.post('/api/save-jobs', async (c) => {
     const jobs: Array<RawJob> = await c.req.json()
-    repo.saveJobs(jobs)
-    return c.json({ jobs: jobs.length })
+    try {
+        repo.saveJobs(jobs)
+        c.status(201)
+        return c.json({ status: "success" })
+    } catch (error) {
+        console.error(error)
+        c.status(500)
+        return c.json({ status: "failed" })
+    }
 })
 
 app.post('/api/applied/:jobid', async (c) => {
     const jobid = c.req.param('jobid')
-    repo.toggleApplied(jobid)
-    return c.json({ status: "ok" })
+    const status = repo.toggleApplied(jobid)
+    return c.json({ status: status })
 })
 
 app.post('/api/ignored/:jobid', async (c) => {
     const jobid = c.req.param('jobid')
-    repo.toggleIgnored(jobid)
-    return c.json({ status: "ok" })
+    const status = repo.toggleIgnored(jobid)
+    return c.json({ status: status })
 })
 
 

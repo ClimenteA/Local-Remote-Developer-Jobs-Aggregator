@@ -10,8 +10,17 @@
     },
     "permissions": [
         "activeTab",
+        "tabs",
         "scripting"
     ],
+    "host_permissions": [
+        "http://*/*",
+        "https://*/*"
+    ],
+    "background": {
+        "service_worker": "service-worker.js",
+        "type": "module"
+    },
     "content_scripts": [
         {
             "run_at": "document_end",
