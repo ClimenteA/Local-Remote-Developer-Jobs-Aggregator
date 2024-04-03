@@ -1,9 +1,10 @@
 # Local Remote Developer Jobs Aggregator
 
-Easily keep track the jobs you've applied in one place. Modify it with your own prefered job boards.
+Easily keep track the jobs you've applied in one place. 
+Fork it and modify it with your own prefered job boards.
 
 
-### Quickstart
+## Quickstart
 
 - clone this repo;
 - [install bunjs](https://bun.sh/docs/installation);
@@ -14,4 +15,25 @@ Easily keep track the jobs you've applied in one place. Modify it with your own 
 
 You can checkout the remote job boards scrapped in the chrome-extension/manifest.json file `content_scripts.matches` and in the `service-worker.js` in `JOB_BOARDS` constant.
 
+The extension:
 
+![](./pics/ext.png)
+
+The interface:
+
+![](.//pics/ui.png)
+
+
+
+## Why a chrome extension and not pupeteer, playwright, selenium?
+
+I tried doing that, but the amount of dependencies just to get it working is absurd (in ubuntu a ton of lib* files were needed).
+Some websites have heavy protection for bots, scrappers which complicates even further the setup and code.
+With the chrome extension you can bypass a lot of those and just act "like a user" on the website.
+No cookies to accept, login session and so on because it uses the session already available in the browser.
+
+**Scrapping is slowish** because if opening all the 70 or so job boards at once will break the server and the browser will not load all the websites in order to save some resources - resulting in the content-script.js to not run. 
+
+
+
+**😁 Good luck job hunting!**
