@@ -73,8 +73,7 @@ const URLS = [
 
 
 document.getElementById("open-tabs").addEventListener("click", () => {
-    URLS.forEach(url => {
-        chrome.tabs.create({ url: url })
-    })
+    for (const url of URLS) {
+        chrome.windows.create({ url: url })
+    }
 })
-
