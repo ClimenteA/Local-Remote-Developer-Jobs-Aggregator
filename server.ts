@@ -66,6 +66,7 @@ app.post('/api/ignored/:jobid', async (c) => {
 })
 
 
+console.log("\nHono server started...\n")
 Bun.serve({
     port: 3000,
     hostname: "127.0.0.1",

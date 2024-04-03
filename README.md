@@ -9,6 +9,7 @@ Fork it and modify it with your own prefered job boards.
 - clone this repo;
 - [install bunjs](https://bun.sh/docs/installation);
 - load extension in browser (`edge://extensions/` or `chrome://extensions/` then `Load unpacked` point to `chrome-extension` folder);
+- run `bun install`;
 - run `bun server.ts`;
 - click `Open job boards` button (let it do it's thing);
 - after it's done, keep the server running and click `View collected jobs` button;
