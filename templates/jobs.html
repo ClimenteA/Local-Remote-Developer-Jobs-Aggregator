@@ -5,9 +5,12 @@
 
 {% for job in jobs %}
 <article x-data="{applied: {{job.applied}}, ignored: {{job.ignored}}}" id="{{ job.jobid }}" class="job-article">
-    <h2>{{ job.title }}</h2>
+    <h2 :style="{ color: applied | ignored ? 'grey': ''}">{{ job.title }}</h2>
     <div role="group">
-        <a href="{{ job.url }}" target="_blank" class="primary" role="button">View job</a>
+        <a :class="applied | ignored ? 'secondary': 'primary'" x-text="applied | ignored ? 'Viewed': 'View job'"
+            href="{{ job.url }}" target="_blank" class="primary" role="button">
+            View job
+        </a>
         <a @click="async () => applied = await applyiedToJob('{{ job.jobid }}')"
             x-text="applied ? 'Applied': 'I\'ve applied'" :class="applied ? 'outline secondary': 'outline'"
             class="outline" role="button">

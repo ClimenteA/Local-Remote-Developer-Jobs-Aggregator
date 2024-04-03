@@ -1,12 +1,12 @@
 {
-    "name": "MyJobsTracker",
+    "name": "Local Remote Developer Jobs Aggregator",
     "version": "0.0.1",
-    "description": "keep track of jobs",
+    "description": "Scrape job boards and save locally. Hack the code as you need.",
     "manifest_version": 3,
     "author": "Alin Climente",
     "action": {
         "default_popup": "index.html",
-        "default_title": "MyJobsTracker"
+        "default_title": "Local Remote Developer Jobs Aggregator"
     },
     "permissions": [
         "activeTab",
