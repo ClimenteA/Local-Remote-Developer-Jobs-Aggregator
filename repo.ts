@@ -1,5 +1,5 @@
 import { Database } from "bun:sqlite"
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'crypto'
 
 
 export interface RawJob {
@@ -150,19 +150,14 @@ export class Repo {
 
         const { limit, offset } = Repo.getLimitOffsetFromPage(page)
 
-        let filters: string
-        if (jobType == "new") {
-            filters = "applied = 0 AND ignored = 0"
-        } else if (jobType == "applied") {
-            filters = "applied = 1"
-        } else if (jobType == "ignored") {
-            filters = "ignored = 1"
-        } else {
-            throw Error("Only new, applied, ignored are known")
+        const jobTypeFilter = {
+            new: "applied = 0 AND ignored = 0",
+            applied: "applied = 1",
+            ignored: "ignored = 1"
         }
 
         const rows = this.db.query(
-            `SELECT * FROM jobs WHERE ${filters} LIMIT ${limit} OFFSET ${offset}; `
+            `SELECT * FROM jobs WHERE ${jobTypeFilter[jobType]} LIMIT ${limit} OFFSET ${offset}; `
         ).all()
         return rows
     }
