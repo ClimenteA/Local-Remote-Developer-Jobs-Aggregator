@@ -315,7 +315,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
     if (request.msg === "startScrapping") {
         for (const { url, wait } of JOB_BOARDS) {
-            // if (!url.includes("remote.works-hub.com")) continue
+            // if (!url.includes("reactjobs.io")) continue
             chrome.windows.create({ url: url })
             await new Promise((res, rej) => setTimeout(() => res(), wait))
 

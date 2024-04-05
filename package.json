@@ -4,6 +4,7 @@
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
-    "@types/bun": "^1.0.12"
+    "@types/bun": "^1.0.12",
+    "@types/nunjucks": "^3.2.6"
   }
 }

@@ -39,39 +39,11 @@ export class Repo {
             timestamp TEXT);
         `).run()
 
-
-        db.query(`
-        CREATE TABLE IF NOT EXISTS scrape (
-            url TEXT,
-            scrapping BOOLEAN,
-            timestamp TEXT);
-        `).run()
-
         db.query(`CREATE UNIQUE INDEX IF NOT EXISTS url_IDX ON "jobs" (url)`).run()
 
         return db
 
     }
-
-    scrappingInProgress() {
-        return this.db.query(`SELECT * FROM scrape WHERE scrapping = $scrapping`).get({ $scrapping: 1 })
-    }
-
-    setScrapping(url: string, started: number) {
-        const currentDate = new Date().toISOString()
-        const exists: any = this.db.query(`SELECT * FROM scrape WHERE url = $url`).get({ $url: url })
-
-        if (exists) {
-            this.db.query(
-                `UPDATE scrape SET scrapping = ${started}, timestamp = "${currentDate}"  WHERE url = "${url}"`
-            ).run()
-        } else {
-            this.db.query(
-                `INSERT INTO scrape(url, scrapping, timestamp) VALUES("${url}", ${started}, "${currentDate}")`
-            ).run()
-        }
-    }
-
 
     updateJobIdStatus(jobid: string, field: string, status: number) {
         this.db.query(
@@ -123,10 +95,7 @@ export class Repo {
 
         const currentDate = new Date().toISOString()
 
-        const sources: Set<string> = new Set([])
         for (const rawjob of rawJobs) {
-
-            sources.add(rawjob.source)
 
             const job = { ...rawjob, jobid: randomUUID(), applied: 0, ignored: 0, timestamp: currentDate }
 
@@ -134,7 +103,7 @@ export class Repo {
 
             try {
                 this.db.query(`
-                INSERT INTO jobs(jobid, url, title, source, applied, ignored, timestamp) VALUES ${values};`
+                INSERT INTO jobs (jobid, url, title, source, applied, ignored, timestamp) VALUES ${values};`
                 ).run()
             } catch (error) {
                 console.log("Already in database. Skipping... ", values)
@@ -142,7 +111,6 @@ export class Repo {
 
         }
 
-        for (const src of sources) this.setScrapping(src, 0)
 
     }
 
