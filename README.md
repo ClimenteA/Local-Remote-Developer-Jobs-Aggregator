@@ -11,8 +11,8 @@ Fork it and modify it with your own prefered job boards.
 - load extension in browser (`edge://extensions/` or `chrome://extensions/` then `Load unpacked` point to `chrome-extension` folder);
 - run `bun install`;
 - run `bun server.ts`;
-- click `Open job boards` button (let it do it's thing);
-- after it's done, keep the server running and click `View collected jobs` button;
+- click `Collect jobs` button (let it do it's thing);
+- after it's done, keep the server running and click `View jobs` button;
 
 You can checkout the remote job boards scrapped in the chrome-extension/manifest.json file `content_scripts.matches` and in the `service-worker.js` in `JOB_BOARDS` constant.
 
@@ -28,10 +28,10 @@ The interface:
 
 ## How it works?
 
-When you click on the extension button `Open job boards` a chrome runtime event `startScrapping` is sent to the `service-worker.js` which opens in a new window a job board url. 
+When you click on the extension button `Collect jobs` a chrome runtime event `startScrapping` is sent to the `service-worker.js` which opens in a new window a job board url. 
 Once the url is loaded in a new window `content-script.js` will be invoked and the page will be scrapped based on the `mapper` object. Data scrapped is sent to the server (built with [HonoJs](https://hono.dev/)) and saved into a sqlite database.
 The `content-script.js` once is finished scrapping and sending the data will also emit a chrome runtime event `closeTab` to `service-worker.js` which will close the window/tab opened.
-If something goes wrong an alert popup will be invoked on the website with the issue and if posible the error will be sent and saved on the server.
+If something goes wrong an alert popup will be invoked on the website with the issue and if posible the error will be sent and saved on the server. Click 'Reset storage' button in case 'Collect jobs' failed or job websites close on load.
 
 
 

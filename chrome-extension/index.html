@@ -15,14 +15,16 @@
         <h3>Local Remote Dev. Jobs Agg.</h3>
 
         <p>
-            Start the server to receive incoming collected jobs then click 'Open job boards' button. After it's done
-            click keep the server running and click 'View collected jobs' button.
+            Start the server to receive incoming collected jobs then click 'Collect jobs' button. After it's done
+            click keep the server running and click 'View jobs' button.
+            Click 'Reset storage' button in case 'Collect jobs' failed or job websites close on load.
         </p>
 
         <div style="display: grid; place-content: center; margin-bottom: 1rem;">
             <div role="group" style="margin-top: 1rem;">
-                <button id="open-tabs" role="button">Open job boards</button>
-                <a href="http://localhost:3000" target="_blank" role="button">View collected jobs</a>
+                <button id="open-tabs" role="button">Collect jobs</button>
+                <a href="http://localhost:3000" target="_blank" role="button">View jobs</a>
+                <button id="reset-state" role="button">Reset storage</button>
             </div>
         </div>
 
