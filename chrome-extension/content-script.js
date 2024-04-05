@@ -1039,13 +1039,7 @@ async function main() {
 }
 
 
-
-if (localStorage.getItem("closeTabs") == 'true') {
-
-    main().then(saved => {
-        if (saved) {
-            chrome.runtime.sendMessage({ msg: "closeTab" })
-        }
-    })
-
-}
+main().then(saved => {
+    if (!saved) return
+    chrome.runtime.sendMessage({ msg: "closeTab" })
+})

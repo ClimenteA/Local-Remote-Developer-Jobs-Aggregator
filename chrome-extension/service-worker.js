@@ -315,14 +315,68 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
     if (request.msg === "startScrapping") {
         for (const { url, wait } of JOB_BOARDS) {
+
+            // Debug line
             // if (!url.includes("reactjobs.io")) continue
-            chrome.windows.create({ url: url })
+
+            // Use chrome.storage to save url close state 
+            // ONLY when `Open job boards` button is clicked
+            chrome.storage.sync.get(['urls'], function (items) {
+
+                let urlStates = []
+                if (items.urls?.length > 0) {
+
+                    let foundUrl = false
+                    for (let i = 0; items.urls.length > i; i++) {
+                        if (items.urls[i].url == url) {
+                            foundUrl = true
+                            items.urls[i].close = true
+                        }
+                    }
+
+                    if (!foundUrl) {
+                        items.urls.push({ url: url, close: true })
+                    }
+
+                    urlStates = items.urls
+
+                } else {
+                    urlStates.push({ url: url, close: true })
+                }
+
+                chrome.storage.sync.set({ 'urls': urlStates })
+            })
+
+            chrome.tabs.create({ url: url })
+
             await new Promise((res, rej) => setTimeout(() => res(), wait))
 
         }
     }
 
+    // Close tab only if scrapping is in progress
     if (request.msg === "closeTab") {
-        chrome.tabs.remove(sender.tab.id)
+
+        chrome.storage.sync.get(['urls'], function (items) {
+            if (!items.urls?.length > 0) return
+            for (let i = 0; items.urls.length > i; i++) {
+                if (items.urls[i].url == sender.tab.url) {
+                    items.urls[i].close = false
+                    chrome.storage.sync.set({ 'urls': items.urls })
+                    break
+                }
+            }
+        })
+
+        chrome.storage.sync.get(['urls'], function (items) {
+            if (!items.urls?.length > 0) return
+            for (const u of items.urls) {
+                if (u.url == sender.tab.url) {
+                    chrome.tabs.remove(sender.tab.id)
+                    break
+                }
+            }
+        })
+
     }
 })
