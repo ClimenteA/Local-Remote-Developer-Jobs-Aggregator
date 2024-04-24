@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "hono": "^4.1.7",
+    "hono": "^4.2.7",
     "nunjucks": "^3.2.4"
   },
   "devDependencies": {
