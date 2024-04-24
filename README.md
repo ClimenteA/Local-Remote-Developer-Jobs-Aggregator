@@ -33,6 +33,9 @@ Once the url is loaded in a new window `content-script.js` will be invoked and t
 The `content-script.js` once is finished scrapping and sending the data will also emit a chrome runtime event `closeTab` to `service-worker.js` which will close the window/tab opened.
 If something goes wrong an alert popup will be invoked on the website with the issue and if posible the error will be sent and saved on the server. Click 'Reset storage' button in case 'Collect jobs' failed or job websites close on load.
 
+**Note:** 
+After you click `Collect jobs` and the scrapping finishes click to deactivate the content script (some websites have rate limits). Also, if some websites remain open refresh the page so the content-script.js can try to scrape again.
+
 
 
 ## Why a chrome extension and not pupeteer, playwright, selenium?

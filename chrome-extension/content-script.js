@@ -1006,7 +1006,6 @@ const mapper = {
 
 
 async function main() {
-
     try {
 
         const jobs = await mapper[document.location.host]()
@@ -1035,11 +1034,17 @@ async function main() {
             return false
         }
     }
-
 }
 
 
-main().then(saved => {
-    if (!saved) return
-    chrome.runtime.sendMessage({ msg: "closeTab" })
+chrome.storage.sync.get(['contentScriptStatus'], async function (items) {
+    if (!items.contentScriptStatus?.length > 0) items.contentScriptStatus = 'active'
+    if (items.contentScriptStatus == 'inactive') return
+
+    main().then(saved => {
+        if (!saved) return
+        chrome.runtime.sendMessage({ msg: "closeTab" })
+    })
+
 })
+
