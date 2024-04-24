@@ -125,8 +125,9 @@ export class Repo {
         }
 
         const rows = this.db.query(
-            `SELECT * FROM jobs WHERE ${jobTypeFilter[jobType]} LIMIT ${limit} OFFSET ${offset}; `
+            `SELECT * FROM jobs WHERE ${jobTypeFilter[jobType]} ORDER BY datetime(timestamp) DESC LIMIT ${limit} OFFSET ${offset};`
         ).all()
+
         return rows
     }
 
