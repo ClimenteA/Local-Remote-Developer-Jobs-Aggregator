@@ -4,11 +4,13 @@ Easily keep track the jobs you've applied in one place.
 Fork it and modify it with your own prefered job boards.
 
 
+
 ## Quickstart
 
 - clone this repo;
 - [install bunjs](https://bun.sh/docs/installation);
 - load extension in browser (`edge://extensions/` or `chrome://extensions/` then `Load unpacked` point to `chrome-extension` folder);
+- (One-time task) Open each website from manifest.json `content_scripts.matches` - accept pop-ups/cookies/make account;
 - run `bun install`;
 - run `bun server.ts`;
 - click `Collect jobs` button (let it do it's thing);

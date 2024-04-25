@@ -16,6 +16,13 @@ export interface Job extends RawJob {
 }
 
 
+const jobTypeFilter = {
+    new: "applied = 0 AND ignored = 0",
+    applied: "applied = 1",
+    ignored: "ignored = 1"
+}
+
+
 export class Repo {
     db: Database
 
@@ -118,17 +125,36 @@ export class Repo {
 
         const { limit, offset } = Repo.getLimitOffsetFromPage(page)
 
-        const jobTypeFilter = {
-            new: "applied = 0 AND ignored = 0",
-            applied: "applied = 1",
-            ignored: "ignored = 1"
-        }
-
         const rows = this.db.query(
             `SELECT * FROM jobs WHERE ${jobTypeFilter[jobType]} ORDER BY datetime(timestamp) DESC LIMIT ${limit} OFFSET ${offset};`
         ).all()
 
         return rows
+    }
+
+    countJobs() {
+
+
+        const countRows = (jobType: string) => {
+            const response: any = this.db.query(
+                `SELECT COUNT(*) FROM jobs WHERE ${jobTypeFilter[jobType]};`
+            ).get()
+            if (response["COUNT(*)"]) return response["COUNT(*)"]
+            return 0
+        }
+
+
+        const newJobsCount = Number(countRows("new"))
+        const appliedJobsCount = Number(countRows("applied"))
+        const ignoredJobsCount = Number(countRows("ignored"))
+
+        const counted: { [key: string]: number } = {
+            new: newJobsCount,
+            applied: appliedJobsCount,
+            ignored: ignoredJobsCount
+        }
+
+        return counted
     }
 
     getNewJobs(page: number = 1) {
