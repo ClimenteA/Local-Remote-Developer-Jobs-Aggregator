@@ -24,7 +24,7 @@ The extension:
 
 The interface:
 
-![](./pics/ui.png)
+![](./pics/board.png)
 
 
 
