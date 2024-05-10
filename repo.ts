@@ -110,11 +110,11 @@ export class Repo {
     }
 
     ignoreJob(jobTitle: string) {
-        let ignore = false
+        let ignore = ""
         for (let word of this.keywords) {
             if (jobTitle.toLowerCase().includes(word)) {
                 console.log("Ignore job: ", jobTitle)
-                ignore = true
+                ignore = word
                 break
             }
         }
@@ -129,7 +129,7 @@ export class Repo {
 
             const job = { ...rawjob, jobid: randomUUID(), applied: 0, ignored: 0, timestamp: currentDate }
 
-            if (this.ignoreJob(job.title)) continue
+            if (this.ignoreJob(job.title).length != 0) continue
 
             const values = `("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`
 

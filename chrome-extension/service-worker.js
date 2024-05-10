@@ -19,10 +19,6 @@ const JOB_BOARDS = [
         url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=3",
         wait: defaultWait,
     },
-    // {
-    //     url: "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/sort-publish",
-    //     wait: defaultWait,
-    // },
     {
         url: "https://jsjobbs.com/jobs/remote-javascript-jobs",
         wait: defaultWait,
@@ -116,7 +112,7 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://landing.jobs/jobs?page=1&gr=true&fr=true&c%5B%5D=3&c%5B%5D=1&c%5B%5D=2&match=all&pd=7&hd=false&t_co=false&t_st=false",
+        url: "https://landing.jobs/jobs?page=1&gr=true&fr=true&match=all&con=true&hd=false&t_co=false&t_st=false",
         wait: defaultWait,
     },
     {
@@ -183,82 +179,78 @@ const JOB_BOARDS = [
         url: "https://justremote.co/remote-developer-jobs",
         wait: defaultWait,
     },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Python&page=1",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Python&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Python&page=3",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Python&page=4",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=1",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=3",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=4",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Golang&page=1",
-        wait: defaultWait,
-    },
-    {
-        url: "https://dynamitejobs.com/remote-jobs?text=Golang&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=3",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=3",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/golang?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
-        wait: defaultWait,
-    },
-    {
-        url: "https://himalayas.app/jobs/worldwide/golang?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
-        wait: defaultWait,
-    },
-    {
-        url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
-        wait: defaultWait,
-    },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=1",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=2",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=3",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=4",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=1",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=2",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=3",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Javascript&page=4",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Golang&page=1",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://dynamitejobs.com/remote-jobs?text=Golang&page=2",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/python?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=3",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/javascript?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=3",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/golang?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://himalayas.app/jobs/worldwide/golang?type=full-time%2Cpart-time%2Ccontractor%2Ctemporary&experience=mid-level%2Csenior%2Cmanager&sort=recent&page=2",
+    //     wait: defaultWait,
+    // },
     // {
     //     url: "https://www.totaljobs.com/jobs/remote-python?sort=2&action=sort_publish",
     //     wait: defaultWait,
@@ -291,6 +283,14 @@ const JOB_BOARDS = [
     //     url: "https://www.totaljobs.com/jobs/remote-golang?sort=2&action=sort_publish",
     //     wait: defaultWait,
     // },
+    // {
+    //     url: "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/sort-publish",
+    //     wait: defaultWait,
+    // },
+    {
+        url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
+        wait: defaultWait,
+    },
     {
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2",
         wait: largeWait,
@@ -307,7 +307,6 @@ const JOB_BOARDS = [
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
         wait: largeWait,
     },
-
 ]
 
 
@@ -354,7 +353,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
         }
     }
 
-    // Close tab only if scrapping is in progress
+    // Close tab only if scrapping was finished
     if (request.msg === "closeTab") {
 
         chrome.storage.sync.get(['urls'], function (items) {

@@ -968,7 +968,7 @@ async function getLinkedinJobs() {
 }
 
 
-const mapper = {
+const hostMapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
     "www.bestjobs.eu": getBestJobs,
@@ -1001,14 +1001,13 @@ const mapper = {
     "remoters.net": getRemotersNetJobs,
     "www.totaljobs.com": getTotalJobs,
     "www.linkedin.com": getLinkedinJobs
-
 }
 
 
-async function main() {
+async function collectJobs() {
     try {
 
-        const jobs = await mapper[document.location.host]()
+        const jobs = await hostMapper[document.location.host]()
         const saved = await saveJobs(jobs)
         console.log("Found jobs:", jobs)
         return saved
@@ -1037,14 +1036,52 @@ async function main() {
 }
 
 
-chrome.storage.sync.get(['contentScriptStatus'], async function (items) {
-    if (!items.contentScriptStatus?.length > 0) items.contentScriptStatus = 'active'
-    if (items.contentScriptStatus == 'inactive') return
+async function ignoreJob(data) {
 
-    main().then(saved => {
-        if (!saved) return
-        chrome.runtime.sendMessage({ msg: "closeTab" })
+    const response = await fetch(
+        "http://localhost:3000/api/ignore-job", {
+        method: "POST",
+        body: JSON.stringify(data)
     })
 
-})
+    if (response.ok) {
+        return await response.json()
+    }
 
+    alert("Check if server is online!")
+    return
+}
+
+
+
+async function scanForIgnoredKeywords() {
+
+    while (true) {
+        let data = await ignoreJob({ bodyText: document.body.innerText })
+        if (data.ignoreJob.length > 0) {
+            alert(`Found "${data.ignoreJob}" which is on of the ignored keywords`)
+            return true
+        } else {
+            await wait(3000)
+        }
+    }
+}
+
+
+chrome.storage.sync.get(['jobCollectionStatus', 'scanJobDescriptionStatus'], async function (items) {
+
+    if (!items.jobCollectionStatus?.length > 0) items.jobCollectionStatus = 'active'
+    if (!items.scanJobDescriptionStatus?.length > 0) items.scanJobDescriptionStatus = 'active'
+
+    if (items.jobCollectionStatus == 'active') {
+        collectJobs().then(saved => {
+            if (!saved) return
+            chrome.runtime.sendMessage({ msg: "closeTab" })
+        })
+    }
+
+    if (items.scanJobDescriptionStatus == 'active') {
+        scanForIgnoredKeywords().then(res => console.log("Ignore job:", res))
+    }
+
+})

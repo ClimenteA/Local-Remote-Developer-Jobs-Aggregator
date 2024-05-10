@@ -15,9 +15,12 @@
         <h3>Local Remote Dev. Jobs Agg.</h3>
 
         <p>
-            Start the server to receive incoming collected jobs then click 'Collect jobs' button. After it's done
-            click keep the server running and click 'View jobs' button.
+            Start the server to receive incoming collected jobs then click 'Collect jobs' button.
+            After it's done, keep the server running and click 'View jobs' button.
+            You can use Sqlite DB Browser to filter them in bulk before accessing the ui.
             Click 'Reset storage' button in case 'Collect jobs' failed or job websites close on load.
+            If some pages remain open accept cookies/modals and refresh the page.
+            While looking at job description disable "job collection" and enable "job description scanning".
         </p>
 
         <div style="display: grid; place-content: center; margin-bottom: 1rem;">
@@ -28,10 +31,14 @@
             </div>
         </div>
 
-        <fieldset style="display: flex; justify-content: right; padding-right: 1rem; user-select: none;">
+        <fieldset style="display: flex; padding-left: 1rem; user-select: none;">
             <label>
-                <input id="content-script-status" type="checkbox" role="switch" checked />
-                <span id="content-script-text">Active content script</span>
+                <input id="job-collection-fetching-status" type="checkbox" role="switch" checked />
+                <span id="job-collection-fetching-text">Active job collection</span>
+            </label>
+            <label style="margin-left: 2rem;">
+                <input id="job-description-scanning-status" type="checkbox" role="switch" checked />
+                <span id="job-description-scanning-text">Active job description scanning</span>
             </label>
         </fieldset>
 
