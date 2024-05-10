@@ -110,14 +110,23 @@ export class Repo {
     }
 
     ignoreJob(jobTitle: string) {
+        // regex didn't worked with bun...
+
         let ignore = ""
+        let titleSplited = jobTitle.split(/\s+/)
+
         for (let word of this.keywords) {
-            if (jobTitle.toLowerCase().includes(word)) {
-                console.log("Ignore job: ", jobTitle)
-                ignore = word
-                break
+            if (word.length == 0) continue
+
+            for (let wordTitle of titleSplited) {
+                if (wordTitle.trim().toLowerCase() == word) {
+                    console.log("Ignore job: ", jobTitle.slice(0, 50))
+                    ignore = word
+                    break
+                }
             }
         }
+
         return ignore
     }
 

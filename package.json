@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "dependencies": {
     "hono": "^4.2.7",
     "nunjucks": "^3.2.4"
