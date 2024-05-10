@@ -1,8 +1,7 @@
 # Local Remote Developer Jobs Aggregator
 
-Easily keep track the jobs you've applied in one place. 
-Fork it and modify it with your own prefered job boards.
-
+Easily keep track the jobs you've applied in one place. No more questions like: "Did I applied to this job before? Hmm... looks familiar". 
+If you know a bit of javascript - fork it and modify it for your prefered job boards and jobs types.
 
 
 ## Quickstart
@@ -11,12 +10,14 @@ Fork it and modify it with your own prefered job boards.
 - [install bunjs](https://bun.sh/docs/installation);
 - load extension in browser (`edge://extensions/` or `chrome://extensions/` then `Load unpacked` point to `chrome-extension` folder);
 - (One-time task) Open each website from manifest.json `content_scripts.matches` - accept pop-ups/cookies/make account;
+- (One-time task) checkout `ignorekeywords.txt` and add your own keywords which if found in job title will not save it;
 - run `bun install`;
 - run `bun server.ts`;
 - click `Collect jobs` button (let it do it's thing);
-- after it's done, keep the server running and click `View jobs` button;
+- after it's done, keep the server running and click `View jobs` button (TIP: install [DB Browser](https://sqlitebrowser.org/) and perform operations in bulk);
 
-You can checkout the remote job boards scrapped in the chrome-extension/manifest.json file `content_scripts.matches` and in the `service-worker.js` in `JOB_BOARDS` constant.
+You can checkout the remote job boards scrapped in the chrome-extension/manifest.json file `content_scripts.matches` and in the `service-worker.js` in `JOB_BOARDS` constant. Add/remove/modify it for your needs. 
+
 
 The extension:
 

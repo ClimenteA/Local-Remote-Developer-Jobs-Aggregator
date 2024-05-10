@@ -19,10 +19,10 @@ const JOB_BOARDS = [
         url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=3",
         wait: defaultWait,
     },
-    {
-        url: "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/sort-publish",
-        wait: defaultWait,
-    },
+    // {
+    //     url: "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/sort-publish",
+    //     wait: defaultWait,
+    // },
     {
         url: "https://jsjobbs.com/jobs/remote-javascript-jobs",
         wait: defaultWait,
@@ -259,38 +259,38 @@ const JOB_BOARDS = [
         url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
         wait: defaultWait,
     },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-python?sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-python?page=2&sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-python?page=3&sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-javascript?sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-javascript?sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-javascript?page=2&sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-javascript?page=3&sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.totaljobs.com/jobs/remote-golang?sort=2&action=sort_publish",
-        wait: defaultWait,
-    },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-python?sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-python?page=2&sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-python?page=3&sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-javascript?sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-javascript?sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-javascript?page=2&sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-javascript?page=3&sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.totaljobs.com/jobs/remote-golang?sort=2&action=sort_publish",
+    //     wait: defaultWait,
+    // },
     {
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2",
         wait: largeWait,

@@ -25,9 +25,20 @@ const jobTypeFilter = {
 
 export class Repo {
     db: Database
+    keywords: string[] = []
 
     constructor(dbPath: string = "./jobs.db") {
         this.db = Repo.initialize_jobs_database(dbPath)
+
+        const ignoreKeywordsFile = Bun.file("ignorekeywords.txt")
+        ignoreKeywordsFile.text().then(text => {
+            for (let k of text.split("\n")) {
+                let word = k.trim().toLowerCase()
+                if (word) {
+                    this.keywords.push(word)
+                }
+            }
+        })
     }
 
     static initialize_jobs_database(dbPath: string) {
@@ -98,6 +109,18 @@ export class Repo {
         return { limit, offset }
     }
 
+    ignoreJob(jobTitle: string) {
+        let ignore = false
+        for (let word of this.keywords) {
+            if (jobTitle.toLowerCase().includes(word)) {
+                console.log("Ignore job: ", jobTitle)
+                ignore = true
+                break
+            }
+        }
+        return ignore
+    }
+
     saveJobs(rawJobs: Array<RawJob>) {
 
         const currentDate = new Date().toISOString()
@@ -105,6 +128,8 @@ export class Repo {
         for (const rawjob of rawJobs) {
 
             const job = { ...rawjob, jobid: randomUUID(), applied: 0, ignored: 0, timestamp: currentDate }
+
+            if (this.ignoreJob(job.title)) continue
 
             const values = `("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`
 
@@ -115,10 +140,7 @@ export class Repo {
             } catch (error) {
                 console.log("Already in database. Skipping... ", values)
             }
-
         }
-
-
     }
 
     getJobs(jobType: string, page: number = 1) {

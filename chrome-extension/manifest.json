@@ -58,7 +58,8 @@
                 "https://himalayas.app/*",
                 "https://remoters.net/jobs/*",
                 "https://www.totaljobs.com/jobs/remote-*",
-                "https://www.linkedin.com/jobs/collections/*"
+                "https://www.linkedin.com/jobs/collections/*",
+                "https://www.crossover.com/jobs-TODO*"
             ],
             "js": [
                 "content-script.js"
