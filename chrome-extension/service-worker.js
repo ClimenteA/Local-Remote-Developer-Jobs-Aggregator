@@ -2,6 +2,9 @@
 const defaultWait = 3000
 const largeWait = 6000
 
+
+// https://wellfound.com/jobs
+
 const JOB_BOARDS = [
     {
         url: "https://vuejobs.com/jobs",
@@ -179,6 +182,26 @@ const JOB_BOARDS = [
         url: "https://justremote.co/remote-developer-jobs",
         wait: defaultWait,
     },
+    {
+        url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
+        wait: defaultWait,
+    },
+    {
+        url: "https://www.linkedin.com/jobs/collections/?f_WT=2",
+        wait: largeWait,
+    },
+    {
+        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=24",
+        wait: largeWait,
+    },
+    {
+        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=48",
+        wait: largeWait,
+    },
+    {
+        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
+        wait: largeWait,
+    },
     // {
     //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=1",
     //     wait: defaultWait,
@@ -287,26 +310,6 @@ const JOB_BOARDS = [
     //     url: "https://www.ejobs.ro/locuri-de-munca/remote/it-software/mid-level,senior-level/sort-publish",
     //     wait: defaultWait,
     // },
-    {
-        url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.linkedin.com/jobs/collections/?f_WT=2",
-        wait: largeWait,
-    },
-    {
-        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=24",
-        wait: largeWait,
-    },
-    {
-        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=48",
-        wait: largeWait,
-    },
-    {
-        url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
-        wait: largeWait,
-    },
 ]
 
 
