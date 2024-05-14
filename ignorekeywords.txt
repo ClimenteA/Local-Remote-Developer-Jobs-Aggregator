@@ -77,9 +77,13 @@ solidity
 IOS
 Remote (US)
 Remote US
+(Remote US)
 On-site
 onsite
 No longer accepting applications
 Data analyst
 Data Scientist
 Platform Engineer
+relocation to
+from anywhere within the UK
+We are looking for candidates in Canada.

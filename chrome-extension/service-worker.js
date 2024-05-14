@@ -143,22 +143,6 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://www.reed.co.uk/jobs/work-from-home-python-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.reed.co.uk/jobs/work-from-home-javascript-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.reed.co.uk/jobs/work-from-home-typescript-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.reed.co.uk/jobs/work-from-home-go-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
-        wait: defaultWait,
-    },
-    {
         url: "https://www.startupjobs.com/jobs?seniority=medior,senior&technologies=python,javascript,go,typescript&form-of-collaboration=freelance,remote",
         wait: defaultWait,
     },
@@ -202,6 +186,22 @@ const JOB_BOARDS = [
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
         wait: largeWait,
     },
+    // {
+    //     url: "https://www.reed.co.uk/jobs/work-from-home-python-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.reed.co.uk/jobs/work-from-home-javascript-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.reed.co.uk/jobs/work-from-home-typescript-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.reed.co.uk/jobs/work-from-home-go-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
+    //     wait: defaultWait,
+    // },
     // {
     //     url: "https://dynamitejobs.com/remote-jobs?text=Python&page=1",
     //     wait: defaultWait,

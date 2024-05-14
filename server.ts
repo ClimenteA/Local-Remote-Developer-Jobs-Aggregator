@@ -44,12 +44,6 @@ app.get('/ignored/:page', (c) => {
 })
 
 
-app.post('/api/ignore-job', async (c) => {
-    const data: { [key: string]: string } = await c.req.json()
-    return c.json({ ignoreJob: repo.ignoreJob(data.bodyText) })
-})
-
-
 app.post('/api/save-jobs', async (c) => {
     const jobs: Array<RawJob> = await c.req.json()
     try {

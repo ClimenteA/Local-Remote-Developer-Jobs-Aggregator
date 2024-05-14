@@ -22,7 +22,7 @@ You can checkout the remote job boards scrapped in the `chrome-extension/service
 
 The extension:
 
-![](./pics/popup.png)
+![](./pics/popext.png)
 
 The interface:
 
@@ -39,7 +39,6 @@ If something goes wrong an alert popup will be invoked on the website with the i
 
 **Note:** 
 After scrapping is finised deactivate `job collection`. 
-While looking at the collected jobs activate `description scanning` (an alert will appear if one of the ignored keywords if found). After you are done with the job application process deactivate `job collection` and `description scanning` so it won't bother you.
 
 
 
