@@ -4,6 +4,7 @@ const largeWait = 6000
 
 
 // https://wellfound.com/jobs
+// https://jobs.workable.com/
 
 const JOB_BOARDS = [
     {
