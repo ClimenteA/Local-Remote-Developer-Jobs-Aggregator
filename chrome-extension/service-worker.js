@@ -320,7 +320,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
         for (const { url, wait } of JOB_BOARDS) {
 
             // Debug line
-            // if (!url.includes("reactjobs.io")) continue
+            if (!url.includes("https://startup.jobs/?remote=true")) continue
 
             // Use chrome.storage to save url close state 
             // ONLY when `Open job boards` button is clicked
