@@ -104,10 +104,6 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://4dayweek.io/remote-jobs/engineering/europe/fully-remote",
-        wait: defaultWait,
-    },
-    {
         url: "https://builtin.com/jobs/remote/dev-engineering/golang/javascript/python/mid-level/senior?daysSinceUpdated=3",
         wait: defaultWait,
     },
@@ -187,6 +183,10 @@ const JOB_BOARDS = [
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
         wait: largeWait,
     },
+    // {
+    //     url: "https://4dayweek.io/remote-jobs/engineering/europe/fully-remote",
+    //     wait: defaultWait,
+    // },
     // {
     //     url: "https://www.reed.co.uk/jobs/work-from-home-python-jobs?parentSectorIds=52&dateCreatedOffSet=lastthreedays",
     //     wait: defaultWait,
@@ -320,7 +320,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
         for (const { url, wait } of JOB_BOARDS) {
 
             // Debug line
-            if (!url.includes("https://startup.jobs/?remote=true")) continue
+            // if (!url.includes("https://startup.jobs/?remote=true")) continue
 
             // Use chrome.storage to save url close state 
             // ONLY when `Open job boards` button is clicked

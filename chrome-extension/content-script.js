@@ -623,8 +623,9 @@ async function getBerlinStartupJobs() {
 
 async function getStartupJobs() {
 
+    const apikey = "MGQwZDYzNjA0OGM3YTlhMDc0ZTM0MGYwNTg4NWUxNGU5NWU4OGMxYzcwMzc5ZTcyYjU3ZmU4YjJlODkzMGE3MHZhbGlkVW50aWw9MTcxNjM1OTc1MyZyZXN0cmljdEluZGljZXM9UG9zdF9wcm9kdWN0aW9uJTJDUGxhY2VzX3Byb2R1Y3Rpb24"
 
-    const response = await fetch("https://4cqmtmmk73-dsn.algolia.net/1/indexes/Post_production/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.20.0)%3B%20Browser%20(lite)&x-algolia-api-key=MTFjZGI5ZDVhZGQwYzE3YWZmZTIyODk1NTIwZjUyMWRhMTUzYWNiYzY4ODM1MzdhZTkxZmNlMTcxYTBmMDE2OHZhbGlkVW50aWw9MTcxNjE4OTUxNyZyZXN0cmljdEluZGljZXM9UG9zdF9wcm9kdWN0aW9uJTJDUGxhY2VzX3Byb2R1Y3Rpb24%3D&x-algolia-application-id=4CQMTMMK73", {
+    const response = await fetch(`https://4cqmtmmk73-dsn.algolia.net/1/indexes/Post_production/query?x-algolia-agent=Algolia%20for%20JavaScript%20(4.20.0)%3B%20Browser%20(lite)&x-algolia-api-key=${apikey}%3D&x-algolia-application-id=4CQMTMMK73`, {
         "headers": {
             "accept": "*/*",
             "accept-language": "en-US,en;q=0.9,ro;q=0.8",
