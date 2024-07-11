@@ -27,7 +27,7 @@ Oracle
 T-Systems
 live anywhere in the British Isles
 DevSecOps
-Ruby on Rails
+rails
 WordPress
 Smart Contract
 blockchain
@@ -43,6 +43,7 @@ Remote - USA
 Android
 Embedded
 Symfony
+Mobile
 Mobile Developer
 Flutter
 USA Only
@@ -90,3 +91,18 @@ We are looking for candidates in Canada.
 Anywhere within Poland
 Remote, US
 Linea
+Senior Customer Retention Specialist
+Customer
+Cloud
+Principal
+Staff
+Lead
+Ops/SRE
+Security
+AI/ML
+Architect
+Account Manager
+Designer
+Manager
+Master
+President

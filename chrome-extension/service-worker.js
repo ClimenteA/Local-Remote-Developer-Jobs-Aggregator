@@ -136,18 +136,6 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://startup.jobs/?remote=true",
-        wait: defaultWait,
-    },
-    {
-        url: "https://www.startupjobs.com/jobs?seniority=medior,senior&technologies=python,javascript,go,typescript&form-of-collaboration=freelance,remote",
-        wait: defaultWait,
-    },
-    {
-        url: "https://workinstartups.com/job-board/jobs/freelance/",
-        wait: defaultWait,
-    },
-    {
         url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Python&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
         wait: defaultWait,
     },
@@ -183,6 +171,18 @@ const JOB_BOARDS = [
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
         wait: largeWait,
     },
+    // {
+    //     url: "https://workinstartups.com/job-board/jobs/developers/freelance",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://startup.jobs/?remote=true",
+    //     wait: defaultWait,
+    // },
+    // {
+    //     url: "https://www.startupjobs.com/jobs?seniority=medior,senior&technologies=python,javascript,go,typescript&form-of-collaboration=freelance,remote",
+    //     wait: defaultWait,
+    // },
     // {
     //     url: "https://4dayweek.io/remote-jobs/engineering/europe/fully-remote",
     //     wait: defaultWait,
