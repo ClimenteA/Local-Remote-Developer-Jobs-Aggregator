@@ -92,7 +92,7 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer",
+        url: "https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer/keyword/remote",
         wait: defaultWait,
     },
     {

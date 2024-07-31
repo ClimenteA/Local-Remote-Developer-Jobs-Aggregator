@@ -68,6 +68,7 @@ Solutions Arhitect
 Cloud Ops Engineer
 Lumenalta
 Ruby on Rails
+Ruby
 Ethereum
 This job is closed
 MetaMask
@@ -106,3 +107,7 @@ Designer
 Manager
 Master
 President
+Angular
+Elixir
+Sales Engineer
+Trilogy
