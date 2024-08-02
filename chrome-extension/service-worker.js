@@ -152,6 +152,14 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
+        url: "https://www.glassdoor.com/Job/romania-javascript-jobs-SRCH_IL.0,7_IN203_KO8,18.htm?fromAge=1",
+        wait: defaultWait,
+    },
+    {
+        url: "https://www.glassdoor.com/Job/romania-typescript-jobs-SRCH_IL.0,7_IN203_KO8,18.htm?fromAge=1",
+        wait: defaultWait,
+    },    
+    {
         url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
         wait: defaultWait,
     },
@@ -327,7 +335,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
     if (request.msg === "startScrapping") {
         for (const { url, wait } of JOB_BOARDS) {
             // Debug line
-            if (!url.includes("glassdoor.com")) continue;
+            // if (!url.includes("glassdoor.com")) continue;
 
             // Use chrome.storage to save url close state 
             // ONLY when `Open job boards` button is clicked
