@@ -92,10 +92,6 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
-        url: "https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer/keyword/remote",
-        wait: defaultWait,
-    },
-    {
         url: "https://www.remote.io/remote-software-development-jobs?pg=1",
         wait: defaultWait,
     },
@@ -152,6 +148,10 @@ const JOB_BOARDS = [
         wait: defaultWait,
     },
     {
+        url: "https://www.glassdoor.com/Job/romania-python-jobs-SRCH_IL.0,7_IN203_KO8,14.htm?sortBy=date_desc&fromAge=1",
+        wait: defaultWait,
+    },
+    {
         url: "https://remoters.net/jobs/software-development/filters?jobs-location=anywhere",
         wait: defaultWait,
     },
@@ -171,6 +171,10 @@ const JOB_BOARDS = [
         url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
         wait: largeWait,
     },
+    // {
+    //     url: "https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer/keyword/remote",
+    //     wait: defaultWait,
+    // },
     // {
     //     url: "https://workinstartups.com/job-board/jobs/developers/freelance",
     //     wait: defaultWait,
@@ -314,72 +318,70 @@ const JOB_BOARDS = [
 ]
 
 
-chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+chrome.runtime.onInstalled.addListener(() => {
+    console.log("Service Worker installed");
+});
 
+
+chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
     if (request.msg === "startScrapping") {
         for (const { url, wait } of JOB_BOARDS) {
-
             // Debug line
-            // if (!url.includes("https://startup.jobs/?remote=true")) continue
+            if (!url.includes("glassdoor.com")) continue;
 
             // Use chrome.storage to save url close state 
             // ONLY when `Open job boards` button is clicked
             chrome.storage.sync.get(['urls'], function (items) {
-
-                let urlStates = []
+                let urlStates = [];
                 if (items.urls?.length > 0) {
-
-                    let foundUrl = false
+                    let foundUrl = false;
                     for (let i = 0; items.urls.length > i; i++) {
                         if (items.urls[i].url == url) {
-                            foundUrl = true
-                            items.urls[i].close = true
+                            foundUrl = true;
+                            items.urls[i].close = true;
                         }
                     }
-
                     if (!foundUrl) {
-                        items.urls.push({ url: url, close: true })
+                        items.urls.push({ url: url, close: true });
                     }
-
-                    urlStates = items.urls
-
+                    urlStates = items.urls;
                 } else {
-                    urlStates.push({ url: url, close: true })
+                    urlStates.push({ url: url, close: true });
                 }
+                chrome.storage.sync.set({ 'urls': urlStates });
+            });
 
-                chrome.storage.sync.set({ 'urls': urlStates })
-            })
-
-            chrome.tabs.create({ url: url })
-
-            await new Promise((res, rej) => setTimeout(() => res(), wait))
-
+            chrome.tabs.create({ url: url });
+            await new Promise((res, rej) => setTimeout(() => res(), wait));
         }
-    }
-
-    // Close tab only if scrapping was finished
-    if (request.msg === "closeTab") {
+        sendResponse({ status: "scrapping started" });
+        return true; // Keeps the message channel open for sendResponse
+    } else if (request.msg === "closeTab") {
+        // Close tab only if scrapping was finished
+        console.log("closeTab event was received");
 
         chrome.storage.sync.get(['urls'], function (items) {
-            if (!items.urls?.length > 0) return
+            if (!items.urls?.length > 0) return;
             for (let i = 0; items.urls.length > i; i++) {
                 if (items.urls[i].url == sender.tab.url) {
-                    items.urls[i].close = false
-                    chrome.storage.sync.set({ 'urls': items.urls })
-                    break
+                    items.urls[i].close = false;
+                    chrome.storage.sync.set({ 'urls': items.urls });
+                    break;
                 }
             }
-        })
+        });
 
         chrome.storage.sync.get(['urls'], function (items) {
-            if (!items.urls?.length > 0) return
+            if (!items.urls?.length > 0) return;
             for (const u of items.urls) {
                 if (u.url == sender.tab.url) {
-                    chrome.tabs.remove(sender.tab.id)
-                    break
+                    chrome.tabs.remove(sender.tab.id);
+                    break;
                 }
             }
-        })
+        });
 
+        sendResponse({ status: "tab closed" });
+        return true; // Keeps the message channel open for sendResponse
     }
-})
+});

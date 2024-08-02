@@ -2,13 +2,22 @@
 
 
 async function saveJobs(jobs) {
+
+    console.log("Saving jobs:", jobs)
+
     const response = await fetch(
         "http://localhost:3000/api/save-jobs", {
         method: "POST",
         body: JSON.stringify(jobs)
     })
 
-    return response.status == 201
+    if (response.status == 201) {
+        console.log("Saved", jobs)
+        return true
+    } else {
+        console.error("Could not save: ", jobs)
+        return false
+    }
 }
 
 
@@ -970,6 +979,35 @@ async function getLinkedinJobs() {
 }
 
 
+async function getGlassDoorJobs() {
+    let remoteBtn = "#app-navigation > div.PageContainer_pageContainer__CVcfg.Page_fullHeight__QlatA > div.SearchFiltersBar_filtersBar__cGDV2 > button:nth-child(3)"
+    let jobsContainer = "#left-column > div.JobsList_wrapper__EyUF6 > ul"
+    let link = "a[data-test='job-title']"
+
+    console.log("Waiting for glassdoor jobs to load...")
+    await wait(10000)
+    console.log("Done waiting for glassdoor jobs to load!")
+
+    document.querySelector(remoteBtn).click()
+    await wait(3000)
+    let jobsList = document.querySelector(jobsContainer)
+    let links = jobsList.querySelectorAll(link)
+
+    const jobs = []
+    for (const item of links) {
+        
+        jobs.push({
+            url: item.href,
+            title: item.innerText,
+            source: document.location.href
+        })
+    }
+
+    return jobs
+
+}
+
+
 const hostMapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -1002,7 +1040,8 @@ const hostMapper = {
     "himalayas.app": getHimalayasAppJobs,
     "remoters.net": getRemotersNetJobs,
     "www.totaljobs.com": getTotalJobs,
-    "www.linkedin.com": getLinkedinJobs
+    "www.linkedin.com": getLinkedinJobs,
+    "www.glassdoor.com": getGlassDoorJobs,
 }
 
 
@@ -1011,7 +1050,6 @@ async function collectJobs() {
 
         const jobs = await hostMapper[document.location.host]()
         const saved = await saveJobs(jobs)
-        console.log("Found jobs:", jobs)
         return saved
 
     } catch (error) {
@@ -1055,16 +1093,20 @@ async function ignoreJob(data) {
 }
 
 
-
 chrome.storage.sync.get(['jobCollectionStatus'], async function (items) {
+    if (!items.jobCollectionStatus) items.jobCollectionStatus = 'active';
 
-    if (!items.jobCollectionStatus?.length > 0) items.jobCollectionStatus = 'active'
-
-    if (items.jobCollectionStatus == 'active') {
+    if (items.jobCollectionStatus === 'active') {
         collectJobs().then(saved => {
-            if (!saved) return
-            chrome.runtime.sendMessage({ msg: "closeTab" })
-        })
+            if (!saved) return;
+            console.log("Sending closeTab event..");
+            chrome.runtime.sendMessage({ msg: "closeTab" }, function(response) {
+                if (chrome.runtime.lastError) {
+                    console.error("Error sending message:", chrome.runtime.lastError);
+                } else {
+                    console.log("Message sent successfully:", response);
+                }
+            });
+        });
     }
-
-})
+});
