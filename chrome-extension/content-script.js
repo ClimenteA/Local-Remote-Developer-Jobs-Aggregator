@@ -993,6 +993,8 @@ async function getGlassDoorJobs() {
     let jobsList = document.querySelector(jobsContainer)
     let links = jobsList.querySelectorAll(link)
 
+    if (links.length == 0) return []
+
     const jobs = []
     for (const item of links) {
         
