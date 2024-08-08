@@ -1010,6 +1010,32 @@ async function getGlassDoorJobs() {
 }
 
 
+async function getJustJoinItJobs() {
+
+    console.log("Waiting for justjoin.it jobs to load...")
+    await wait(8000)
+    console.log("Done waiting for justjoin.it jobs to load!")
+
+    let jobli = document.querySelector('[data-test-id="virtuoso-item-list"]')
+    let links = jobli.querySelectorAll("a")
+    let titles = jobli.querySelectorAll("h3")
+
+    if (links.length == 0) return []
+
+    const jobs = []
+    for (let i = 0; links.length > i; i++) {
+        jobs.push({
+            url: links[i].href,
+            title: titles[i].innerText,
+            source: document.location.href
+        })
+    }
+
+    return jobs
+}
+
+
+
 const hostMapper = {
     "vuejobs.com": getVueJobs,
     "www.ejobs.ro": getEjobs,
@@ -1044,6 +1070,7 @@ const hostMapper = {
     "www.totaljobs.com": getTotalJobs,
     "www.linkedin.com": getLinkedinJobs,
     "www.glassdoor.com": getGlassDoorJobs,
+    "justjoin.it": getJustJoinItJobs,
 }
 
 
