@@ -6,26 +6,6 @@ const largeWait = 6000;
 
 const JOB_BOARDS = [
   {
-    url: "https://vuejobs.com/jobs",
-    wait: defaultWait,
-  },
-  {
-    url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true",
-    wait: defaultWait,
-  },
-  {
-    url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=2",
-    wait: defaultWait,
-  },
-  {
-    url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=3",
-    wait: defaultWait,
-  },
-  {
-    url: "https://jsjobbs.com/jobs/remote-javascript-jobs",
-    wait: defaultWait,
-  },
-  {
     url: "https://remotive.com/remote-jobs/software-dev",
     wait: defaultWait,
   },
@@ -62,10 +42,6 @@ const JOB_BOARDS = [
     wait: defaultWait,
   },
   {
-    url: "https://euremotejobs.com/jobs/remote-software-engineering-jobs/",
-    wait: defaultWait,
-  },
-  {
     url: "https://remote.co/remote-jobs/developer/",
     wait: defaultWait,
   },
@@ -86,10 +62,6 @@ const JOB_BOARDS = [
     wait: defaultWait,
   },
   {
-    url: "https://nodesk.co/remote-jobs/engineering/",
-    wait: defaultWait,
-  },
-  {
     url: "https://www.remote.io/remote-software-development-jobs?pg=1",
     wait: defaultWait,
   },
@@ -106,40 +78,12 @@ const JOB_BOARDS = [
     wait: defaultWait,
   },
   {
-    url: "https://landing.jobs/jobs?page=1&gr=true&fr=true&match=all&con=true&hd=false&t_co=false&t_st=false",
-    wait: defaultWait,
-  },
-  {
     url: "https://www.pyjobs.com/?remoteLevel[0]=1&remoteLevel[1]=2&date=72&regions[0]=RO",
     wait: defaultWait,
   },
   {
     url: "https://remote.works-hub.com/jobs/search?page=1&remote=true&tags=JavaScript;Python",
     wait: largeWait,
-  },
-  {
-    url: "https://berlinstartupjobs.com/skill-areas/javascript/",
-    wait: defaultWait,
-  },
-  {
-    url: "https://berlinstartupjobs.com/skill-areas/python/",
-    wait: defaultWait,
-  },
-  {
-    url: "https://berlinstartupjobs.com/skill-areas/typescript/",
-    wait: defaultWait,
-  },
-  {
-    url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Python&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
-    wait: defaultWait,
-  },
-  {
-    url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Python&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
-    wait: defaultWait,
-  },
-  {
-    url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Golang&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
-    wait: defaultWait,
   },
   {
     url: "https://justremote.co/remote-developer-jobs",
@@ -177,18 +121,74 @@ const JOB_BOARDS = [
     url: "https://www.linkedin.com/jobs/collections/?f_WT=2&start=72",
     wait: largeWait,
   },
-//   {
-//     url: "https://justjoin.it/all-locations/python/remote_yes",
-//     wait: defaultWait,
-//   },
-//   {
-//     url: "https://justjoin.it/all-locations/javascript/remote_yes",
-//     wait: defaultWait,
-//   },
-//   {
-//     url: "https://justjoin.it/all-locations/go/remote_yes",
-//     wait: defaultWait,
-//   },
+  // {
+  //   url: "https://nodesk.co/remote-jobs/engineering/",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://landing.jobs/jobs?page=1&gr=true&fr=true&match=all&con=true&hd=false&t_co=false&t_st=false",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://euremotejobs.com/jobs/remote-software-engineering-jobs/",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://vuejobs.com/jobs",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=2",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://reactjobs.io/jobs/javascript?search=Javascript&isRemote=true&page=3",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://jsjobbs.com/jobs/remote-javascript-jobs",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://berlinstartupjobs.com/skill-areas/javascript/",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://berlinstartupjobs.com/skill-areas/python/",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://berlinstartupjobs.com/skill-areas/typescript/",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Python&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Python&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://www.workatastartup.com/companies?demographic=any&hasEquity=any&hasSalary=any&industry=any&interviewProcess=any&jobType=any&layout=list-compact&query=Golang&remote=only&role=eng&role_type=be&role_type=fe&role_type=fs&sortBy=keyword&tab=any&usVisaNotRequired=any",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://justjoin.it/all-locations/python/remote_yes",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://justjoin.it/all-locations/javascript/remote_yes",
+  //   wait: defaultWait,
+  // },
+  // {
+  //   url: "https://justjoin.it/all-locations/go/remote_yes",
+  //   wait: defaultWait,
+  // },
   // {
   //     url: "https://www.eurotechjobs.com/job_search/category/developer/category/python_developer/category/web_developer/keyword/remote",
   //     wait: defaultWait,

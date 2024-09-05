@@ -111,3 +111,5 @@ Angular
 Elixir
 Sales Engineer
 Trilogy
+Site Reliability
+Shopify
