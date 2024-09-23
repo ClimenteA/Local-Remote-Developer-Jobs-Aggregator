@@ -124,16 +124,28 @@ async function getJsJobbsJobs() {
 
 async function getRemotiveJobs() {
 
+    let locations = ["EMEA", "Europe", "Romania", "Worldwide", "CET", "UTC", "GMT", "EEST"]
     let resp = await fetch("https://remotive.com/api/remote-jobs?category=software-dev", { "method": "GET" })
     let data = await resp.json()
 
     const jobs = []
     for (const job of data.jobs) {
-        jobs.push({
-            url: job.url,
-            title: job.title,
-            source: document.location.href
-        })
+        
+        let interestedLocation = false
+        for (let loc of locations) {
+            if (job["candidate_required_location"].includes(loc)) {
+                interestedLocation = true;
+                break
+            }
+        }
+        
+        if (interestedLocation){
+            jobs.push({
+                url: job.url,
+                title: job.title,
+                source: document.location.href
+            })
+        }
     }
 
     return jobs

@@ -16,6 +16,7 @@ If you know a bit of javascript - clone repo and modify it with your prefered jo
 - run `bun server.ts`;
 - click `Collect jobs` button (let it do it's thing);
 - after it's done, keep the server running and click `View jobs` button (TIP: install [DB Browser](https://sqlitebrowser.org/) and perform operations in bulk);
+- When it arrives to LinkedIn scrapping you have to manually switch between tabs to not lose focus;
 
 You can checkout the remote job boards scrapped in the `chrome-extension/service-wrker.js` the `JOB_BOARDS` const. Add/remove/modify it for your needs. Make sure for each new website you add to create a scrape function in `chrome-extension/content-script.js`  
 
@@ -51,3 +52,50 @@ No cookies to accept, login session and so on because it uses the session alread
 
 
 **😁 Good luck job hunting!**
+
+
+<!-- 
+
+This is The Mother of All VC Lists
+
+
+The first step of a successful fundraising process is a large list of investors that invest in your stage and segment. Here are some lists to get started 👇 
+
+💰𝗩𝗖𝘀 𝗯𝘆 𝗦𝘁𝗮𝗴𝗲:
+⬪ Pre-Seed: https://lnkd.in/gnxYgFF8
+⬪ Seed: https://lnkd.in/g7rntFQa
+⬪ Seed & Series A: https://lnkd.in/gU_PZwra
+⬪ Below 200 Million: https://lnkd.in/g4QhNsjV
+
+𝗩𝗖𝘀 𝗯𝘆 𝗟𝗼𝗰𝗮𝘁𝗶𝗼𝗻:
+⬪ US VCs: https://lnkd.in/gDcKfxwD
+⬪ NYC VCs: https://lnkd.in/gMKTstBz
+⬪ European VCs: https://lnkd.in/gZC4qqxW
+⬪ UK VCs: https://lnkd.in/gkPYUKH3
+⬪ French VCs: https://lnkd.in/g2bHpUYd
+⬪ Spanish VCs: https://lnkd.in/gBD_7rRY
+⬪ Baltic VCs: https://lnkd.in/gx2iHdDS
+⬪ Australian VCs: https://lnkd.in/gbFnpmRX
+⬪ Indian VCs: https://lnkd.in/durcuiUw
+⬪ Singapore VCs: https://mapofthemoney.com/
+
+𝗩𝗖𝘀 𝗯𝘆 𝗜𝗻𝗱𝘂𝘀𝘁𝗿𝘆:
+⬪ Climate VCs: https://lnkd.in/d__3NqRC
+⬪ Deep Tech VCs: https://lnkd.in/gqTqjKJu
+⬪ HealthTech VCs: https://lnkd.in/gMWDprYC
+⬪ Consumer VCs: https://lnkd.in/ganPEBgV
+⬪ FinTech VCs: https://lnkd.in/gWFADRuP
+
+😇 𝗔𝗻𝗴𝗲𝗹𝘀:
+⬪ US Founders Investing: https://lnkd.in/gHtZZY2y
+⬪ SaaS Angels: https://lnkd.in/g3z9sBAE
+⬪ US Women: https://lnkd.in/gd4JefpG
+⬪ Global Women: https://lnkd.in/gYAW3avh
+⬪ Australia: https://lnkd.in/gxYmwaTb
+⬪ Africa: https://lnkd.in/g3z-cx6z
+⬪ Middle East: https://lnkd.in/ghZ5PeQF
+
+🌱 𝗔𝗰𝗰𝗲𝗹𝗲𝗿𝗮𝘁𝗼𝗿𝘀:
+⬪ Every Accelerator: https://lnkd.in/dncseAmE
+
+ -->
