@@ -140,7 +140,7 @@ export class Repo {
 
             if (this.ignoreJob(job.title).length != 0) continue
 
-            const values = `("${job.jobid}", "${job.url}", "${job.title}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`
+            const values = `("${job.jobid}", "${job.url}", "${job.title.trim()}", "${job.source}", ${job.applied}, ${job.ignored}, "${job.timestamp}")`
 
             try {
                 this.db.query(`
